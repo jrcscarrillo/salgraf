@@ -1,0 +1,73 @@
+date/time         : 2014-07-17, 16:57:32, 344ms
+computer name     : JUANITO
+user name         : SYSTEM <admin>
+registered owner  : Windows User
+operating system  : Windows NT New Tablet PC x64 build 9200
+system language   : English
+system up time    : 2 days 1 hour
+program up time   : 1 second
+processors        : 4x Intel(R) Core(TM) i3-3227U CPU @ 1.90GHz
+physical memory   : 2548/6025 MB (free/total)
+free disk space   : (C:) 596.54 GB
+display mode      : 1024x768, 32 bit
+process id        : $350
+allocated memory  : 8.22 MB
+command line      : C:\wamp\sendmail\sendmail.exe -t -i -oi -f"jrcscarrillo@gmail.com" -t
+executable        : sendmail.exe
+exec. date/time   : 2014-05-24 20:06
+compiled with     : Delphi 2006/07
+madExcept version : 3.0l
+callstack crc     : $cbe29ac0, $03d87716, $03d87716
+exception number  : 1
+exception class   : EIdSocketError
+exception message : Socket Error # 10061 Connection refused.
+
+main thread ($404):
+004408e7 +0107 sendmail.exe IdIOHandlerStack              271  +30 DoConnectTimeout
+00440b4c +01d8 sendmail.exe IdIOHandlerStack              346  +55 TIdIOHandlerStack.ConnectClient
+00444a9f +0063 sendmail.exe IdIOHandlerSocket             335  +13 TIdIOHandlerSocket.Open
+0044157d +0235 sendmail.exe IdTCPClient                   318  +53 TIdTCPClientCustom.Connect
+00445cc8 +00a4 sendmail.exe IdExplicitTLSClientServerBase 257  +23 TIdExplicitTLSClient.Connect
+0045ab7b +0017 sendmail.exe IdSMTP                        373   +2 TIdSMTP.Connect
+004b5f14 +1060 sendmail.exe sendmail                      808 +326 initialization
+772f86e1 +000c KERNEL32.DLL                                        BaseThreadInitThunk
+
+thread $1168:
+772f86e1 +c KERNEL32.DLL  BaseThreadInitThunk
+
+stack dump:
+0018fcec  ec 08 44 00 de fa ed 0e - 01 00 00 00 07 00 00 00  ..D.............
+0018fcfc  00 fd 18 00 ec 08 44 00 - 50 cc b7 00 4d 27 00 00  ......D.P...M'..
+0018fd0c  7d 00 00 00 78 fd 18 00 - 44 fd 18 00 1c fd 18 00  }...x...D.......
+0018fd1c  28 fd 18 00 c8 4b 40 00 - 44 fd 18 00 50 fd 18 00  (....K@.D...P...
+0018fd2c  c8 4b 40 00 44 fd 18 00 - 19 00 00 00 00 00 00 00  .K@.D...........
+0018fd3c  00 00 00 00 80 41 b3 00 - 7c fd 18 00 51 0b 44 00  .....A..|...Q.D.
+0018fd4c  7c fd 18 00 8c fd 18 00 - c8 4b 40 00 7c fd 18 00  |........K@.|...
+0018fd5c  00 00 00 00 50 f3 b0 00 - 50 f3 b0 00 01 47 40 00  ....P...P....G@.
+0018fd6c  c0 fd 18 00 00 00 00 00 - 00 00 00 00 50 f3 b0 00  ............P...
+0018fd7c  c0 fd 18 00 a5 4a 44 00 - 50 f3 b0 00 83 15 44 00  .....JD.P.....D.
+0018fd8c  98 fd 18 00 5f 4d 40 00 - c0 fd 18 00 ec fd 18 00  ...._M@.........
+0018fd9c  c8 4b 40 00 c0 fd 18 00 - 00 00 00 00 50 f3 b0 00  .K@.........P...
+0018fdac  f0 b9 af 00 42 2f 40 00 - 4d 54 40 00 00 00 00 00  ....B/@.MT@.....
+0018fdbc  f0 b9 af 00 e4 fd 18 00 - cd 5c 44 00 00 00 00 00  .........\D.....
+0018fdcc  ff 00 00 00 80 ab 45 00 - 00 00 00 00 00 00 00 00  ......E.........
+0018fddc  ff 00 00 00 f0 b9 af 00 - 84 ff 18 00 1a 5f 4b 00  ............._K.
+0018fdec  f8 fd 18 00 c8 4b 40 00 - 84 ff 18 00 04 fe 18 00  .....K@.........
+0018fdfc  c8 4b 40 00 84 ff 18 00 - 10 fe 18 00 5f 4d 40 00  .K@........._M@.
+0018fe0c  84 ff 18 00 78 ff 18 00 - c8 4b 40 00 84 ff 18 00  ....x....K@.....
+0018fe1c  00 00 00 00 00 00 00 00 - 00 e0 fd 7f 00 00 00 00  ................
+
+disassembling:
+[...]
+004408d8       push    eax
+004408d9       mov     ecx, ebx
+004408db       mov     dl, 1
+004408dd       mov     eax, [$4352ac]
+004408e2       call    -$b1db ($43570c)       ; IdStack.EIdSocketError.CreateError
+004408e7     > call    -$3bc00 ($404cec)      ; System.@RaiseExcept
+004408ec 273   mov     eax, [ebp-4]
+004408ef       mov     edx, [eax+$48]
+004408f2       mov     eax, [$43b04c]
+004408f7       call    -$20ec8 ($41fa34)      ; IdException.EIdException.Toss
+004408fc       jmp     loc_440933
+[...]

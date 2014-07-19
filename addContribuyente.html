@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nuevo Contribuyente</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+		<!--
+				Los siguiente estilos son para el menu
+		-->
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/text.css" />
+		<link rel="stylesheet" href="./css/960_12_col.css" />
+		<link rel="stylesheet" href="./css/skin1.css" />
+		<link rel="stylesheet" href="./css/nivo-slider.css" />
+		<link rel="stylesheet" href="./css/jqueryslidemenu.css" />
+		<!--
+		
+		-->
+		<link rel="stylesheet" href="./css/demo.css">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="./css/sky-forms.css">
+		<link rel="stylesheet" href="./css/sky-forms-blue.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="./js/jquery.form.min.js"></script>
+		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.js"></script>
+		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.js"></script>
+		<!--
+				Los siguientes includes son para el manejo del menu
+		-->
+		<script type="text/javascript" src="./js/jqueryslidemenu.js"></script>
+		<script type="text/javascript" src="./js/jquery.nivo.slider.js"></script>
+		<script type="text/javascript" src="./js/jquery.bxSlider.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.elastislide.js"></script>
+		<script type="text/javascript" src="./js/custom.js"></script>
+		<script type="text/javascript" src="./js/scrolltop.js"></script>
+
+	</head>
+<body class="bg-blue">
+<div id="wrapper" class="boxed">
+    <div class="top_navigation_container">
+        <div class="top_navigation">
+            <ul><li><a href="construyendo.html">Contactenos</a></li>
+                <li><a href="http:\\www.carrillosteam.com">Carrillos Team</a></li>
+                <li><a href="construyendo.html">Esta Aplicacion</a></li>
+            </ul>
+        </div>
+        <div class="top_navigation_social">
+            <p>
+                AURORA_E
+            </p>
+            <ul><li class="social_facebook"><a href="#">Facebook</a></li>
+                <li class="social_twitter"><a href="#">Twitter</a></li>
+                <li class="social_dribbble"><a href="#">Dribbble</a></li>
+                <li class="social_linkedin"><a href="#">Linkedin</a></li>
+                <li class="social_pinterest"><a href="#">Pinterest</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="header">
+        <!-- Header start -->
+
+        <div class="container_12 clearfix">
+            <!-- Menu container -->
+            <div class="grid_12">
+                <!-- Start Menu -->
+                <div id="topnav" class="jqueryslidemenu">
+                    <ul><li><a href="index.html">Home</a></li>
+                        <li><a href="#">Administracion</a>
+                            <ul><li><a href="./login.html">Login</a></li>
+                                <li><a href="./listaContribuyente.php">Lista de Contribuyentes</a></li>
+                                <li><a href="./nuevoContribuyente.php">Nuevo Contribuyente</a></li>
+                                <li><a href="./generaClave.php">Generacion de Claves</a></li>
+                                <li><a href="./listaClaves.php">Lista de Claves</a></li>
+                                <li><a href="./recuperaClave.php">Recuperacion de Claves</a></li>
+                                <li><a href="./logout.php">Log out!t</a></li>
+                            </ul></li>
+                    <li><a href="#">Facturas</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./firmaFactura.php">Firmar</a></li>
+                                <li><a href="./enviaFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Notas Debito</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Notas Credito</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Retenciones</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Guias</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                    </ul>
+                </div>
+            </div><!-- end menu -->
+        </div><!-- end menu container -->
+    </div><!-- Header end -->
+
+    <div class="body">
+        <form action="./include/addContribuyente.php" method="post" enctype="multipart/form-data" id="sky-form" class="sky-form">
+            <header>Contribuyente</header>
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-user"></i>
+                            <input type="text" name="rucForm" placeholder="Registro Unico"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-briefcase"></i>
+                            <input type="text" name="razonForm" placeholder="Razon Social"></label>
+                    </section>
+                </div>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                            <input type="email" name="emailForm" placeholder="E-mail">
+                        </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-phone"></i>
+                            <input type="tel" name="telefonoForm" placeholder="Telefono">
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-users"></i>
+                            <input type="text" name="comercialForm" placeholder="Nombre Comercial"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-globe"></i>
+                            <input type="text" name="matrizForm" placeholder="Direccion Matriz"></label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-building"></i>
+                            <input type="text" name="emisorForm" placeholder="Direccion Emisor"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-cubes"></i>
+                            <input type="text" name="estabForm" placeholder="Codigo Emisor"></label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-cubes"></i>
+                            <input type="text" name="puntoForm" placeholder="Punto Emision"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-legal"></i>
+                            <input type="text" name="resolForm" placeholder="Resolucion"></label>
+                    </section>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="select">
+                            <select name="llevaForm">
+                                <option value="seleccione" selected disabled>Lleva Contabilidad?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select> <i></i> </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="select">
+                            <select name="ambienteForm">
+                                <option value="seleccione" selected disabled>Ambiente</option>
+                                <option value="1">Produccion</option>
+                                <option value="2">Pruebas</option>
+                            </select> <i></i> </label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="select">
+                            <select name="emisionForm">
+                                <option value="seleccione" selected disabled>Tipo de Emision</option>
+                                <option value="1">Normal</option>
+                                <option value="2">Contingencia</option>
+                            </select> <i></i> </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="select">
+                            <select name="tokenForm">
+                                <option value="seleccione" selected disabled>Tipo Certificado</option>
+                                <option value="1">Token</option>
+                                <option value="2">Firma</option>
+                            </select> <i></i> </label>
+                    </section>
+                </div>
+
+                <section>
+                    <label for="file" class="input input-file">
+                        <div class="button">
+                            <input type="file" id="file" name="file" onchange="this.parentNode.nextSibling.value = this.value">
+                            Seleccione
+                        </div>
+                        <input id="incluya" type="text" placeholder="Incluya el Logo" readonly>
+                    </label>
+                </section>
+
+                <section>
+                    <label class="textarea"> <i class="icon-append fa fa-comment"></i> 
+                        <textarea rows="5" name="notaForm" placeholder="Indicaciones"></textarea> </label>
+                </section>
+            </fieldset>
+            <fieldset>
+                <div class="progress">
+                    <section class="col col-6">
+                        <button type="submit" class="button">Validar</button>
+                    </section>
+                </div>
+                <div class="progress"></div>
+            </fieldset>
+            <div class="message">
+                <i class="fa fa-check"></i>
+                <p>Se ha adicionado el contribuyente!<br>
+                    esta listo para iniciar la emision.
+                </p>
+                <section class="col col-6">
+                    <a href="index.html">Home</a>
+                </section>
+            </div>
+</form>
+</div>
+    <div id="pre_footer">
+        <div class="pre_footer_wrapper"></div>
+    </div>
+    <div id="footer_wrapper">
+        <div class="container_12 clearfix">
+            <div id="footer">
+                <div class="copyright_left">
+                    &reg; Copyright 2014 Carrillos Team
+                </div>
+                <div class="copyright_right">
+                    Powered by <a href="http://www.thunderthemes.net">ThunderThemes.net</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="topcontrol" style="position: fixed; bottom: 0px; right: 0px; opacity: 1; cursor: pointer;" title="To the top! To the victory!"></div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $("#sky-form").validate({
+            rules : {
+                rucForm : {
+                    minlength : 13,
+                    maxlength : 13,
+                    required : true,
+                    digits : true
+                },
+                razonForm : {
+                    required : true
+                },
+                comercialForm : {
+                    required : true
+                },
+                matrizForm : {
+                    required : true
+                },
+                emisorForm : {
+                    required : true
+                },
+                estabForm : {
+                    required : true,
+                    minlength : 3,
+                    maxlength : 3,
+                    digits : true
+                },
+                puntoForm : {
+                    required : true,
+                    minlength : 3,
+                    maxlength : 3,
+                    digits : true
+                },
+                llevaForm : {
+                    required : true,
+                    minlength : 1,
+                    maxlength : 1
+                },
+                ambienteForm : {
+                    required : true,
+                    minlength : 1,
+                    maxlength : 1,
+                    digits : true
+                },
+                emisionForm : {
+                    required : true,
+                    minlength : 1,
+                    maxlength : 1,
+                    digits : true
+                },
+                tokenForm : {
+                    required : true,
+                    minlength : 1,
+                    maxlength : 1,
+                    digits : true
+                },
+                emailForm : {
+                    required : true,
+                    email : true
+                },
+                telefonoForm : {
+                    required : true,
+                    minlength : 7,
+                    maxlength : 9,
+                    digits : true
+                },
+                file : {
+                    required : true,
+                    extension : "png|jpe?g|gif"
+                }
+            },
+            messages : {
+                rucForm : {
+                    required : 'Ingrese su numero de RUC',
+                    minlength : "Minimo 13 digitos",
+                    maxlength : "Maximo de 13 digitos",
+                    digits : "Solo ingrese digitos"
+                },
+                emailForm : {
+                    required : 'Ingrese su correo electronico',
+                    email : 'Ingrese una direccion valida'
+                },
+                telefonoForm : {
+                    required : 'Ingrese un numero de telefono',
+                    minlength : "Minimo 7 digitos",
+                    maxlength : "Maximo de 9 digitos"
+                },
+                razonForm : {
+                    required : 'Ingrese la razon social de su negocio'
+                },
+                comercialForm : {
+                    required : 'Ingrese su nombre de batalla'
+                },
+                matrizForm : {
+                    required : 'Ingrese la direccion de la oficina principal'
+                },
+                emisorForm : {
+                    required : 'Ingrese la direccion de su oficina de facturacion'
+                },
+                estabForm : {
+                    required : 'Ingrese el codigo del establecimiento',
+                    minlength : "Minimo 3 digitos",
+                    maxlength : "Maximo de 3 digitos",
+                    digits : "Solo ingrese digitos"
+            },
+            puntoForm : {
+                    required : 'Ingrese el punto de emision',
+                    minlength : "Minimo 3 digitos",
+                    maxlength : "Maximo de 3 digitos",
+                    digits : "Solo ingrese digitos"
+            },
+            llevaForm : {
+                    required : 'Ingrese SI o NO'
+            },
+            ambienteForm : {
+                    required : 'Ingrese ambiente de produccion o pruebas',
+                    minlength : "Minimo 1 digito",
+                    maxlength : "Maximo de 1 digito",
+                    digits : "Solo ingrese digitos"
+            },
+            emisionForm : {
+                    required : 'Ingrese tipo emision normal o contingencia',
+                    minlength : "Minimo 1 digito",
+                    maxlength : "Maximo de 2 digito",
+                    digits : "Solo ingrese digitos"
+            },
+            file: {
+                    extension: "Solo acepta archivos tipo png, gif, o jpg"
+            },
+            tokenForm : {
+                    required : 'Ingrese el tipo de certificado',
+                    minlength : "Minimo 1 digito",
+                    maxlength : "Maximo de 1 digito",
+                    digits : "Solo ingrese digitos"
+            }
+    },
+submitHandler : function(form) {
+    $(form).ajaxSubmit({
+            beforeSend : function() {
+                    if (window.File && window.FileList && window.FileReader) {
+                            //alert($("#file").val());
+                            $("#incluya").attr("placeholder", $("#file").val() );
+                    }
+                    $('#sky-form button[type="submit"]').addClass('button-uploading').attr('disabled', true);
+            },
+            uploadProgress : function(event, position, total, percentComplete) {
+                    $("#sky-form .progress").text(percentComplete + '%');
+            },
+            success : function() {
+                    $("#sky-form").addClass('submited');
+                    $('#sky-form button[type="submit"]').removeClass('button-uploading').attr('disabled', false);
+            }
+    });
+},
+errorPlacement : function(error, element) {
+    error.insertAfter(element.parent());
+}
+});
+});
+</script>
+</body>
+</html>

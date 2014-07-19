@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>AURORA - SRI</title>
+
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/text.css" />
+    <link rel="stylesheet" href="css/960_12_col.css" />
+    <link rel="stylesheet" href="css/skin1.css" />
+    <link rel="stylesheet" href="css/nivo-slider.css" />
+    <link rel="stylesheet" href="css/jqueryslidemenu.css" />
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jqueryslidemenu.js"></script>
+    <script type="text/javascript" src="js/jquery.nivo.slider.js"></script>
+    <script type="text/javascript" src="js/jquery.bxSlider.min.js"></script>
+    <script type="text/javascript" src="js/jquery.elastislide.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+    <script type="text/javascript" src="js/scrolltop.js"></script>
+    <script type="text/javascript" src="js/jquery.toggleElements.pack.js"></script>
+    <script type="text/javascript" src="js/jquery.tools.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+
+</head>
+<body>
+<div id="wrapper" class="boxed">
+    <div id="header"><!-- Header start -->
+        <div class="container_12 clearfix">
+            <!-- Menu container -->
+            <div class="grid_12">
+                <!-- Start Menu -->
+                <div id="topnav" class="jqueryslidemenu">
+                    <ul><li><a href="login.html">Ingresar</a></li>
+                        <li><a href="#">Administracion</a>
+                            <ul><li><a href="./listaContribuyente.php">Lista de Contribuyentes</a></li>
+                                <li><a href="./nuevoContribuyente.php">Nuevo Contribuyente</a></li>
+                                <li><a href="./generaClave.php">Generacion de Claves</a></li>
+                                <li><a href="./listaClaves.php">Lista de Claves</a></li>
+                                <li><a href="./recuperaClave.php">Recuperacion de Claves</a></li>
+                                <li><a href="./habilita.php">Habilita Usuario</a></li>
+                            </ul></li>
+                    <li><a href="#">Facturas</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./firmaFactura.php">Firmar</a></li>
+                                <li><a href="./autoFactura.php">Autorizadas</a></li>
+                                <li><a href="./noautoFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Notas DB</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Notas CR</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Retenciones</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Guias</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./selecFactura.php">Firmar</a></li>
+                                <li><a href="./selecFactura.php">Enviar</a></li>
+                                <li><a href="./selecFactura.php">Recibir</a></li>
+                                <li><a href="./selecFactura.php">Autorizadas</a></li>
+                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="./logout.php">Salir</a>
+                    </ul>
+                </div>
+            </div><!-- end menu -->
+        </div><!-- end menu container -->
+    </div><!-- Header end -->
+            
+            <div id="pre_footer">
+                <div class="pre_footer_wrapper">
+                    <div id="footersliding" class="container_12 clearfix">
+
+                    </div>
+                </div>
+            </div>    
+            <div id="footer_wrapper">
+                <div class="container_12 clearfix">
+                    <div class="footerslidingarrow"></div>
+                    <div id="footer">
+                        <div class="copyright_left">&reg; Copyright 2014 Carrillos Team</div>
+                        <div class="copyright_right">Powered by <a href="http://www.thunderthemes.net">ThunderThemes.net</a></div>
+                    </div>
+                </div>
+            </div>
+            <div id="topcontrol" style="position: fixed; bottom: 0px; right: 0px; opacity: 1; cursor: pointer;" title="To the top! To the victory!">
+            </div>
+        </div>
+        <script type="text/javascript">
+            $('#carousel').elastislide({
+                imageW: 135,
+                margin: 20,
+                minItems: 4,
+                border: 1,
+            });
+            $(".block_accordion").tabs(".block_accordion .content", {
+                tabs: '.button_outer',
+                effect: 'slide',
+                initialIndex: 0
+            });
+            $(".altope").click(function(){
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            });
+            $("#wrapper").css('height',$(".container_12 clearfix").innerHeight());
+        </script>
+    </body>
+</html>

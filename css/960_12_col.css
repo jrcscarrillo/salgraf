@@ -1,0 +1,689 @@
+/*
+  960 Grid System ~ Core CSS.
+  Learn more ~ http://960.gs/
+
+  Licensed under GPL and MIT.
+*/
+
+/*
+  Forces backgrounds to span full width,
+  even if there is horizontal scrolling.
+  Increase this if your layout is wider.
+
+  Note: IE6 works fine without this fix.
+*/
+
+body {
+  /*min-width: 960px;*/
+}
+
+/* `Container
+----------------------------------------------------------------------------------------------------*/
+
+.full {
+	max-width: 99%;
+}
+
+.container_standard {
+	margin:0 20px;
+	width:960px;
+}
+
+.container_12 .grid_2_1 {
+  width: 340px;
+  
+}
+
+/* `Grid >> Global
+----------------------------------------------------------------------------------------------------*/
+
+.grid_1,
+.grid_2,
+.grid_2_1,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+  display: inline;
+  float: left;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.push_1, .pull_1,
+.push_2, .pull_2,
+.push_3, .pull_3,
+.push_4, .pull_4,
+.push_5, .pull_5,
+.push_6, .pull_6,
+.push_7, .pull_7,
+.push_8, .pull_8,
+.push_9, .pull_9,
+.push_10, .pull_10,
+.push_11, .pull_11 {
+  position: relative;
+}
+
+/* `Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------------------------------------*/
+
+.alpha {
+  margin-left: 0;
+}
+
+.omega {
+  margin-right: 0;
+}
+
+/* `Grid >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .grid_1 {
+  width: 60px;
+}
+
+.container_12 .grid_2 {
+  width: 140px;
+}
+
+.container_12 .grid_3 {
+  width: 220px;
+}
+
+.container_12 .grid_4 {
+  width: 300px;
+}
+
+.container_12 .grid_5 {
+  width: 380px;
+}
+
+.container_12 .grid_6 {
+  width: 460px;
+}
+
+.container_12 .grid_7 {
+  width: 540px;
+}
+
+.container_12 .grid_8 {
+  width: 620px;
+}
+
+.container_12 .grid_9 {
+  width: 700px;
+}
+
+.container_12 .grid_10 {
+  width: 780px;
+}
+
+.container_12 .grid_11 {
+  width: 860px;
+}
+
+.container_12 .grid_12 {
+  width: 940px;
+}
+
+/* `Prefix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .prefix_1 {
+  padding-left: 80px;
+}
+
+.container_12 .prefix_2 {
+  padding-left: 160px;
+}
+
+.container_12 .prefix_3 {
+  padding-left: 240px;
+}
+
+.container_12 .prefix_4 {
+  padding-left: 320px;
+}
+
+.container_12 .prefix_5 {
+  padding-left: 400px;
+}
+
+.container_12 .prefix_6 {
+  padding-left: 480px;
+}
+
+.container_12 .prefix_7 {
+  padding-left: 560px;
+}
+
+.container_12 .prefix_8 {
+  padding-left: 640px;
+}
+
+.container_12 .prefix_9 {
+  padding-left: 720px;
+}
+
+.container_12 .prefix_10 {
+  padding-left: 800px;
+}
+
+.container_12 .prefix_11 {
+  padding-left: 880px;
+}
+
+/* `Suffix Extra Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .suffix_1 {
+  padding-right: 80px;
+}
+
+.container_12 .suffix_2 {
+  padding-right: 160px;
+}
+
+.container_12 .suffix_3 {
+  padding-right: 240px;
+}
+
+.container_12 .suffix_4 {
+  padding-right: 320px;
+}
+
+.container_12 .suffix_5 {
+  padding-right: 400px;
+}
+
+.container_12 .suffix_6 {
+  padding-right: 480px;
+}
+
+.container_12 .suffix_7 {
+  padding-right: 560px;
+}
+
+.container_12 .suffix_8 {
+  padding-right: 640px;
+}
+
+.container_12 .suffix_9 {
+  padding-right: 720px;
+}
+
+.container_12 .suffix_10 {
+  padding-right: 800px;
+}
+
+.container_12 .suffix_11 {
+  padding-right: 880px;
+}
+
+/* `Push Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .push_1 {
+  left: 80px;
+}
+
+.container_12 .push_2 {
+  left: 160px;
+}
+
+.container_12 .push_3 {
+  left: 240px;
+}
+
+.container_12 .push_4 {
+  left: 320px;
+}
+
+.container_12 .push_5 {
+  left: 400px;
+}
+
+.container_12 .push_6 {
+  left: 480px;
+}
+
+.container_12 .push_7 {
+  left: 560px;
+}
+
+.container_12 .push_8 {
+  left: 640px;
+}
+
+.container_12 .push_9 {
+  left: 720px;
+}
+
+.container_12 .push_10 {
+  left: 800px;
+}
+
+.container_12 .push_11 {
+  left: 880px;
+}
+
+/* `Pull Space >> 12 Columns
+----------------------------------------------------------------------------------------------------*/
+
+.container_12 .pull_1 {
+  left: -80px;
+}
+
+.container_12 .pull_2 {
+  left: -160px;
+}
+
+.container_12 .pull_3 {
+  left: -240px;
+}
+
+.container_12 .pull_4 {
+  left: -320px;
+}
+
+.container_12 .pull_5 {
+  left: -400px;
+}
+
+.container_12 .pull_6 {
+  left: -480px;
+}
+
+.container_12 .pull_7 {
+  left: -560px;
+}
+
+.container_12 .pull_8 {
+  left: -640px;
+}
+
+.container_12 .pull_9 {
+  left: -720px;
+}
+
+.container_12 .pull_10 {
+  left: -800px;
+}
+
+.container_12 .pull_11 {
+  left: -880px;
+}
+
+/* `Clear Floated Elements
+----------------------------------------------------------------------------------------------------*/
+
+/* http://sonspring.com/journal/clearing-floats */
+
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+/* http://www.yuiblog.com/blog/2010/09/27/clearfix-reloaded-overflowhidden-demystified */
+
+.clearfix:before,
+.clearfix:after,
+.container_12:before,
+.container_12:after {
+  content: '.';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  font-size: 0;
+  line-height: 0;
+  width: 0;
+  height: 0;
+}
+
+.clearfix:after,
+.container_12:after {
+  clear: both;
+}
+
+/*
+  The following zoom:1 rule is specifically for IE6 + IE7.
+  Move to separate stylesheet if invalid CSS is a problem.
+*/
+
+.clearfix,
+.container_12 {
+  zoom: 1;
+}
+
+
+@media only screen and (min-width: 960px) {
+
+.boxed {
+	width: 980px;
+}
+#sidebar {
+	float:right;
+}
+.content_inner {
+	width:700px;
+}
+
+.container_12 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 960px;
+}
+.footerslidingarrow {
+    background: url("../images/arrowdown.png") no-repeat scroll center center transparent;
+    cursor: pointer;
+    height: 17px;
+    margin: -8px 470px 16px;
+    width: 17px;
+	position:absolute;
+}
+#topnav select {
+	display:none;
+}
+
+
+}
+
+@media only screen and (max-width: 767px) {
+
+
+.container_12 {
+  margin-left: auto;
+  margin-right: auto;
+  width: 728px;
+}
+.container_12 .grid_12 {
+  width: 708px;
+}
+
+#wrapper {
+	margin: 0 auto;
+    width: 728px;
+}
+.slider-wrapper {
+    width: 708px;
+}
+
+.slider-wrapper {
+        max-width:768px;
+        max-height:100%;
+        overflow:hidden;
+		padding:0;
+}
+.slider-wrapper img {
+		width:100%; display:block; height:auto;
+}
+
+.container_12 .grid_3 {
+    width: 160px;
+}
+#sidebar {
+	float:left;
+}
+.container_12 .grid_9 {
+	width:528px;
+}
+.content_inner {
+	width:100%;
+}
+.container_12 .grid_2_1 {
+    width: 254px;
+}
+#searchform_filters input {
+	width:94%;
+}
+.footerslidingarrow {
+	background: url("../images/arrowdown.png") no-repeat scroll center center transparent;
+    cursor: pointer;
+    height: 17px;
+    width: 17px;
+	position:absolute;
+    margin: -8px 368px 16px;
+}
+#topcontrol {
+	visibility:hidden;
+}
+
+}
+
+@media only screen and (max-width: 768px)  {
+
+#wrapper {
+	max-width: 440px;
+}
+
+.logo {
+    margin: 21px 0 36px;
+    text-align: center;
+	float:none !important;
+}
+.search_wrapper {
+	display:none;
+}
+.jqueryslidemenu ul {
+	display:none;
+}
+.jqueryslidemenu select {
+	display:block;
+	width:100%;
+}
+
+.nivo-caption p, .nivo-caption {
+	display:none !important;
+}
+
+.flex-caption {
+	display:none;
+}
+
+#content_wrapper .page_navigation {
+	float:left !important;
+	margin-top:6px;
+}
+
+/* grid responsive */
+.container_12 .grid_12 {
+    display: block;
+    max-width: 420px;
+}
+.container_12 {
+	max-width:400px;
+	margin-left:10px;
+	margin-right:10px;
+	
+}
+.top_navigation_social {
+	width:52%;
+	margin-right:25%;
+}
+.top_navigation {
+    float: right !important;
+    margin-top: 4px;
+	margin-bottom:10px;
+    min-height: 11px;
+    width: 76%;
+}
+
+.columns img {
+    border: 4px solid #F7F7F7;
+    margin-bottom: 15px;
+    max-height: 100%;
+    max-width: 440px;
+}
+
+.content_inner .post_img {
+	width:94%;
+	float:none;
+}
+.footerslidingarrow {
+    background: url("../images/arrowdown.png") no-repeat scroll center center transparent;
+    cursor: pointer;
+    height: 17px;
+    margin: -8px 200px 16px;
+    position: absolute;
+    width: 17px;
+}
+.grid_1,
+.grid_2,
+.grid_2_1,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+  width:100% !important;
+  float: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: block;
+}
+
+#pre_footer {
+/*    margin: 0 10px;
+*/}
+}
+
+@media only screen and (max-width: 479px) {
+
+.boxed {
+	width:100%;
+}
+
+#wrapper {
+	max-width: 320px !important;
+}
+
+.logo {
+    margin: 21px 0 36px;
+    text-align: center;
+	float:none !important;
+}
+.search_wrapper {
+	display:none;
+}
+.jqueryslidemenu ul {
+	display:none;
+}
+.jqueryslidemenu select {
+	display:block;
+	width:100%;
+}
+
+.nivo-caption p, .nivo-caption {
+	display:none !important;
+}
+
+.flex-caption {
+	display:none;
+}
+
+#content_wrapper .page_navigation {
+	float:left !important;
+	margin-top:6px;
+}
+
+/* grid responsive */
+.container_12 .grid_12 {
+    display: block;
+    max-width: 300px;
+}
+.container_12 {
+	max-width:280px;
+	margin-left:10px;
+	margin-right:10px;
+	
+}
+.top_navigation_social {
+	width:100%;
+	float:left;
+}
+.top_navigation {
+    float: left !important;
+    margin-top: 4px;
+	margin-bottom:10px;
+    min-height: 11px;
+    width: 100%;
+}
+
+.columns img {
+    border: 4px solid #F7F7F7;
+    margin-bottom: 15px;
+    max-height: 100%;
+    max-width: 440px;
+}
+
+.content_inner .post_img {
+	width:94%;
+	float:none;
+}
+.footerslidingarrow {
+    background: url("../images/arrowdown.png") no-repeat scroll center center transparent;
+    cursor: pointer;
+    height: 17px;
+    margin: -8px 200px 16px;
+    position: absolute;
+    width: 17px;
+}
+.grid_1,
+.grid_2,
+.grid_2_1,
+.grid_3,
+.grid_4,
+.grid_5,
+.grid_6,
+.grid_7,
+.grid_8,
+.grid_9,
+.grid_10,
+.grid_11,
+.grid_12 {
+  width:100% !important;
+  float: none;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: block;
+}
+
+#comments .comment-form-author, #comments .comment-form-email, #comments .comment-form-url {
+    float: left;
+    margin-right: 2%;
+    position: relative;
+    width: 99% !important;
+    z-index: 1;
+}
+
+#comments input[type="submit"], button
+{
+	width:99%;
+}
+
+.box_gray {
+    background-color: #F2F2F2;
+    border-radius: 5px 5px 5px 5px;
+    margin-bottom: 10px;
+    margin-left: -10px;
+    margin-right: 10px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+}
