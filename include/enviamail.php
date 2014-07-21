@@ -1,51 +1,57 @@
 <?php
-$to       = 'jrcscarrillo@gmail.com';
-$subject  = 'Testing sendmail.exe';
-$message  = 'Hi, you just received an email using sendmail!';
-$headers  = 'From: sender@gmail.com' . "\r\n" .
-            'Reply-To: sender@gmail.com' . "\r\n" .
-            'MIME-Version: 1.0' . "\r\n" .
-            'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-if(mail($to, $subject, $message, $headers))
-    echo "Email sent";
-else
-    echo "Email sending failed";
+/*
+ * @Author      Juan Carrillo
+ * @Date        20 de Julio del 2014
+ * @Project     Comprobantes Electronicos
+ */
 
-require_once 'class.phpMailer.class.php';
-require_once 'PHPMailerAutoload.php';
+function enviamail($paraemail) {
+    
+/*
+ * Para utilizar swift mailer se debe instancear los objetos del transporte SMTP
+ * en este caso porque estamos usando el servidor de mail de google smtp.gmail.com
+ */
+    require_once($_SERVER['DOCUMENT_ROOT'].'/lib/swift_required.php');
+    $transport = Swift_SmtpTransport::newInstance('ssl://smtp.gmail.com', 465)
+        ->setUsername('jrcscarrillo@gmail.com')
+        ->setPassword('FREEdom1234')
+        ;
+/*
+ * Tambien se instancia el objeto relacionado con el mensaje en base del transporte
+ * y se reciben todas las variables en una array asociativa para identificar
+ * cada campo de los atributos del mensaje
+ */
+$mailer = Swift_Mailer::newInstance($transport);
+$message = Swift_Message::newInstance('Comprobantes Electronicos');
 
-$mail = new PHPMailer ();
-
-$mail -> From = "jrcscarrillo@gmail.com";
-$mail -> FromName = "Juan Carrillo";
-$mail -> AddAddress ("jrcscarrillo@gmail.com", "Juan Carrillo");
-$mail -> Subject = "Test";
-$mail -> Body = "<h3>From GMail!</h3>";
-$mail -> IsHTML (true);
-
-$mail->IsSMTP();
-$mail->Host = 'ssl://smtp.gmail.com';
-$mail->Port = 465;
-$mail->SMTPAuth = true;
-$mail->Username = 'jrcscarrillo@gmail.com';
-$mail->Password = 'FREEdom1234';
-
-if(!$mail->Send()) {
-        echo 'Error: ' . $mail->ErrorInfo;
-} else {
-     echo 'Mail enviado!';
+if($paraemail['subject'] != '') {
+    $message -> setSubject($paraemail['subject']);
+}
+if ($paraemail['fromemail']['email'] != '') {
+    $message -> setFrom(array($paraemail['fromemail']['email'] => $paraemail['fromemail']['nombre']));
 }
 
-$to       = 'jrcscarrillo@gmail.com';
-$subject  = 'Testing sendmail.exe';
-$message  = 'Hi, you just received an email using sendmail!';
-$headers  = 'From: sender@gmail.com' . "\r\n" .
-            'Reply-To: sender@gmail.com' . "\r\n" .
-            'MIME-Version: 1.0' . "\r\n" .
-            'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
-if(mail($to, $subject, $message, $headers))
-    echo "Email sent";
-else
-    echo "Email sending failed";
+if ($paraemail['toemail']['email'] != '') {
+    $message -> setTo(array($paraemail['toemail']['email'] => $paraemail['toemail']['nombre']));
+}
+
+if ($paraemail['body'] != '') {
+    $message -> setBody($paraemail['body'], 'text/plain');
+}
+
+if ($paraemail['part'] != '') {
+    $message -> addPart($paraemail['part'], 'text/html');
+}
+
+if ($paraemail['attach'] != '') {
+    $message -> attach(Swift_Attachment::fromPath($paraemail['attach']));
+}
+
+
+    if ($mailer->send($message))
+        {
+        echo "Sent\n";
+        } else {
+            echo "Failed\n";
+        }
+}

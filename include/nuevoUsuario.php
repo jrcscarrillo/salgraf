@@ -87,36 +87,28 @@ function nuevoUsuario() {
 }
 
 function chkMail() {
-    global $id, $wk_id, $wk_email, $wk_nombre, $wk_apellido, $wk_encriptada, $wk_habilita, $wk_estado, $wk_password, $email, $password, $nombre, $apellido;
+    
+    require $_SERVER['DOCUMENT_ROOT'] . '/salgraf/include/enviamail.php';
+    global $email, $password, $nombre, $apellido;
     global $encriptada, $habilita, $estado;
-    require 'PHPMailerAutoload.php';
-    require 'PHPMailer.php';
-//Create a new PHPMailer instance
-    $mail = new PHPMailer();
-// Set PHPMailer to use the sendmail transport
-    $mail->isSendmail();
-//Set who the message is to be sent from
-    $mail->setFrom('info@carrillosteam.com', 'Juan Carrillo');
-//Set an alternative reply-to address
-    $mail->addReplyTo('support@carrillosteam.com', 'Juan Carrillo');
-//Set who the message is to be sent to
-    $mail->addAddress($email, $nombre, $apellido);
-//Set the subject line
-    $mail->Subject = 'Utilizando Comprobantes Electronicos ?';
-//Read an HTML message body from an external file, convert referenced images to embedded,
-//convert HTML into a basic plain-text alternative body
-    //$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
-//Replace the plain text body with one created manually
-    $body = '<div><b>Nombre: </b>' . $nombre . "<br>" . '<b>Apellido: </b>' . $apellido. "<br>";
-    $body .= '<br><hr><br><span>Usted se ha registrado en el sistema de comprobantes electronicos, se enviara un email indicandole que esta habilitado</span></div>'; 
-    $mail->msgHTML($body);
-    $mail->AltBody = 'This is a plain-text message body';
+    
+    
+    $part = '<div><b>Nombre: </b>' . $nombre . "<br>" . '<b>Apellido: </b>' . $apellido. "<br>";
+    $part .= '<br><hr><br><span>Usted se ha registrado en el sistema de comprobantes electronicos, se enviara un email indicandole que esta habilitado</span></div>'; 
+    
+    
+    $body = 'Nombre: ' . $nombre . 'Apellido: ' . $apellido . "\r\n";
+    $body .= 'Usted se ha registrado en el sistema de comprobantes electronicos, se enviara un email indicandole que esta habilitado\r\n'; 
+    
+    $paraemail['attach'] = $_SERVER['DOCUMENT_ROOT'] . '/favicon.ico';
+    $paraemail['part'] = $part;
+    $paraemail['body'] = $body;
+    $paraemail['subject'] = 'Comprobantes Electronicos Nuevo Usuario';
+    $paraemail['fromemail']['email'] = 'contador@calcograf.com';
+    $paraemail['fromemail']['nombre'] = 'Contabiliad';
+    $paraemail['toemail']['email'] = $email;
+    $paraemail['toemail']['nombre'] = $nombre.$apellido;
+//    var_dump($paraemail);
+    enviamail($paraemail);
 
-    if (!$mail->send()) {
-        echo "Mailer Error: " . $mail->ErrorInfo;
-    } else {
-        echo "Message sent!";
-    }
 }
-
-?>

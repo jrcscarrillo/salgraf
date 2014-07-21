@@ -68,10 +68,10 @@ errorPlacement : function(error, element) {
 });
 
   function correMensaje( datos ){
-    alert('Nuevo YA');
-    if(datos == 'OK') {
-        $("#sky-form").addClass('submited');
-        $('#sky-form button[type="submit"]').removeClass('button-uploading').attr('disabled', false);
+    alert( 'Nuevo YA' . datos );
+    if( datos == 'OK' ) {
+        $( "#sky-form" ).addClass( 'submited' );
+        $( '#sky-form button[type="submit"]' ).removeClass('button-uploading').attr('disabled', false);
     } else if(datos == "ADMN") {
         document.cookie='Continuar="--- Usuario no es el administrador del sistema ---"';
         window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Calcograf/paraContinuar.php';
