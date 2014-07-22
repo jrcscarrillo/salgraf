@@ -2,21 +2,30 @@
 
 /* 
  * Autor:   Juan Carrillo
- * Fecha:   Julio 18 2014
+ * Fecha:   Julio 22 2014
  * Proyecto: Comprobantes Electronicos
  */
+
+/*
+ * Se definen las variables que seran utilizadas como glbal en este programa
+ */
+  
+$wk_id = "";
+$wk_email = "";
+$wk_pass = "";
+$wk_habilita = 0;
+$wk_nombre = "";
+$wk_apellido = "";
+$wk_estado = "";;
+  
 session_start();
 /*
  * Si tiene una sesion no iniciada envia el mensaje "Usuario no esta ingresado an el sistema"
  */
 if ((!isset( $_SESSION['carrillosteam'] )) or ($_SESSION['carrillosteam'] != 'carrillosteam')) {
-        require 'paraMensajes.html';
-        echo '<script type="text/javascript">'.
-        "$(document).ready(function(){".
-        "$('#mensaje').text('Usuario no esta ingresado an el sistema');".
-        "})".
-        "</script>";
-        exit();
+    $flagDB = "Usuario no tiene autorizacion";
+    return $flagDB;
+    exit();
 }
 
 /*
@@ -25,26 +34,22 @@ if ((!isset( $_SESSION['carrillosteam'] )) or ($_SESSION['carrillosteam'] != 'ca
  * Caso contrario emite un mensaje de error
  */
 include 'conectaBaseDatos.php';
-if (isset($_POST['email'])) {
-    $email = $_POST['email'];
-    $flagDB = loginUsuario($email);
-    exit();
-} else {
-    require 'paraContinuar.html';
-    echo '<script type="text/javascript">'.
-        "$(document).ready(function(){".
-        "$('#mensaje').text('No ha ingresado datos');".
-        "})".
-        "</script>"; 
-        exit();
-}
+if (isset($_POST['emailForm'])) {
+    $email = $_POST['emailForm'];
+    $flagDB = buscaUsuario($email);
+    } else {
+    $flagDB = "No ha ingresado datos";
+    }
+echo $flagDB;
+exit();
 /*
  * Accesa a la base de datos con el la direccion email y la clave
  * Si el campo de la base de datos 'UsuariosHabilitado' tiene 1 significa que puede seguir realizando los
  * procesos en el sistema.
  * Caso contrario es rechazado
  */
-function loginUsuario($email) {
+function buscaUsuario($email) {
+        global $wk_id, $wk_email, $wk_pass, $wk_habilita, $wk_nombre, $wk_apellido, $wk_estado;
         $db = db_connect();
         $sql = "select * from Usuarios where UsuariosEmail=?";
         $stmt = $db->prepare($sql) or die(mysqli_error($db));
@@ -53,34 +58,21 @@ function loginUsuario($email) {
         $existe = $stmt->execute();
 //        var_dump($wk_id, $email, $password);
         if ($stmt->fetch()){
-            $flag = TRUE;
+            $flagHabilita = "";
             if ($wk_habilita == 0) {
-                $flag = habilitaUsuario($email);
-                if ($flag) {
-                    echo 'OK';
-                }
-            } else {
-                require 'paraContinuar.html';
-                echo '<script type="text/javascript">'.
-                        "$(document).ready(function(){".
-                        "$('#mensaje').text('Usuario registrado pero ya esta habilitado.');".
-                        "})".
-                        "</script>";
-                }
-        } else {
-            require 'paraMensajes.html';
-            echo '<script type="text/javascript">'.
-                    "$(document).ready(function(){".
-                    "$('#mensaje').text('Usuario no existe');".
-                    "})".
-                    "</script>";
-        }
+                $flagHabilita = habilitaUsuario($email);
+                } else {
+                    $flagHabilita = "Ya esta habilitado";
+                    }
+                    } else {
+                        $flagHabilita = "Usuario no existe";
+                        }
         $stmt->close();
         $db->close();
-
+        return $flagHabilita;
 }
 
-function habiltaUsuario($email) {
+function habilitaUsuario($email) {
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
@@ -88,16 +80,48 @@ function habiltaUsuario($email) {
     $stmt = "";
     $sql = "UPDATE Usuarios SET UsuariosHabilitado = ? where UsuariosEmail=?";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
-   
-    $stmt->bind_param("ss", 1, $email);
-    $flag = FALSE;
+    $uno = 1;
+    $stmt->bind_param("is", $uno, $email);
+    $flagHabilita = "";
     $existe = $stmt->execute();
     $nroRegistrosAfectados = $stmt->affected_rows;
     if ($nroRegistrosAfectados > 0) {
-        $flag = TRUE;
-    }
+        $flagHabilita = enviaHabilitado();
+        if($flagHabilita == "Sent"){
+            $flagHabilita = "Usuario Habilitado se envio Email";
+        } else {
+            $flagHabilita = "Usuario Habilitado no se envio Email";
+        }
+        } else {
+            $flagHabilita = "Error usuario no se habilito";
+        }
         /* close statement */
     $stmt->close();
     $db->close();
-    return $flag;
+    return $flagHabilita;
+}
+
+function enviaHabilitado() {
+    
+    require $_SERVER['DOCUMENT_ROOT'] . '/salgraf/include/enviamail.php';
+    global $wk_id, $wk_email, $wk_pass, $wk_habilita, $wk_nombre, $wk_apellido, $wk_estado;
+//    var_dump($wk_email, $wk_apellido, $wk_nombre);
+    $part = '<div><b>Nombre: </b>' . $wk_nombre . "<br>" . '<b>Apellido: </b>' . $wk_apellido. "<br>";
+    $part .= '<br><hr><br><span>Usted esta ahbilitado para utilizar el sistema de comprobantes electronicos</span></div>'; 
+    
+    
+    $body = 'Nombre: ' . $wk_nombre . 'Apellido: ' . $wk_apellido . "\r\n";
+    $body .= 'Usted esta ahbilitado para utilizar el sistema de comprobantes electronicos\r\n'; 
+    
+    $paraemail['attach'] = $_SERVER['DOCUMENT_ROOT'] . '/favicon.ico';
+    $paraemail['part'] = $part;
+    $paraemail['body'] = $body;
+    $paraemail['subject'] = 'Comprobantes Electronicos Nuevo Usuario';
+    $paraemail['fromemail']['email'] = 'contador@calcograf.com';
+    $paraemail['fromemail']['nombre'] = 'Contabiliad';
+    $paraemail['toemail']['email'] = $wk_email;
+    $paraemail['toemail']['nombre'] = $wk_nombre.$wk_apellido;
+//    var_dump($paraemail);
+    $flagEmail = enviamail($paraemail);
+    return $flagEmail;
 }

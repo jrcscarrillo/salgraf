@@ -1,5 +1,6 @@
 <?php
-$message = "No ha llegado Mensajes";
+$mensaje = "No ha llegado Mensajes";
+//var_dump($_COOKIE);
 if(isset($_COOKIE['Continuar'])) {
     $mensaje = $_COOKIE['Continuar'];
 }

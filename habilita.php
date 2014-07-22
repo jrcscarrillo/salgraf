@@ -1,20 +1,28 @@
 <?php
-
 /* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Autor:   Juan Carrillo
+ * Fecha:   Julio 18 2014
+ * Proyecto: Comprobantes Electronicos
  */
 session_start();
 if ((!isset($_SESSION['carrillosteam'])) or (!isset($_SESSION['email']))){
-    echo 'NO';
+    require ('paraContinuar.html');
+    echo '<script type="text/javascript">'.
+        "$(document).ready(function(){".
+        "$('#mensaje').html('Usuario no ha ingresado al sistema');".
+        "})".
+        "</script>";
 } else {
     if (($_SESSION['carrillosteam'] == 'carrillosteam') and ($_SESSION['email'] == 'jrcscarrillo@gmail.com')) {
         require ('habilita.html');
-        echo 'OK';
         exit();
         } else {
-            echo 'ADMIN';
-        }
+            require ('paraContinuar.html');
+            echo '<script type="text/javascript">'.
+                    "$(document).ready(function(){".
+                    "$('#mensaje').html('Usuario no tiene autorizacion ');".
+                    "})".
+                    "</script>";
+            }
         }
  

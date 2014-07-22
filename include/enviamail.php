@@ -50,8 +50,9 @@ if ($paraemail['attach'] != '') {
 
     if ($mailer->send($message))
         {
-        echo "Sent\n";
+        $envio = "Sent";
         } else {
-            echo "Failed\n";
+            $envio = "Failed";
         }
+    return $envio;
 }
