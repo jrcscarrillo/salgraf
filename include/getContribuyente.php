@@ -40,10 +40,10 @@ $columns = array(
  
 // SQL server connection information
 $sql_details = array(
-    'user' => 'srijrcscarrillo',
-    'pass' => 'F9234568!s',
-    'db'   => 'srijrcscarrillo',
-    'host' => 'srijrcscarrillo.db.10949679.hostedresource.com'
+    'user' => 'salgraf',
+    'pass' => 'salgraf',
+    'db'   => 'salgraf',
+    'host' => 'Juanito'
 );
  
  

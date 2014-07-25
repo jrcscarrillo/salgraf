@@ -7,7 +7,7 @@
  */
 session_start();
 include 'conectaBaseDatos.php';
-//var_dump($GLOBALS);
+var_dump($_SESSION);
 /*
  *      1. Revisar que la sesion tenga seleccionado al contribuyente
  *      2. Revisar que se hayan seleccionados las fechas para procesar
@@ -21,10 +21,11 @@ if (!isset($_SESSION['establecimiento']) or !isset($_SESSION['puntoemision'])) {
         "</script>";
         exit();
 }
-if (isset($_GET['start'])) {
-    $fechaFin = $_GET['finish'];
-    $fechaInicio = $_GET['start'];
-    $archivo = $_GET['archivo'];
+if (isset($_POST['start'])) {
+    var_dump($_POST);
+    $fechaFin = $_POST['finish'];
+    $fechaInicio = $_POST['start'];
+    $archivo = $_POST['archivo'];
     $inicioDB = strtotime($fechaInicio);
     $finDB = strtotime($fechaFin);
 //    echo "Fecha con strtotime : " . $inicioDB;
@@ -61,13 +62,29 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
     $stmt = "";
-    $sql = "select TxnID, TxnNumber, CustomerRef_FullName, CustomField10 from invoice where CustomField10=?";
+    $sql = "select TxnID, "; // Numero transaccion index y foreign key para invoice line
+    $sql .= "TimeCreated, "; // fecha de creacion del documento
+    $sql .= "TimeModified, ";// fecha de modificacion del documento
+    $sql .= "EditSequence, "; // control de secuencia de los movimientos
+    $sql .= "TxnNumber, "; // Numero del documento
+    $sql .= "CustomerRef_ListID, ";
+    $sql .= "CustomerRef_FullName, ";
+    $sql .= "RefNumber, ";
+    $sql .= "BillAddress_Addr1, ";
+    $sql .= "BillAddress_Addr2, "; // Aqui esta el numero del RUC
+    $sql .= "BillAddress_Addr3, ";
+    $sql .= "BillAddress_City, ";
+    $sql .= "Subtotal, ";
+    $sql .= "SalesTaxPercentaje, ";
+    $sql .= "SalesTaxTotal, ";
+    $sql .= "AppliedAmount, ";
+    $sql .= "CustomField10 from invoice where CustomField10=?";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
     $selec = "SELECCIONADA";
     $stmt->bind_param("s", $selec);
     $flag = FALSE;
     $existe = $stmt->execute();
-    $stmt->bind_result($db_id, $db_numero, $db_cliente, $db_estado);        /* fetch values */
+    $stmt->bind_result($db_TxnID, $db_TimeCreated, $db_TimeModified, $db_EditSequence, $db_TxnNumber, $db_CustomerRef_ListID, $db_CustomerRef_FullName, $db_RefNumber, $db_BillAddress_Addr1, $db_BillAddress_Addr2, $db_BillAddress_Addr3, $db_BillAddress_City, $db_Subtotal, $db_SalesTaxPercentaje, $db_SalesTaxTotal, $db_AppliedAmount, $db_CustomField10);        /* fetch values */
 /*
  * DOMDocument es el nombre del objetgo para crear un archivo XML
  * Despues se utiliza la forma de PHP de generar tags en XML
@@ -76,13 +93,6 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
     $doc->formatOutput = TRUE;
     $root = $doc->createElement('Facturas');
     $factura = $doc->createElement('factura');
-/*
- *      Se procesan todas las facturas que tienen en el campo del usuario de la tabla de invoices del QB
- *      el estado SELECCIONADA
- */
-    while ($stmt->fetch()) {
-       
-        $flag = TRUE;
 /*
  *      Informacion del Emisor
  */
@@ -112,6 +122,14 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
         $dirMatriz = $doc->createElement('dirMatriz', $db_dirMatriz);
         $db_codigo = "";
         $codigo = $doc->createElement('codigo', $db_codigo);
+/*
+ *      Se procesan todas las facturas que tienen en el campo del usuario de la tabla de invoices del QB
+ *      el estado SELECCIONADA
+ */
+    while ($stmt->fetch()) {
+       
+        $flag = TRUE;
+
 
         $infoTributaria->appendChild($ambiente);
         $infoTributaria->appendChild($codigo);

@@ -2,22 +2,23 @@
 /* 
  * Autor:   Juan Carrillo
  * Fecha:   Julio 3, 2014
+ * Modificado: Julio 24, 2014 (Modifica js)
  * Proyecto: Comprobantes Electronicos
  */
 session_start();
-var_dump($_SESSION);
+//var_dump($_POST);
 include 'conectaBaseDatos.php';
-require 'mensajes.php';
 
 if (isset($_POST['Contribuyente'])) {
     $contribuyente = str_replace("},", "}|", $_POST['Contribuyente']);
+//    var_dump($contribuyente);
     $estab = explode("|", $contribuyente);
     for($i=0; $i < count($estab); $i++) {
     $registro = json_decode($estab[$i]);
-    var_dump($estab[$i]);
+//    var_dump($estab[$i]);
     if(strlen($estab[$i]) != 0){
         foreach ($registro as $key => $value) {
-            echo "Estos Datos {$key} is {$value}\n";
+//            echo "Estos Datos {$key} is {$value}\n";
             if($key === "Ruc"){
                 $wk_ruc = $value;
             } elseif ($key === "Razon") {
@@ -34,26 +35,30 @@ if (isset($_POST['Contribuyente'])) {
                 $wk_emisor = $value;
             } elseif ($key === "Lleva Contabilidad") {
                 $wk_contab = $value;                
-                chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab);
+                $flagDB = chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab);
             } 
         }
     }}
-    echo "Termino Proceso de Seleccion";
+    $var_programa = $_SESSION['programa'];
+    if ($flagDB == "Se acceso al registro del Contribuyente" and $var_programa == "selecFactura") {
+        $flagDB = "Contribuyente Seleccionado en Seleccion Factura";
+    } elseif ($flagDB == "Se acceso al registro del Contribuyente" and $var_programa == "firmaFactura") {
+        $flagDB = "Contribuyente Seleccionado en Firma Factura";
+        } elseif ($flagDB == "No se acceso al registro del Contribuyente" and $var_programa == "selecFactura") {
+            $flagDB = "Contribuyente NO Seleccionado en Seleccion Factura";
+            } elseif ($flagDB == "No se acceso al registro del Contribuyente" and $var_programa == "firmaFactura") {
+                $flagDB = "Contribuyente NO Seleccionado en Firma Factura";    
+        }
+        echo $flagDB;    
     exit();
-} else {
-    header("content-type: text/html");
-    $pasaerr = "*** ERROR no ha seleccionado contribuyente";
-    echo("*** ERROR no ha seleccionado contribuyente");
-    mensajea($pasaerr);
-    exit();
-}
+} 
 
 function chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab) {
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-    echo "Contribuyente: " . $wk_ruc . " \n";
+//    echo "Contribuyente: " . $wk_ruc . " \n";
     $stmt = "";
     $sql = "select ";
     $sql .= "ContribuyenteRuc, ContribuyenteRazon, ContribuyenteNombreComercial, ";
@@ -63,21 +68,22 @@ function chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punt
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
    
     $stmt->bind_param("ss", $wk_estab, $wk_punto);
-    $flag = FALSE;
+    $flagDB = "";
     $existe = $stmt->execute();
     $stmt->bind_result($db_ruc, $db_razon, $db_comercial, $db_estab, $db_punto, $db_matriz, $db_emisor, $db_contab);        /* fetch values */
     while ($stmt->fetch()) {
-        $flag = TRUE;
-        echo 'Si encontro al ' . $db_ruc . ' con la razon social ' . $db_razon;
-    }
+        $flagDB = "Se acceso al registro del Contribuyente";
+        updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab);
+        }
     /* close statement */
     $stmt->close();
     $db->close();
-    if($flag){
-        updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab);
+    if($flagDB == ""){
+        $flagDB = "No se acceso al registro del Contribuyente";
+        }
+        return $flagDB;
     }
-    }
-
+    
 function updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab) {
 
     $_SESSION['Ruc'] = $wk_ruc;
@@ -88,11 +94,5 @@ function updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, 
     $_SESSION['matriz'] = $wk_matriz;
     $_SESSION['emisor'] = $wk_emisor;
     $_SESSION['contabilidad'] = $wk_contab;
-    echo 'Estas son las variables: ' . $wk_ruc + ' ' . $wk_razon;
-    header("content-type: text/html");
-    $pasaSuccess = "*** Continuar ha seleccionado contribuyente";
-    echo("*** Continuar ha seleccionado contribuyente");
-    continua($pasaSuccess);
-    exit();
 }
 ?>

@@ -17,6 +17,7 @@ if ($_SESSION['carrillosteam'] == 'carrillosteam') {
         require ('selecFactura.html');
         exit();
     } else {
+        $_SESSION['programa'] = "selecFactura";
         require ('selecContribuyente.html');
         exit();
     }

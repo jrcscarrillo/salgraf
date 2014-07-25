@@ -6,13 +6,14 @@
  * and open the template in the editor.
  */
 session_start();
-if ($_SESSION['carrillosteam'] == 'carrillosteam') {
-    require ('addContribuyente.html');
-    exit();
-}
+if (!isset($_SESSION['carrillosteam'])) {    
 require ('paraContinuar.html');
 echo '<script type="text/javascript">'.
         "$(document).ready(function(){".
         "$('#mensaje').html('Usuario no ha ingresado al sistema');".
         "})".
         "</script>";
+} else {
+    require ('addContribuyente.html');
+    exit();
+}

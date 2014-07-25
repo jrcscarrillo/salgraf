@@ -6,13 +6,15 @@
  * and open the template in the editor.
  */
 session_start();
-if ($_SESSION['carrillosteam'] == 'carrillosteam') {
-    require ('listaContribuyente.html');
-    exit();
-}
+if (!isset($_SESSION['carrillosteam'] )) {
 require ('paraContinuar.html');
 echo '<script type="text/javascript">'.
         "$(document).ready(function(){".
         "$('#mensaje').html('Usuario no ha ingresado al sistema');".
         "})".
         "</script>";
+} else {
+    
+    require ('listaContribuyente.html');
+    exit();
+}

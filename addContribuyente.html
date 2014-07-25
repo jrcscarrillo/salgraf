@@ -37,29 +37,11 @@
 		<script type="text/javascript" src="./js/jquery.elastislide.js"></script>
 		<script type="text/javascript" src="./js/custom.js"></script>
 		<script type="text/javascript" src="./js/scrolltop.js"></script>
+		<script type="text/javascript" src="./js/nuevoContribuyente.js"></script>
 
 	</head>
 <body class="bg-blue">
 <div id="wrapper" class="boxed">
-    <div class="top_navigation_container">
-        <div class="top_navigation">
-            <ul><li><a href="construyendo.html">Contactenos</a></li>
-                <li><a href="http:\\www.carrillosteam.com">Carrillos Team</a></li>
-                <li><a href="construyendo.html">Esta Aplicacion</a></li>
-            </ul>
-        </div>
-        <div class="top_navigation_social">
-            <p>
-                AURORA_E
-            </p>
-            <ul><li class="social_facebook"><a href="#">Facebook</a></li>
-                <li class="social_twitter"><a href="#">Twitter</a></li>
-                <li class="social_dribbble"><a href="#">Dribbble</a></li>
-                <li class="social_linkedin"><a href="#">Linkedin</a></li>
-                <li class="social_pinterest"><a href="#">Pinterest</a></li>
-            </ul>
-        </div>
-    </div>
     <div id="header">
         <!-- Header start -->
 
@@ -68,31 +50,28 @@
             <div class="grid_12">
                 <!-- Start Menu -->
                 <div id="topnav" class="jqueryslidemenu">
-                    <ul><li><a href="index.html">Home</a></li>
+                    <ul><li><a href="login.html">Ingresar</a></li>
                         <li><a href="#">Administracion</a>
-                            <ul><li><a href="./login.html">Login</a></li>
-                                <li><a href="./listaContribuyente.php">Lista de Contribuyentes</a></li>
+                            <ul><li><a href="./listaContribuyente.php">Lista de Contribuyentes</a></li>
                                 <li><a href="./nuevoContribuyente.php">Nuevo Contribuyente</a></li>
                                 <li><a href="./generaClave.php">Generacion de Claves</a></li>
                                 <li><a href="./listaClaves.php">Lista de Claves</a></li>
                                 <li><a href="./recuperaClave.php">Recuperacion de Claves</a></li>
-                                <li><a href="./logout.php">Log out!t</a></li>
+                                <li><a href="./habilita.php">Habilita Usuario</a></li>
                             </ul></li>
                     <li><a href="#">Facturas</a>
                             <ul><li><a href="./selecFactura.php">Seleccion</a></li>
                                 <li><a href="./firmaFactura.php">Firmar</a></li>
-                                <li><a href="./enviaFactura.php">Enviar</a></li>
-                                <li><a href="./selecFactura.php">Recibir</a></li>
-                                <li><a href="./selecFactura.php">Autorizadas</a></li>
-                                <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
-                        <li><a href="#">Notas Debito</a>
+                                <li><a href="./autoFactura.php">Autorizadas</a></li>
+                                <li><a href="./noautoFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Notas DB</a>
                             <ul><li><a href="./selecFactura.php">Seleccion</a></li>
                                 <li><a href="./selecFactura.php">Firmar</a></li>
                                 <li><a href="./selecFactura.php">Enviar</a></li>
                                 <li><a href="./selecFactura.php">Recibir</a></li>
                                 <li><a href="./selecFactura.php">Autorizadas</a></li>
                                 <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
-                        <li><a href="#">Notas Credito</a>
+                        <li><a href="#">Notas CR</a>
                             <ul><li><a href="./selecFactura.php">Seleccion</a></li>
                                 <li><a href="./selecFactura.php">Firmar</a></li>
                                 <li><a href="./selecFactura.php">Enviar</a></li>
@@ -113,6 +92,7 @@
                                 <li><a href="./selecFactura.php">Recibir</a></li>
                                 <li><a href="./selecFactura.php">Autorizadas</a></li>
                                 <li><a href="./selecFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="./logout.php">Salir</a></li>
                     </ul>
                 </div>
             </div><!-- end menu -->
@@ -272,166 +252,6 @@
     </div>
     <div id="topcontrol" style="position: fixed; bottom: 0px; right: 0px; opacity: 1; cursor: pointer;" title="To the top! To the victory!"></div>
 </div>
-<script type="text/javascript">
-    $(function() {
-        $("#sky-form").validate({
-            rules : {
-                rucForm : {
-                    minlength : 13,
-                    maxlength : 13,
-                    required : true,
-                    digits : true
-                },
-                razonForm : {
-                    required : true
-                },
-                comercialForm : {
-                    required : true
-                },
-                matrizForm : {
-                    required : true
-                },
-                emisorForm : {
-                    required : true
-                },
-                estabForm : {
-                    required : true,
-                    minlength : 3,
-                    maxlength : 3,
-                    digits : true
-                },
-                puntoForm : {
-                    required : true,
-                    minlength : 3,
-                    maxlength : 3,
-                    digits : true
-                },
-                llevaForm : {
-                    required : true,
-                    minlength : 1,
-                    maxlength : 1
-                },
-                ambienteForm : {
-                    required : true,
-                    minlength : 1,
-                    maxlength : 1,
-                    digits : true
-                },
-                emisionForm : {
-                    required : true,
-                    minlength : 1,
-                    maxlength : 1,
-                    digits : true
-                },
-                tokenForm : {
-                    required : true,
-                    minlength : 1,
-                    maxlength : 1,
-                    digits : true
-                },
-                emailForm : {
-                    required : true,
-                    email : true
-                },
-                telefonoForm : {
-                    required : true,
-                    minlength : 7,
-                    maxlength : 9,
-                    digits : true
-                },
-                file : {
-                    required : true,
-                    extension : "png|jpe?g|gif"
-                }
-            },
-            messages : {
-                rucForm : {
-                    required : 'Ingrese su numero de RUC',
-                    minlength : "Minimo 13 digitos",
-                    maxlength : "Maximo de 13 digitos",
-                    digits : "Solo ingrese digitos"
-                },
-                emailForm : {
-                    required : 'Ingrese su correo electronico',
-                    email : 'Ingrese una direccion valida'
-                },
-                telefonoForm : {
-                    required : 'Ingrese un numero de telefono',
-                    minlength : "Minimo 7 digitos",
-                    maxlength : "Maximo de 9 digitos"
-                },
-                razonForm : {
-                    required : 'Ingrese la razon social de su negocio'
-                },
-                comercialForm : {
-                    required : 'Ingrese su nombre de batalla'
-                },
-                matrizForm : {
-                    required : 'Ingrese la direccion de la oficina principal'
-                },
-                emisorForm : {
-                    required : 'Ingrese la direccion de su oficina de facturacion'
-                },
-                estabForm : {
-                    required : 'Ingrese el codigo del establecimiento',
-                    minlength : "Minimo 3 digitos",
-                    maxlength : "Maximo de 3 digitos",
-                    digits : "Solo ingrese digitos"
-            },
-            puntoForm : {
-                    required : 'Ingrese el punto de emision',
-                    minlength : "Minimo 3 digitos",
-                    maxlength : "Maximo de 3 digitos",
-                    digits : "Solo ingrese digitos"
-            },
-            llevaForm : {
-                    required : 'Ingrese SI o NO'
-            },
-            ambienteForm : {
-                    required : 'Ingrese ambiente de produccion o pruebas',
-                    minlength : "Minimo 1 digito",
-                    maxlength : "Maximo de 1 digito",
-                    digits : "Solo ingrese digitos"
-            },
-            emisionForm : {
-                    required : 'Ingrese tipo emision normal o contingencia',
-                    minlength : "Minimo 1 digito",
-                    maxlength : "Maximo de 2 digito",
-                    digits : "Solo ingrese digitos"
-            },
-            file: {
-                    extension: "Solo acepta archivos tipo png, gif, o jpg"
-            },
-            tokenForm : {
-                    required : 'Ingrese el tipo de certificado',
-                    minlength : "Minimo 1 digito",
-                    maxlength : "Maximo de 1 digito",
-                    digits : "Solo ingrese digitos"
-            }
-    },
-submitHandler : function(form) {
-    $(form).ajaxSubmit({
-            beforeSend : function() {
-                    if (window.File && window.FileList && window.FileReader) {
-                            //alert($("#file").val());
-                            $("#incluya").attr("placeholder", $("#file").val() );
-                    }
-                    $('#sky-form button[type="submit"]').addClass('button-uploading').attr('disabled', true);
-            },
-            uploadProgress : function(event, position, total, percentComplete) {
-                    $("#sky-form .progress").text(percentComplete + '%');
-            },
-            success : function() {
-                    $("#sky-form").addClass('submited');
-                    $('#sky-form button[type="submit"]').removeClass('button-uploading').attr('disabled', false);
-            }
-    });
-},
-errorPlacement : function(error, element) {
-    error.insertAfter(element.parent());
-}
-});
-});
-</script>
+
 </body>
 </html>

@@ -64,12 +64,14 @@
                     },
 
                     success: function( datos ) {
-                        correMensaje( datos ) 
+                        document.cookie='Continuar="---Se han seleccionado con exito las facturas desde Quickbooks---"';
+                        window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraContinuar.php';
+       
                     },
 
                     error: function( xhr, status, errorThrown ) {
                         document.cookie='Errores="*** ERROR No se han seleccionado las facturas ***"';
-                        window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Aurora/paraMensajes.php';
+                        window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraMensajes.php';
                         console.log( "Error: " + errorThrown );
                         console.log( "Status: " + status );
                         console.dir( xhr );
@@ -82,9 +84,3 @@
        return false;
        });
       }); 
-  function correMensaje( datos ){
-       if( datos = "GO" ){
-            document.cookie='Continuar="---Se han seleccionado con exito las facturas desde Quickbooks---"';
-             window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Aurora/paraContinuar.php';
-       }
- }

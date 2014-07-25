@@ -43,9 +43,10 @@ if ($paraemail['part'] != '') {
     $message -> addPart($paraemail['part'], 'text/html');
 }
 
+if(isset($paraemail['attach'])) {
 if ($paraemail['attach'] != '') {
     $message -> attach(Swift_Attachment::fromPath($paraemail['attach']));
-}
+}}
 
 
     if ($mailer->send($message))
