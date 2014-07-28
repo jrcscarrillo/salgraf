@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Selecciona Facturas</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="css/demo.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/sky-forms.css">
+    <!--[if lt IE 9]>
+            <link rel="stylesheet" href="css/sky-forms-ie8.css">
+    <![endif]-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <!--[if lt IE 10]>
+            <script src="js/jquery.placeholder.min.js"></script>
+    <![endif]-->		
+    <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="js/sky-forms-ie8.js"></script>
+    <![endif]-->
+</head>
+	
+<body class="bg-cyan">
+<div class="body">		
+<form action="./include/selectFactura.php" id="sky-form" class="sky-form" method="POST">
+    <header>Selecciona Facturas</header>
+
+    <fieldset>
+        <label class="label">Seleccione las fechas de proceso</label>	
+            <div class="row">	
+                <section class="col col-6">
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="start" id="start" placeholder="Fecha Inicial">
+                    </label>
+                </section>
+                <section class="col col-6">
+                    <label class="input">
+                        <i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="finish" id="finish" placeholder="Fecha Final">
+                    </label>
+                </section>
+                <section>
+                    <label class="label">Nombre del archivo de Control</label>
+                    <label class="input">
+                        <i class="icon-append fa fa-file"></i>
+                        <input type="text" name="archivo" id="archivo" placeholder="Nombre del Archivo">
+                    </label>
+                </section>
+            </div>					
+    </fieldset>
+
+    <footer>
+        <button type="submit" class="button">Procesar</button>
+        <button type="button" class="button button-secondary" onclick="window.history.back();">Regresar</button>
+    </footer>
+</form>			
+</div>
+		
+<script type="text/javascript">
+        $(function()
+        {
+            $('#start').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function( selectedDate )
+                {
+                    $('#finish').datepicker('option', 'minDate', selectedDate);
+                }
+                });
+            $('#finish').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function( selectedDate )
+                {
+                    $('#start').datepicker('option', 'maxDate', selectedDate);
+                }
+                });
+        });			
+</script>
+</body>
+</html>

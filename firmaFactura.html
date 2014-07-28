@@ -30,20 +30,8 @@
     <header>Firma Facturas</header>
 
     <fieldset>
-        <label class="label">Seleccione las fechas de proceso</label>	
+        <label class="label">Indique nombre del Archivo</label>	
             <div class="row">	
-                <section class="col col-6">
-                    <label class="input">
-                        <i class="icon-append fa fa-calendar"></i>
-                        <input type="text" name="start" id="start" placeholder="Fecha Inicial">
-                    </label>
-                </section>
-                <section class="col col-6">
-                    <label class="input">
-                        <i class="icon-append fa fa-calendar"></i>
-                        <input type="text" name="finish" id="finish" placeholder="Fecha Final">
-                    </label>
-                </section>
                 <section>
                     <label class="label">Nombre del archivo</label>
                     <label class="input">
@@ -60,29 +48,5 @@
     </footer>
 </form>			
 </div>
-		
-<script type="text/javascript">
-        $(function()
-        {
-            $('#start').datepicker({
-                dateFormat: 'yy-mm-dd',
-                prevText: '<i class="fa fa-chevron-left"></i>',
-                nextText: '<i class="fa fa-chevron-right"></i>',
-                onSelect: function( selectedDate )
-                {
-                    $('#finish').datepicker('option', 'minDate', selectedDate);
-                }
-                });
-            $('#finish').datepicker({
-                dateFormat: 'yy-mm-dd',
-                prevText: '<i class="fa fa-chevron-left"></i>',
-                nextText: '<i class="fa fa-chevron-right"></i>',
-                onSelect: function( selectedDate )
-                {
-                    $('#start').datepicker('option', 'maxDate', selectedDate);
-                }
-                });
-        });			
-</script>
 </body>
 </html>

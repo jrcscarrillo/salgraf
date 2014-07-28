@@ -7,21 +7,7 @@
  */
 
 session_start();
-if ($_SESSION['carrillosteam'] == 'carrillosteam') {
-    
-    /*
-     *  Se controla que en la sesion este presente el usuario con la autorizacion
-     *  y tambien que haya seleccionado el contribuyente que facturara
-     */
-    if (isset($_SESSION['establecimiento']) and isset($_SESSION['puntoemision'])) {
-        require ('selecFactura.html');
-        exit();
-    } else {
-        $_SESSION['programa'] = "selecFactura";
-        require ('selecContribuyente.html');
-        exit();
-    }
-} else {
+if (!isset($_SESSION['carrillosteam'])) {
     require 'paraMensajes.html';
     echo '<script type="text/javascript">'.
         "$(document).ready(function(){".
@@ -30,3 +16,19 @@ if ($_SESSION['carrillosteam'] == 'carrillosteam') {
         "</script>";
         exit();
 }
+    /*
+     *  Se controla que en la sesion este presente el usuario con la autorizacion
+     *  y tambien que haya seleccionado el contribuyente que facturara
+     */
+if (!isset($_SESSION['establecimiento']) or !isset($_SESSION['puntoemision'])) {
+    require 'paraMensajes.html';
+    echo '<script type="text/javascript">'.
+        "$(document).ready(function(){".
+        "$('#mensaje').text('*** ERROR No ha seleccionado Contribuyente');".
+        "})".
+        "</script>";
+        exit();
+}
+$_SESSION['programa'] = "Seleccionando Facturas";        
+require ('selectFactura.html');
+exit();

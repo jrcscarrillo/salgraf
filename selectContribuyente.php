@@ -8,13 +8,15 @@
 
 session_start();
 if (!isset($_SESSION['carrillosteam'])) {
-require ('paraContinuar.html');
-echo '<script type="text/javascript">'.
+    require 'paraMensajes.html';
+    echo '<script type="text/javascript">'.
         "$(document).ready(function(){".
-        "$('#mensaje').text('Usuario no ha ingresado al sistema');".
+        "$('#mensaje').text('*** ERROR Usuario no ha ingresado al sistema');".
         "})".
         "</script>";
-       exit();
+        exit();
 }
-    require ('firmaFactura.html');
-    exit();
+        
+        require ('selecContribuyente.html');
+        exit();
+    

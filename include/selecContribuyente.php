@@ -39,17 +39,7 @@ if (isset($_POST['Contribuyente'])) {
             } 
         }
     }}
-    $var_programa = $_SESSION['programa'];
-    if ($flagDB == "Se acceso al registro del Contribuyente" and $var_programa == "selecFactura") {
-        $flagDB = "Contribuyente Seleccionado en Seleccion Factura";
-    } elseif ($flagDB == "Se acceso al registro del Contribuyente" and $var_programa == "firmaFactura") {
-        $flagDB = "Contribuyente Seleccionado en Firma Factura";
-        } elseif ($flagDB == "No se acceso al registro del Contribuyente" and $var_programa == "selecFactura") {
-            $flagDB = "Contribuyente NO Seleccionado en Seleccion Factura";
-            } elseif ($flagDB == "No se acceso al registro del Contribuyente" and $var_programa == "firmaFactura") {
-                $flagDB = "Contribuyente NO Seleccionado en Firma Factura";    
-        }
-        echo $flagDB;    
+    echo $flagDB;    
     exit();
 } 
 

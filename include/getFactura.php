@@ -37,10 +37,10 @@ $sIndexColumn = "TxnID";
 $sTable = "invoice";
 
 /* Database connection information */
-$gaSql['user']       = "srijrcscarrillo";
-$gaSql['password']   = "F9234568!s";
-$gaSql['db']         = "srijrcscarrillo";
-$gaSql['server']     = "srijrcscarrillo.db.10949679.hostedresource.com";
+$gaSql['user']       = "salgraf";
+$gaSql['password']   = "salgraf";
+$gaSql['db']         = "salgraf";
+$gaSql['server']     = "Juanito";
 	
 /* 
  * Local functions

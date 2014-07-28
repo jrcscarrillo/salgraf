@@ -7,7 +7,6 @@
  */
 session_start();
 include 'conectaBaseDatos.php';
-var_dump($_SESSION);
 /*
  *      1. Revisar que la sesion tenga seleccionado al contribuyente
  *      2. Revisar que se hayan seleccionados las fechas para procesar
@@ -21,37 +20,12 @@ if (!isset($_SESSION['establecimiento']) or !isset($_SESSION['puntoemision'])) {
         "</script>";
         exit();
 }
-if (isset($_POST['start'])) {
-    var_dump($_POST);
-    $fechaFin = $_POST['finish'];
-    $fechaInicio = $_POST['start'];
+if (isset($_POST['archivo'])) {
     $archivo = $_POST['archivo'];
-    $inicioDB = strtotime($fechaInicio);
-    $finDB = strtotime($fechaFin);
-//    echo "Fecha con strtotime : " . $inicioDB;
-    $fechaInicio = date('Y-m-d H:i:s', $inicioDB);
-    $fechaFin = date('Y-m-d H:i:s', $finDB);
-//    echo "Fecha con date : " . $inicio;
-   
-    firmaFactura($fechaInicio, $fechaFin, $archivo);
-    require 'paraContinuar.html';
-    echo '<script type="text/javascript">'.
-        "$(document).ready(function(){".
-        "$('#mensaje').text('--- Facturas firnadas satisfactoriamente ---');".
-        "})".
-        "</script>";
-        exit();
-} else {
-    require 'paraMensajes.html';
-    echo '<script type="text/javascript">'.
-        "$(document).ready(function(){".
-        "$('#mensaje').text('*** ERROR No ha seleccionado fechas de proceso');".
-        "})".
-        "</script>";
-        exit();
+    $flag = firmaFactura($archivo);
 }
 
-function firmaFactura($fechaInicio, $fechaFin, $archivo) {
+function firmaFactura($archivo) {
 /*
  *      Consideraciones;
  *          La sesion debe tner cargaados todos los campo del emisor 
@@ -61,7 +35,6 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-    $stmt = "";
     $sql = "select TxnID, "; // Numero transaccion index y foreign key para invoice line
     $sql .= "TimeCreated, "; // fecha de creacion del documento
     $sql .= "TimeModified, ";// fecha de modificacion del documento
@@ -69,6 +42,7 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
     $sql .= "TxnNumber, "; // Numero del documento
     $sql .= "CustomerRef_ListID, ";
     $sql .= "CustomerRef_FullName, ";
+    $sql .= "TxnDate, "; // fecha de emision del documento
     $sql .= "RefNumber, ";
     $sql .= "BillAddress_Addr1, ";
     $sql .= "BillAddress_Addr2, "; // Aqui esta el numero del RUC
@@ -82,9 +56,9 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
     $selec = "SELECCIONADA";
     $stmt->bind_param("s", $selec);
-    $flag = FALSE;
-    $existe = $stmt->execute();
-    $stmt->bind_result($db_TxnID, $db_TimeCreated, $db_TimeModified, $db_EditSequence, $db_TxnNumber, $db_CustomerRef_ListID, $db_CustomerRef_FullName, $db_RefNumber, $db_BillAddress_Addr1, $db_BillAddress_Addr2, $db_BillAddress_Addr3, $db_BillAddress_City, $db_Subtotal, $db_SalesTaxPercentaje, $db_SalesTaxTotal, $db_AppliedAmount, $db_CustomField10);        /* fetch values */
+    $flag = "*** ERROR no existen Facturas Seleccionadas";
+    $stmt->execute();
+    $stmt->bind_result($db_TxnID, $db_TimeCreated, $db_TimeModified, $db_EditSequence, $db_TxnNumber, $db_CustomerRef_ListID, $db_CustomerRef_FullName, $db_TxnDate, $db_RefNumber, $db_BillAddress_Addr1, $db_BillAddress_Addr2, $db_BillAddress_Addr3, $db_BillAddress_City, $db_Subtotal, $db_SalesTaxPercentaje, $db_SalesTaxTotal, $db_AppliedAmount, $db_CustomField10);        /* fetch values */
 /*
  * DOMDocument es el nombre del objetgo para crear un archivo XML
  * Despues se utiliza la forma de PHP de generar tags en XML
@@ -94,10 +68,16 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
     $root = $doc->createElement('Facturas');
     $factura = $doc->createElement('factura');
 /*
+ *      Se procesan todas las facturas que tienen en el campo del usuario de la tabla de invoices del QB
+ *      el estado SELECCIONADA
+ */
+    while ($stmt->fetch()) {
+
+/*
  *      Informacion del Emisor
  */
-        $db_infoTributaria = "";
-        $infoTributaria = $doc->createElement('infoTributaria', $db_infoTributaria);
+        
+        $infoTributaria = $doc->createElement('infoTributaria');
         $db_ambiente = $_SESSION['Ambiente'];
         $ambiente = $doc->createElement('ambiente', $db_ambiente);
         $db_tipoEmision = $_SESSION['Tipo Emision'];
@@ -122,15 +102,6 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
         $dirMatriz = $doc->createElement('dirMatriz', $db_dirMatriz);
         $db_codigo = "";
         $codigo = $doc->createElement('codigo', $db_codigo);
-/*
- *      Se procesan todas las facturas que tienen en el campo del usuario de la tabla de invoices del QB
- *      el estado SELECCIONADA
- */
-    while ($stmt->fetch()) {
-       
-        $flag = TRUE;
-
-
         $infoTributaria->appendChild($ambiente);
         $infoTributaria->appendChild($codigo);
         $infoTributaria->appendChild($razonSocial);
@@ -150,31 +121,31 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
         $db_infoFactura = "";
         $infoFactura = $doc->createElement('infoFactura', $db_infoFactura);
 
-        $db_fechaEmision = "";
+        $db_fechaEmision = $db_TxnDate;
         $fechaEmision = $doc->createElement('fechaEmision', $db_fechaEmision);
-        $db_dirEstablecimiento = "";
+        $db_dirEstablecimiento = $db_BillAddress_Addr1;
         $dirEstablecimiento = $doc->createElement('dirEstablecimiento', $db_dirEstablecimiento);
         $db_contribuyenteEspecial = "";
         $contribuyenteEspecial = $doc->createElement('contribuyenteEspecial', $db_contribuyenteEspecial);
-        $db_obligadoContabilidad = "";
+        $db_obligadoContabilidad = "SI";
         $obligadoContabilidad = $doc->createElement('obligadoContabilidad', $db_obligadoContabilidad);
-        $db_tipoIdentificacionComprador = "";
+        $db_tipoIdentificacionComprador = "04"; // ruc 04 cedula 05 pasaporte 06 consumidor final 07
         $tipoIdentificacionComprador = $doc->createElement('tipoIdentificacionComprador', $db_tipoIdentificacionComprador);
-        $db_razonSocialComprador = "";
+        $db_razonSocialComprador = $db_CustomerRef_FullName;
         $razonSocialComprador = $doc->createElement('razonSocialComprador', $db_razonSocialComprador);
-        $db_identificacionComprador = "";
+        $db_identificacionComprador = $db_BillAddress_Addr3; // addr3 esta el RUC
         $identificacionComprador = $doc->createElement('identificacionComprador', $db_identificacionComprador);
-        $db_totalSinImpuestos = "";
+        $db_totalSinImpuestos = $db_AppliedAmount - $db_SalesTaxTotal;
         $totalSinImpuestos = $doc->createElement('totalSinImpuestos', $db_totalSinImpuestos);
-        $db_totalDescuento = "";
+        $db_totalDescuento = 0;
         $totalDescuento = $doc->createElement('totalDescuento', $db_totalDescuento);
-        $db_totalConImpuestos = "";
+        $db_totalConImpuestos = $db_AppliedAmount;
         $totalConImpuestos = $doc->createElement('totalConImpuestos', $db_totalConImpuestos);
 
         /*
           Una factura puede tener mas de un impuesto
          */
-        $db_totalImpuesto = "";
+        $db_totalImpuesto = $db_SalesTaxTotal;
         $totalImpuesto = $doc->createElement('totalImpuesto', $db_totalImpuesto);
 
         $codigo = $doc->createElement('codigo', $db_codigo);
@@ -197,9 +168,9 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
 
         $db_propina = "";
         $propina = $doc->createElement('propina', $db_propina);
-        $db_importeTotal = "";
+        $db_importeTotal = $db_AppliedAmount;
         $importeTotal = $doc->createElement('importeTotal', $db_importeTotal);
-        $db_moneda = "";
+        $db_moneda = "DOLAR";
         $moneda = $doc->createElement('moneda', $db_moneda);
 
         $infoFactura->appendChild($fechaEmision);
@@ -222,6 +193,13 @@ function firmaFactura($fechaInicio, $fechaFin, $archivo) {
         /*
           Esto es por cada producto
          */
+    $sql1 .= "SELECT FROM invoiceline where IDKEY=?";
+    $stmt1 = $db->prepare($sql) or die(mysqli_error($db));
+    $selec = $db_TxnID;
+    $stmt1->bind_param("s", $selec);
+    $flag = "*** ERROR no existe relacion de los productos con las facturas Seleccionadas";
+    $stmt1->execute();
+    $stmt1->bind_result();        /* fetch values */
 
         $db_detalle = "";
         $detalle = $doc->createElement('detalle', $db_detalle);

@@ -86,19 +86,13 @@
                     },
                     "success": function( datos ) {
 //                        alert( datos );
-                if(datos ==  "Contribuyente Seleccionado en Seleccion Factura") {
-                document.cookie='Continuar="--- Contribuyente Seleccionado en Seleccion Factura ---"';
-                 window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraContinuar.php';
-             } else if( datos == "Contribuyente NO Seleccionado en Seleccion Factura") {
-                 document.cookie='Continuar="--- ERROR Contribuyente NO Seleccionado en Seleccion Factura ---"';
-                 window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraContinuar.php';
-             } else if( datos == "Contribuyente NO Seleccionado en Firma Factura") {
-                 document.cookie='Continuar="--- ERROR Contribuyente NO Seleccionado en Firma Factura ---"';
-                 window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraContinuar.php';
-             } else if( datos == "Contribuyente Seleccionado en Firma Factura") {
-                 document.cookie='Continuar="--- Contribuyente Seleccionado en Firma Factura ---"';
-                 window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraContinuar.php';
-             }
+                    if(datos ==  "Se acceso al registro del Contribuyente") {
+                        document.cookie='Continuar="--- Contribuyente Seleccionado puede continuar ---"';
+                        window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraContinuar.php';
+                    } else if( datos == "No se acceso al registro del Contribuyente") {
+                        document.cookie='Continuar="--- ERROR No se acceso al registro del Contribuyente ---"';
+                        window.location.href = window.location.pathname.substring( 0, window.location.pathname.lastIndexOf( '/' ) + 1 ) + '../Salgraf/paraContinuar.php';
+                    }
                     },
 
                     "complete": function( xhr, status ) {
