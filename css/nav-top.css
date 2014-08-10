@@ -1,0 +1,456 @@
+
+/* ----------------------------------------------------------------------------------------------------
+
+CSSGrid is a Responsive CSS Grid designed to work on web and mobile devices. (www.cssgrid.co)
+Please don't steal. Support this grid and buy a license from: http://codecanyon.net/item/responsive-html5-css-grid/4928861?ref=human1nt
+
+---------------------------------------------------------------------------------------------------- */
+
+/*
+	The following styles are used on the navigation only.
+	You do not need to use this CSS as part of the CSSGrid.
+*/
+
+.wrapper {
+}
+.wrapper-push {
+}
+.space-top {
+	width:100%;
+	height:61px;
+}
+
+.header {
+	background-color:#fff;
+	width:100%;
+	height:50px;
+	padding:0px;
+	margin:0px;
+	margin-bottom:10px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #e4e4e4;
+}
+.logo {
+	float:left;
+	position:absolute;
+	padding-top:1px;
+	padding-left:10px;
+	font-size:20px;
+	line-height:50px;
+}
+.logo strong {
+	color:#f1844d;
+	font-weight:normal;
+}
+.logo a {
+	color:#111;
+}
+
+.navigation {
+	height:50px;
+	right:0;
+	position:absolute;
+}
+.navigation.fixed {
+	position:fixed;
+	z-index:3;
+}
+.fixed {
+	position:fixed;
+	z-index:1;
+}
+.navclosed,
+.navclicked {
+	display:none;
+}
+ul.navig {
+	margin:0px;
+	padding:0px;
+	z-index:2;
+	list-style:none;
+	position:relative;
+	height:50px;
+}
+ul.navig li {
+	margin:0px;
+	padding:0px;
+	height:50px;
+	float:left;
+	position:relative;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #e4e4e4;
+	background-color:#555;
+}
+ul.navig li a {
+	font-family:'avenir_lt_45_bookregular', Arial, Helvetica, sans-serif;
+	font-size:15px;
+	background-color:#fff;
+	margin:0px;
+	padding-left:10px;
+	padding-right:10px;
+	line-height:50px;
+	display:block;
+	color:#252525;
+	text-decoration:none;
+}
+ul.navig li a.buy {
+	background-color:#f1844d;
+	color:#fff;
+}
+ul.navig li a:hover {
+	background-color:#666;
+	font-size:15px;
+	color:#fff;
+	text-decoration:none;
+	opacity: 1.0;
+}
+ul.navig li a.selected
+{
+	background-color:#444;
+	font-size:15px;
+	color:#fff;
+	text-decoration:none;
+	opacity: 1.0;
+}
+ul.navig li a.dropdown
+{
+	background-color:#fff;
+	font-size:15px;
+	color:#252525;
+	padding-left:34px;
+	text-decoration:none;
+	opacity: 1.0;
+	background-image: url(../images/navgrey.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+ul.navig li a.dropdown:hover,
+ul.navig li:hover a.dropdown
+{
+	background-color:#666;
+	font-size:15px;
+	color:#fff;
+	padding-left:34px;
+	text-decoration:none;
+	opacity: 1.0;
+	background-image: url(../images/navgrey.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+
+
+/*
+	Drop Down Menu
+*/
+ul.navig ul {
+	background-color:#666;
+	list-style:none;
+	position:absolute;
+	padding:0px;
+	width:auto;
+	height:auto;
+	left:-9999px; /* Hide off-screen when not needed (this is more accessible than display:none;) */
+}
+ul.navig ul li {
+	float:none;
+	height:50px;
+	border:0px;
+}
+ul.navig ul a {
+	width:190px;
+	display:block;
+	margin:0px;
+	padding-left:10px;
+	background-color:#666;
+	color:#fff;
+}
+ul.navig ul a:hover {
+	background-color:#555;
+	color:#fff;
+}
+ul.navig li:hover ul {
+	left:0; /* Display the dropdown on hover */
+}
+
+
+/* Browsers from 0 up to 767 iPhone Portrait + Landscape (iPad Portrait width is 768) */
+@media screen and (min-width: 0px) and (max-width: 767px) {
+
+.space-top {
+	width:100%;
+	height:50px;
+}
+.clear {
+	clear:both;
+	height:0px;
+}
+.wrapper {
+}
+.wrapper-push {
+/* Push left or right not required as this is top nav */
+}
+
+.header {
+	border-bottom-width: 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #f2f2f2;
+	background-color:#f1844d;
+	height:40px;
+}
+.logo {
+	font-size:16px;
+	padding-top:1px;
+	line-height:40px;
+	float:left;
+	position:absolute;
+}
+.logo strong {
+	color:#fff;
+	font-weight:normal;
+}
+
+.navigation {
+	display:none;
+	position:static;
+	z-index:2;
+	width:100%;
+	clear:both;
+	padding:0px;
+	margin:0px;
+	background-color:#333;
+}
+.navclosed.fixed {
+	position:fixed;
+	top:0;
+	z-index:3;
+}
+.navigation.fixed {
+	position:fixed;
+	z-index:2;
+}
+.navclosed {
+	z-index:4;
+	color:#fff;
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	background-color:transparent;
+	opacity:1;
+	margin-top:0px;
+	width:40px;
+	height:40px;
+	right:0;
+	display:block;
+	text-decoration:none;
+	background-image: url(../images/nav.png);
+	background-repeat: no-repeat;
+	background-position: left top;	
+	position:absolute;
+}
+.navclosed.slide + .navigation {	
+	display:block;
+	overflow: hidden;
+	padding-top:0px;
+	max-height:0;
+	padding-top:0;
+	padding-bottom:0;
+	margin-top:0;
+	margin-bottom:0;
+	height:50%;
+	-moz-transition-duration: 0.3s;  /* Timers for closing the navigation panel */
+	-webkit-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-moz-transition-timing-function: ease;
+	-webkit-transition-timing-function: ease;
+	-o-transition-timing-function: ease;
+	transition-timing-function: ease;
+}
+.navclicked {
+	color:#fff;
+	margin:0px;
+	padding:0px;
+	list-style:none;
+	background-color:#252525;
+	text-decoration:none;
+	background-image: url(../images/nav.png);
+	background-repeat: no-repeat;
+	background-position: right -40px;
+	z-index:4;
+	width:100%;
+	right:0;
+}
+
+.navclicked.slide + .navigation {
+	padding-top:40px;
+	height:auto;
+	position:relative;
+	-moz-transition-duration: 0.3s; /* Timers for sliding out the navigation panel */
+	-webkit-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-moz-transition-timing-function: ease;
+	-webkit-transition-timing-function: ease;
+	-o-transition-timing-function: ease;
+	transition-timing-function: ease;
+	max-height: 999px;
+	overflow: hidden;
+}
+.navclicked.fixed + .navigation {
+	padding-top:40px;
+	height:auto;
+	position:absolute;
+	-moz-transition-duration: 0.3s; /* Timers for sliding out the navigation panel */
+	-webkit-transition-duration: 0.3s;
+	-o-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+	-moz-transition-timing-function: ease;
+	-webkit-transition-timing-function: ease;
+	-o-transition-timing-function: ease;
+	transition-timing-function: ease;
+	max-height: 999px;
+	overflow: hidden;
+}
+.navclosed a,
+.navclicked a {
+	color:transparent;
+	margin:0px;
+	padding:0px;
+	width:55px;
+	height:40px;
+	display:block;
+}
+ul.navig {
+	float:none;
+	width:100%;
+	padding-left:0px;
+	padding-top:0px;
+	padding-bottom:0px;
+	clear:both;
+	position:static;
+}
+ul.navig li {
+	background-color:transparent;
+	color:#fff;
+	width:100%;
+	height:auto;
+	margin-right:0px;
+	float:left;
+	border:0px;
+}
+ul.navig li a {
+	font-family:'avenir_lt_45_bookregular', Arial, Helvetica, sans-serif;
+	color:#fff;
+	font-size:15px;
+	display:block;
+	padding-top:0px;
+	padding-left:10px;
+	padding-right:0px;
+	padding-bottom:0px;
+	line-height:40px;
+	background-image:none;
+	text-decoration:none;
+	-webkit-border-radius:0px;
+	-moz-border-radius:0px;
+	border-radius:0px;
+	background-color:#252525;
+}
+ul.navig li a:hover,
+ul.navig li a.selected
+{
+	background-color:#101010;
+	color:#fff;
+	padding-top:0px;
+	padding-left:10px;
+	padding-right:0px;
+	padding-bottom:0px;
+	line-height:40px;
+}
+
+/*
+	Drop Down Menu
+*/
+ul.navig li a.dropdown {
+	color:#ccc;
+	background-color:#444;
+	background-image:none !important;
+	padding-left:10px !important;
+}
+ul.navig ul {
+	background-color:#666;
+	list-style:none;
+	padding:0px;
+	width:100%;
+	float:none;
+	left:0px;
+	top:0px;
+	position:relative;
+}
+ul.navig ul li {
+	color:#fff;
+	float:none;
+	width:100%;
+	height:40px;
+	margin-right:0px;
+}
+ul.navig ul a {
+	font-family:'avenir_lt_45_bookregular', Arial, Helvetica, sans-serif;
+	color:#999;
+	font-size:15px;
+	display:block;
+	margin:0px;
+	padding-top:0px;
+	padding-left:10px;
+	padding-right:0px;
+	padding-bottom:0px;
+	line-height:40px;
+	background-image:none;
+	text-decoration:none;
+	-webkit-border-radius:0px;
+	-moz-border-radius:0px;
+	border-radius:0px;
+	background-color:#333;
+	width:auto;
+}
+ul.navig ul a:hover {
+	background-color:#1f1f1f;
+}
+
+}
+
+
+/* Change images to higher res versions, if screen resolution is high, such as Retina on Apple devices. */
+@media
+screen and (-webkit-min-device-pixel-ratio: 1.5),
+screen and (-moz-min-device-pixel-ratio: 1.5),
+screen and (min-device-pixel-ratio: 1.5) { 
+
+.navclosed {
+	background-image: url(../images/nav2x.png);
+	background-repeat: no-repeat;
+	background-position: left top;	
+	background-size:40px;
+	-moz-background-size:40px;
+}
+.navclicked {
+	background-image: url(../images/nav2x.png);
+	background-repeat: no-repeat;
+	background-position: left -40px;
+	background-size:40px;
+	-moz-background-size:40px;
+}
+ul.navig li a.dropdown,
+ul.navig li a.dropdown:hover,
+ul.navig li:hover a.dropdown
+{
+	background-image: url(../images/navgrey2x.png);
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size:40px;
+	-moz-background-size:40px;
+}
+
+}
+

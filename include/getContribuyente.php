@@ -35,7 +35,10 @@ $columns = array(
     array( 'db' => 'ContribuyentePunto', 'dt' => 4),
     array( 'db' => 'ContribuyenteDirMatriz', 'dt' => 5),
     array( 'db' => 'ContribuyenteDirEmisor', 'dt' => 6),
-    array( 'db' => 'ContribuyenteLlevaContabilidad', 'dt' => 7)    
+    array( 'db' => 'ContribuyenteLlevaContabilidad', 'dt' => 7),    
+    array( 'db' => 'ContribuyenteResolucion', 'dt' => 8),    
+    array( 'db' => 'ContribuyenteAmbiente', 'dt' => 9),    
+    array( 'db' => 'ContribuyenteEmision', 'dt' => 10)    
     );
  
 // SQL server connection information

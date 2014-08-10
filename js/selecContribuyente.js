@@ -15,11 +15,14 @@
               { "width": "10%"},
               { "width": "35%"},
               { "width": "25%"},
-              { "width": "5%"},
-              { "width": "5%"},
+              { "width": "3%"},
+              { "width": "3%"},
               { "width": "20%"},
               { "width": "20%"},
-              { "width": "5%"}
+              { "width": "3%"},
+              { "width": "3%"},
+              { "width": "3%"},
+              { "width": "3%"}
           ],
 /*
  *          El llamado del ajax es para listar todos los contribuyentes desde la base de datos
@@ -56,12 +59,18 @@
                var matriz = $fila.find(':nth-child(6)').text();
                var emisor = $fila.find(':nth-child(7)').text();
                var contab = $fila.find(':nth-child(8)').text();
+               var resol = $fila.find(':nth-child(9)').text();
+               var ambiente = $fila.find(':nth-child(10)').text();
+               var emision = $fila.find(':nth-child(11)').text();
                pasa += '"Comercial":"' + comercial + '",';
                pasa += '"Establecimiento":"' + estab + '",';
                pasa += '"Punto Emision":"' + punto + '",';
                pasa += '"Direccion matriz":"' + matriz + '",';
                pasa += '"Direccion Emisor":"' + emisor + '",';
-               pasa += '"Lleva Contabilidad":"' + contab + '"}';
+               pasa += '"Lleva Contabilidad":"' + contab + '",';
+               pasa += '"Especial":"' + resol + '",';
+               pasa += '"Ambiente":"' + ambiente + '",';
+               pasa += '"Emision":"' + emision + '"}';
                console.log( "Datos:" + pasa);
            }).get();
   

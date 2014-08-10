@@ -117,7 +117,7 @@ function firmaFactura($archivo) {
 /*
  *      Aqui esta el proceso de todas las facturas
  */
-
+$sql = "select i.TxnID, i.TxnDate, l.IDKEY, l.ItemRef_FullName from invoice i join invoicelinedetail l on i.TxnID = l.IDKEY where i.TxnDate = \'2014-07-01\'";
         $db_infoFactura = "";
         $infoFactura = $doc->createElement('infoFactura', $db_infoFactura);
 
@@ -201,6 +201,7 @@ function firmaFactura($archivo) {
     $stmt1->execute();
     $stmt1->bind_result();        /* fetch values */
 
+     while ($stmt1->fetch()) {
         $db_detalle = "";
         $detalle = $doc->createElement('detalle', $db_detalle);
 
@@ -249,7 +250,7 @@ function firmaFactura($archivo) {
         $detalle->appendChild($impuestos);
 
         $detalles->appendChild($detalle);
-
+     }
         $db_infoAdicional = "";
         $infoAdicional = $doc->createElement('infoAdicional', $db_infoAdicional);
 

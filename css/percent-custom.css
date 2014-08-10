@@ -1,0 +1,563 @@
+
+/* ----------------------------------------------------------------------------------------------------
+
+CSSGrid is a Responsive CSS Grid designed to work on web and mobile devices. (www.cssgrid.co)
+Please don't steal. Support this grid and buy a license from: http://codecanyon.net/item/responsive-html5-css-grid/4928861?ref=human1nt
+
+---------------------------------------------------------------------------------------------------- */
+
+h1 {
+	margin-left:10px;
+	margin-right:10px;
+}
+
+
+/*
+	Columns Percentage (p)
+*/
+
+.f1, /* set margins below all column wrappers, just for display purposes */
+.f2,
+.f3,
+.f4,
+.f5,
+.f6,
+.f7,
+.f8
+{
+	padding-bottom:1%;
+	padding-left:0px;
+	padding-right:0px;
+	margin:0px;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+
+.f1, /* outer div width */
+.f2,
+.f3,
+.f4,
+.f5,
+.f6,
+.f7,
+.f8 {
+	width:auto;
+}
+
+
+.f1 .one {
+	width:100%;
+}
+
+
+.f2 .one {
+	width:49.5%;
+	float:left;
+}
+.f2 .two {
+	width:49.5%;
+	/*
+	To set the correct position for the last column, add up all columns to the left and add on the padding.
+	In this case: 49.9 + 1 = 50.5
+	*/
+	margin-left:50.5%;
+}
+
+
+.f3 .one {
+	width:32.5%;
+	float:left;
+}
+.f3 .one-two {
+	width:66.25%;
+	margin-left:0px;
+	float:left;
+}
+.f3 .two {
+	width:32.5%;
+	margin-left:1.25%;
+	float:left;
+}
+.f3 .two-three {
+	width:66.25%;
+	margin-left:33.75%;
+}
+.f3 .three {
+	width:32.5%;
+	margin-left:67.5%;
+}
+
+
+.f4 .one {
+	width:24.25%;
+	float:left;
+}
+.f4 .one-two {
+	width:49.5%;
+	float:left;
+}
+.f4 .one-three {
+	width:74.75%;
+	float:left;
+}
+.f4 .two {
+	width:24.25%;
+	margin-left:1%;
+	float:left;
+}
+.f4 .two-three {
+	width:49.5%;
+	margin-left:1%;
+	float:left;
+}
+.f4 .two-four {
+	width:74.75%;
+	margin-left:25.25%;
+}
+.f4 .three {
+	width:24.25%;
+	margin-left:1%;
+	float:left;
+}
+.f4 .three-four {
+	width:49.5%;
+	margin-left:50.5%;
+}
+.f4 .four {
+	width:24.25%;
+	/*
+	To set the correct position for the last column, add up all columns to the left and add on the padding.
+	In this case: 24.25 x 3 + 3 = 75.75
+	*/
+	margin-left:75.75%;
+}
+
+
+.f5 .one {
+	width:19.2%;
+	float:left;
+}
+.f5 .one-two {
+	width:39.4%;
+	float:left;
+}
+.f5 .one-three {
+	width:59.6%;
+	float:left;
+}
+.f5 .one-four {
+	width:79.8%;
+	float:left;
+}
+.f5 .two {
+	width:19.2%;
+	float:left;
+	margin-left:1%;
+}
+.f5 .two-three {
+	width:39.4%;
+	float:left;
+	margin-left:1%;
+}
+.f5 .two-four {
+	width:59.6%;
+	margin-left:1%;
+	float:left;
+}
+.f5 .two-five {
+	width:79.8%;
+	margin-left:20.2%;
+}
+.f5 .three {
+	width:19.2%;
+	float:left;
+	margin-left:1%;
+}
+.f5 .three-five {
+	width:59.6%;
+	margin-left:40.4%;
+}
+.f5 .four {
+	width:19.2%;
+	float:left;
+	margin-left:1%;
+}
+.f5 .four-five {
+	width:39.4%;
+	margin-left:60.6%;
+}
+.f5 .five {
+	width:19.2%;
+	margin-left:80.8%;
+}
+
+
+.f6 .one {
+	width:15.83%;
+	float:left;
+}
+.f6 .one-two {
+	width:32.66%;
+	float:left;
+}
+.f6 .one-three {
+	width:49.49%;
+	float:left;
+}
+.f6 .one-four {
+	width:66.32%;
+	float:left;
+}
+.f6 .one-five {
+	width:83.15%;
+	float:left;
+}
+.f6 .two {
+	width:15.83%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .two-three {
+	width:32.66%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .two-four {
+	width:49.49%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .two-five {
+	width:66.32%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .two-six {
+	width:83.15%;
+	margin-left:16.83%;
+}
+.f6 .three {
+	width:15.83%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .three-four {
+	width:32.66%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .three-five {
+	width:49.49%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .three-six {
+	width:66.32%;
+	margin-left:33.66%;
+}
+.f6 .four {
+	width:15.83%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .four-five {
+	width:32.66%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .four-six {
+	width:49.49%;
+	margin-left:50.49%;
+}
+.f6 .five {
+	width:15.83%;
+	float:left;
+	margin-left:1%;
+}
+.f6 .five-six {
+	width:32.66%;
+	margin-left:67.32%;
+}
+.f6 .six {
+	width:15.83%;
+	margin-left:84.15%;
+}
+
+
+.f7 .one {
+	width:13.43%;
+	float:left;
+}
+.f7 .one-two {
+	width:27.86%;
+	float:left;
+}
+.f7 .one-three {
+	width:42.29%;
+	float:left;
+}
+.f7 .one-four {
+	width:56.72%;
+	float:left;
+}
+.f7 .one-five {
+	width:71.15%;
+	float:left;
+}
+.f7 .one-six {
+	width:85.58%;
+	float:left;
+}
+.f7 .two {
+	width:13.43%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .two-three {
+	width:27.86%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .two-four {
+	width:42.29%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .two-five {
+	width:56.72%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .two-six {
+	width:71.15%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .two-seven {
+	width:85.58%;
+	margin-left:14.43%;
+}
+.f7 .three {
+	width:13.43%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .three-four {
+	width:27.86%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .three-five {
+	width:42.29%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .three-six {
+	width:56.72%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .three-seven {
+	width:71.15%;
+	margin-left:28.86%;
+}
+.f7 .four {
+	width:13.43%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .four-five {
+	width:27.86%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .four-seven {
+	width:56.72%;
+	margin-left:43.29%;
+}
+.f7 .five {
+	width:13.43%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .five-seven {
+	width:42.29%;
+	margin-left:57.72%;
+}
+.f7 .six {
+	width:13.43%;
+	float:left;
+	margin-left:1%;
+}
+.f7 .six-seven {
+	width:27.86%;
+	margin-left:72.15%;
+}
+.f7 .seven {
+	width:13.43%;
+	margin-left:86.57%;
+}
+
+
+.f8 .one {
+	width:11.625%;
+	float:left;
+}
+.f8 .one-two {
+	width:24.25%;
+	float:left;
+}
+.f8 .one-three {
+	width:36.875%;
+	float:left;
+}
+.f8 .one-four {
+	width:49.5%;
+	float:left;
+}
+.f8 .one-five {
+	width:62.125%;
+	float:left;
+}
+.f8 .one-six {
+	width:74.75%;
+	float:left;
+}
+.f8 .one-seven {
+	width:87.375%;
+	float:left;
+}
+.f8 .two {
+	width:11.625%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .two-three {
+	width:24.25%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .two-four {
+	width:36.875%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .two-five {
+	width:49.5%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .two-six {
+	width:62.125%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .two-seven {
+	width:74.75%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .two-eight {
+	width:87.375%;
+	margin-left:12.625%;
+}
+.f8 .three {
+	width:11.625%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .three-four {
+	width:24.25%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .three-five {
+	width:36.875%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .three-six {
+	width:49.5%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .three-seven {
+	width:62.125%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .three-eight {
+	width:74.75%;
+	margin-left:25.25%;
+}
+.f8 .four {
+	width:11.625%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .four-five {
+	width:24.25%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .four-six {
+	width:36.875%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .four-seven {
+	width:49.5%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .four-eight {
+	width:62.125%;
+	margin-left:37.875%;
+}
+.f8 .five {
+	width:11.625%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .five-six {
+	width:24.25%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .five-seven {
+	width:36.875%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .five-eight {
+	width:49.5%;
+	margin-left:50.5%;
+}
+.f8 .six {
+	width:11.625%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .six-seven {
+	width:24.25%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .six-eight {
+	width:36.875%;
+	margin-left:63.125%;
+}
+.f8 .seven {
+	width:11.625%;
+	float:left;
+	margin-left:1%;
+}
+.f8 .seven-eight {
+	width:24.25%;
+	margin-left:75.75%;
+}
+.f8 .eight {
+	width:11.625%;
+	margin-left:88.375%;
+}

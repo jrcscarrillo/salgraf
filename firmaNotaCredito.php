@@ -16,5 +16,5 @@ echo '<script type="text/javascript">'.
         "</script>";
        exit();
 }
-    require ('firmaFactura.html');
+    require ('firmaNotaCredito.html');
     exit();

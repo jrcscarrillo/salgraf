@@ -1,0 +1,586 @@
+
+/* ----------------------------------------------------------------------------------------------------
+
+CSSGrid is a Responsive CSS Grid designed to work on web and mobile devices. (www.cssgrid.co)
+Please don't steal. Support this grid and buy a license from: http://codecanyon.net/item/responsive-css-grid/4928861
+
+---------------------------------------------------------------------------------------------------- */
+
+/*
+Web fonts generated from http://www.fontsquirrel.com/tools/webfont-generator 
+*/
+
+@font-face {
+    font-family: 'avenir_lt_45_bookregular';
+    src: url('../fonts/avenir_lt_45_book-webfont.eot');
+    src: url('../fonts/avenir_lt_45_book-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenir_lt_45_book-webfont.woff') format('woff'),
+         url('../fonts/avenir_lt_45_book-webfont.ttf') format('truetype'),
+         url('../fonts/avenir_lt_45_book-webfont.svg#avenir_lt_45_bookregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'avenir_lt_55_romanbold';
+    src: url('../fonts/avenir_lt_85_heavy-webfont.eot');
+    src: url('../fonts/avenir_lt_85_heavy-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenir_lt_85_heavy-webfont.woff') format('woff'),
+         url('../fonts/avenir_lt_85_heavy-webfont.ttf') format('truetype'),
+         url('../fonts/avenir_lt_85_heavy-webfont.svg#avenir_lt_55_romanbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+body {
+	width:100%;
+	margin:0 auto;
+	background-color:#fff;
+	font-family:'avenir_lt_45_bookregular', Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	-webkit-text-size-adjust: none;
+}
+html {
+	margin:0 auto;
+	overflow-x:hidden;
+}
+
+pre {
+	padding:0px;
+	margin:0 auto;
+	width:90%;
+	border:0px;
+	overflow:auto;
+	background-color: #f6f6f6;
+	padding-top:0px;
+	margin-bottom:20px;
+}
+code {
+	display: block;
+	font-family: Consolas, monospace, Monaco;
+	font-size:12px;
+	line-height:16px;
+	color: #333;
+	border-radius:0px;
+	border:0px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:25px;
+	padding-right:25px;
+	width:auto;
+	background-color:#f6f6f6;
+	margin:0 auto;
+}
+code strong {
+	font-family: Consolas, monospace, Monaco;
+	font-weight:bold;
+}
+
+
+a {
+	-o-transition:.3s;
+	-ms-transition:.3s;
+	-moz-transition:.3s;
+	-webkit-transition:.3s;
+	transition:.3s;
+	opacity: 1.0;
+	text-decoration:none;
+}
+a strong,
+strong {
+	font-family:'avenir_lt_55_romanbold', Arial, Helvetica, sans-serif;
+	font-weight:normal;
+}
+p {
+	font-family:'avenir_lt_45_bookregular', Arial, Helvetica, sans-serif;
+	font-weight:normal;
+}
+
+.animate { /* Makes columns animate when @media css changes */
+	-webkit-transition: width 0.2s ease, height 0.2s ease;
+	-moz-transition: width 0.2s ease, height 0.2s ease;
+	-o-transition: width 0.2s ease, height 0.2s ease;
+	-ms-transition: width 0.2s ease, height 0.2s ease;
+	transition: width 0.2s ease, height 0.2s ease;
+}
+
+img,
+img a {
+	border:0px;
+	margin:0px;
+	padding:0px;
+}
+/* If you would like your images to fit 100% width of a column, use this for the img:
+	width:100%;
+	height:auto;
+
+like this:
+
+img,
+img a {
+	width:100%;
+	height:auto;
+	border:0px;
+	margin:0px;
+	padding:0px;
+}
+*/
+
+h1 {
+	line-height:26px;
+	padding-top:20px;
+	padding-bottom:15px;
+	margin:0 auto;
+	font-family:'avenir_lt_55_romanbold', Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:20px;
+	text-align:center;
+}
+h2 {
+	line-height:22px;
+	padding-top:10px;
+	width:90%;
+	padding-bottom:15px;
+	margin:0 auto;
+	font-family:'avenir_lt_45_bookregular', Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	font-size:16px;
+	text-align:center;
+}
+
+/* This is used for the welcome text. It's not required for the CSS Grid */
+.welcome {
+	padding-top:0px;
+	text-align:left;
+	font-size:18px;
+	font-weight:normal;
+	line-height:24px;
+}
+.welcome strong {
+	font-weight:normal;
+}
+
+h2 a,
+.welcome a {
+	color:#000;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #999;
+}
+h2 a:hover,
+.welcome a:hover {
+	color:#111;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #111;
+}
+
+/*
+	Footer Styles
+*/
+.social {
+	padding-top:20px;
+	padding-bottom:20px;
+}
+.footer {
+	margin-top:30px;
+	margin-bottom:50px;
+	margin:0 auto;
+	z-index:1;
+	text-align:left;
+	padding-top:10px;
+	margin-bottom:30px;
+}
+.f1 .footer p,
+.p1 .footer p {
+	font-size:13px;
+	color:#888;
+	line-height:22px;
+	margin-bottom:10px;
+}
+.f1 .footer p a,
+.p1 .footer p a {
+	font-size:13px;
+	font-weight:normal;
+	color:#333;
+	padding-bottom:0px;
+	text-decoration:none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #999;
+}
+.f1 .footer p a:hover,
+.p1 .footer p a:hover {
+	color:#000;
+	text-decoration:none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #000;
+}
+
+
+/*
+	Warning Sign for Internet Explorer 7 users (This website does not support IE7)
+*/
+
+#warning {
+	background-color:#333;
+	padding:20px;
+	color:#999;
+	margin-bottom:10px;
+	line-height:21px;
+	font-size:16px;
+}
+#warning strong {
+	color:#fff;
+}
+#warning a {
+	color:#fff;
+	font-weight:normal;
+	padding-bottom:0px;
+	text-decoration:none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #666;
+}
+#warning a:hover {
+	color:#fff;
+	font-weight:normal;
+	padding-bottom:0px;
+	text-decoration:none;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #fff;
+}
+
+
+/*
+	Columns Fixed (f)
+*/
+
+.f1,
+.f2,
+.f3,
+.f4,
+.f5,
+.f6,
+.f7,
+.f8
+{
+	font-family:'avenir_lt_55_romanbold', Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	margin:0 auto;
+	clear:both;
+	/* This creates the height of the columns, and centres the text. */
+	text-align:center;
+	line-height:60px; 
+}
+
+
+/*
+	Make all divs have a grey background, so they are visible.
+*/
+
+.f1 .one {
+	background-color:#ccc;
+}
+
+.f2 .one,
+.f2 .two {
+	background-color:#ccc;
+}
+
+.f3 .one,
+.f3 .one-two,
+.f3 .two,
+.f3 .two-three,
+.f3 .three {
+	background-color:#ccc;
+}
+
+.f4 .one,
+.f4 .one-two,
+.f4 .one-three,
+.f4 .two,
+.f4 .two-three,
+.f4 .two-four,
+.f4 .three,
+.f4 .three-four,
+.f4 .four {
+	background-color:#ccc;
+}
+
+.f5 .one,
+.f5 .one-two,
+.f5 .one-three,
+.f5 .one-four,
+.f5 .two,
+.f5 .two-three,
+.f5 .two-four,
+.f5 .two-five,
+.f5 .three,
+.f5 .three-four,
+.f5 .three-five,
+.f5 .four,
+.f5 .four-five,
+.f5 .five {
+	background-color:#ccc;
+}
+
+.f6 .one,
+.f6 .one-two,
+.f6 .one-three,
+.f6 .one-four,
+.f6 .one-five,
+.f6 .two,
+.f6 .two-three,
+.f6 .two-four,
+.f6 .two-five,
+.f6 .two-six,
+.f6 .three,
+.f6 .three-four,
+.f6 .three-five,
+.f6 .three-six,
+.f6 .four,
+.f6 .four-five,
+.f6 .four-six,
+.f6 .five,
+.f6 .five-six,
+.f6 .six {
+	background-color:#ccc;
+}
+
+.f7 .one,
+.f7 .one-two,
+.f7 .one-three,
+.f7 .one-four,
+.f7 .one-five,
+.f7 .one-six,
+.f7 .two,
+.f7 .two-three,
+.f7 .two-four,
+.f7 .two-five,
+.f7 .two-six,
+.f7 .two-seven,
+.f7 .three,
+.f7 .three-four,
+.f7 .three-five,
+.f7 .three-six,
+.f7 .three-seven,
+.f7 .four,
+.f7 .four-five,
+.f7 .four-six,
+.f7 .four-seven,
+.f7 .five,
+.f7 .five-six,
+.f7 .five-seven,
+.f7 .six,
+.f7 .six-seven,
+.f7 .seven {
+	background-color:#ccc;
+}
+.f8 .one,
+.f8 .one-two,
+.f8 .one-three,
+.f8 .one-four,
+.f8 .one-five,
+.f8 .one-six,
+.f8 .one-seven,
+.f8 .two,
+.f8 .two-three,
+.f8 .two-four,
+.f8 .two-five,
+.f8 .two-six,
+.f8 .two-seven,
+.f8 .two-eight,
+.f8 .three,
+.f8 .three-four,
+.f8 .three-five,
+.f8 .three-six,
+.f8 .three-seven,
+.f8 .three-eight,
+.f8 .four,
+.f8 .four-five,
+.f8 .four-six,
+.f8 .four-seven,
+.f8 .four-eight,
+.f8 .five,
+.f8 .five-six,
+.f8 .five-seven,
+.f8 .five-eight,
+.f8 .six,
+.f8 .six-seven,
+.f8 .six-eight,
+.f8 .seven,
+.f8 .seven-eight,
+.f8 .eight {
+	background-color:#ccc;
+}
+
+
+/*
+	Columns Percentage (p)
+*/
+
+.p1,
+.p2,
+.p3,
+.p4,
+.p5,
+.p6,
+.p7,
+.p8
+{
+	font-family:'avenir_lt_55_romanbold', Arial, Helvetica, sans-serif;
+	font-weight:normal;
+	margin:0 auto;
+	background-color:#fff;
+	clear:both;
+	/* This creates the height of the columns, and centres the text. */
+	text-align:center;
+	line-height:60px;
+}
+
+
+/*
+	Make all divs have a grey background, so they are visible.
+*/
+
+.p1 .one {
+	background-color:#ccc;
+	margin:0 auto;
+}
+
+.p2 .one,
+.p2 .two {
+	background-color:#ccc;
+}
+
+.p3 .one,
+.p3 .one-two,
+.p3 .two,
+.p3 .two-three,
+.p3 .three {
+	background-color:#ccc;
+}
+
+.p4 .one,
+.p4 .one-two,
+.p4 .one-three,
+.p4 .two,
+.p4 .two-three,
+.p4 .two-four,
+.p4 .three,
+.p4 .three-four,
+.p4 .four {
+	background-color:#ccc;
+}
+
+.p5 .one,
+.p5 .one-two,
+.p5 .one-three,
+.p5 .one-four,
+.p5 .two,
+.p5 .two-three,
+.p5 .two-four,
+.p5 .two-five,
+.p5 .three,
+.p5 .three-four,
+.p5 .three-five,
+.p5 .four,
+.p5 .four-five,
+.p5 .five {
+	background-color:#ccc;
+}
+
+.p6 .one,
+.p6 .one-two,
+.p6 .one-three,
+.p6 .one-four,
+.p6 .one-five,
+.p6 .two,
+.p6 .two-three,
+.p6 .two-four,
+.p6 .two-five,
+.p6 .two-six,
+.p6 .three,
+.p6 .three-four,
+.p6 .three-five,
+.p6 .three-six,
+.p6 .four,
+.p6 .four-five,
+.p6 .four-six,
+.p6 .five,
+.p6 .five-six,
+.p6 .six {
+	background-color:#ccc;
+}
+
+.p7 .one,
+.p7 .one-two,
+.p7 .one-three,
+.p7 .one-four,
+.p7 .one-five,
+.p7 .one-six,
+.p7 .two,
+.p7 .two-three,
+.p7 .two-four,
+.p7 .two-five,
+.p7 .two-six,
+.p7 .two-seven,
+.p7 .three,
+.p7 .three-four,
+.p7 .three-five,
+.p7 .three-six,
+.p7 .three-seven,
+.p7 .four,
+.p7 .four-five,
+.p7 .four-six,
+.p7 .four-seven,
+.p7 .five,
+.p7 .five-six,
+.p7 .five-seven,
+.p7 .six,
+.p7 .six-seven,
+.p7 .seven {
+	background-color:#ccc;
+}
+.p8 .one,
+.p8 .one-two,
+.p8 .one-three,
+.p8 .one-four,
+.p8 .one-five,
+.p8 .one-six,
+.p8 .one-seven,
+.p8 .two,
+.p8 .two-three,
+.p8 .two-four,
+.p8 .two-five,
+.p8 .two-six,
+.p8 .two-seven,
+.p8 .two-eight,
+.p8 .three,
+.p8 .three-four,
+.p8 .three-five,
+.p8 .three-six,
+.p8 .three-seven,
+.p8 .three-eight,
+.p8 .four,
+.p8 .four-five,
+.p8 .four-six,
+.p8 .four-seven,
+.p8 .four-eight,
+.p8 .five,
+.p8 .five-six,
+.p8 .five-seven,
+.p8 .five-eight,
+.p8 .six,
+.p8 .six-seven,
+.p8 .six-eight,
+.p8 .seven,
+.p8 .seven-eight,
+.p8 .eight {
+	background-color:#ccc;
+}
+
+

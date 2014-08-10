@@ -1,0 +1,557 @@
+
+/* ----------------------------------------------------------------------------------------------------
+
+CSSGrid is a Responsive CSS Grid designed to work on web and mobile devices. (www.cssgrid.co)
+Please don't steal. Support this grid and buy a license from: http://codecanyon.net/item/responsive-html5-css-grid/4928861?ref=human1nt
+
+---------------------------------------------------------------------------------------------------- */
+
+/*
+	Columns Fixed (f)
+*/
+
+.f1, /* set margins below all boxes, just for display purposes */
+.f2,
+.f3,
+.f4,
+.f5 {
+	padding-bottom:14px;
+}
+.f6 {
+	padding-bottom:10px;
+}
+.f7 {
+	padding-bottom:8px;
+}
+.f8 {
+	padding-bottom:6px;
+}
+
+
+.f1, /* outer div width */
+.f2,
+.f3,
+.f4,
+.f5,
+.f6,
+.f7,
+.f8 {
+	width:986px;
+}
+
+
+.f1 .one {
+	width:100%;
+}
+
+
+.f2 .one {
+	width:486px;
+	float:left;
+}
+.f2 .two {
+	width:486px;
+	/*
+	To set the correct position for the last column, add up all columns to the left and add on the padding.
+	In this case: 486 + 14 = 500
+	*/
+	margin-left:500px;
+}
+
+
+.f3 .one {
+	width:318px;
+	float:left;
+}
+.f3 .one-two {
+	width:652px;
+	margin-left:0px;
+	float:left;
+}
+.f3 .two {
+	width:318px;
+	margin-left:16px;
+	float:left;
+}
+.f3 .two-three {
+	width:652px;
+	margin-left:334px;
+}
+.f3 .three {
+	width:318px;
+	/*
+	To set the correct position for the last column, add up all columns to the left and add on the padding.
+	In this case: 318 x 2 + 16 + 16 = 668
+	*/
+	margin-left:668px;
+}
+
+
+.f4 .one {
+	width:236px;
+	float:left;
+}
+.f4 .one-two {
+	width:486px;
+	float:left;
+}
+.f4 .one-three {
+	width:736px;
+	float:left;
+}
+.f4 .two {
+	width:236px;
+	margin-left:14px;
+	float:left;
+}
+.f4 .two-three {
+	width:486px;
+	margin-left:14px;
+	float:left;
+}
+.f4 .two-four {
+	width:736px;
+	margin-left:250px;
+}
+.f4 .three {
+	width:236px;
+	margin-left:14px;
+	float:left;
+}
+.f4 .three-four {
+	width:486px;
+	margin-left:500px;
+}
+.f4 .four {
+	width:236px;
+	margin-left:750px;
+}
+
+
+.f5 .one {
+	width:186px;
+	float:left;
+}
+.f5 .one-two {
+	width:386px;
+	float:left;
+}
+.f5 .one-three {
+	width:586px;
+	float:left;
+}
+.f5 .one-four {
+	width:786px;
+	float:left;
+}
+.f5 .two {
+	width:186px;
+	float:left;
+	margin-left:14px;
+}
+.f5 .two-three {
+	width:386px;
+	float:left;
+	margin-left:14px;
+}
+.f5 .two-four {
+	width:586px;
+	margin-left:14px;
+	float:left;
+}
+.f5 .two-five {
+	width:786px;
+	margin-left:200px;
+}
+.f5 .three {
+	width:186px;
+	float:left;
+	margin-left:14px;
+}
+.f5 .three-five {
+	width:586px;
+	margin-left:400px;
+}
+.f5 .four {
+	width:186px;
+	float:left;
+	margin-left:14px;
+}
+.f5 .four-five {
+	width:386px;
+	margin-left:600px;
+}
+.f5 .five {
+	width:186px;
+	margin-left:800px;
+}
+
+
+.f6 .one {
+	width:156px;
+	float:left;
+}
+.f6 .one-two {
+	width:322px;
+	float:left;
+}
+.f6 .one-three {
+	width:488px;
+	float:left;
+}
+.f6 .one-four {
+	width:654px;
+	float:left;
+}
+.f6 .one-five {
+	width:820px;
+	float:left;
+}
+.f6 .two {
+	width:156px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .two-three {
+	width:322px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .two-four {
+	width:488px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .two-five {
+	width:654px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .two-six {
+	width:820px;
+	margin-left:166px;
+}
+.f6 .three {
+	width:156px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .three-four {
+	width:322px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .three-five {
+	width:488px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .three-six {
+	width:654px;
+	margin-left:332px;
+}
+.f6 .four {
+	width:156px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .four-five {
+	width:322px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .four-six {
+	width:488px;
+	margin-left:498px;
+}
+.f6 .five {
+	width:156px;
+	float:left;
+	margin-left:10px;
+}
+.f6 .five-six {
+	width:322px;
+	margin-left:664px;
+}
+.f6 .six {
+	width:156px;
+	margin-left:830px;
+}
+
+
+.f7 .one {
+	width:134px;
+	float:left;
+}
+.f7 .one-two {
+	width:276px;
+	float:left;
+}
+.f7 .one-three {
+	width:418px;
+	float:left;
+}
+.f7 .one-four {
+	width:560px;
+	float:left;
+}
+.f7 .one-five {
+	width:702px;
+	float:left;
+}
+.f7 .one-six {
+	width:844px;
+	float:left;
+}
+.f7 .two {
+	width:134px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .two-three {
+	width:276px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .two-four {
+	width:418px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .two-five {
+	width:560px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .two-six {
+	width:702px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .two-seven {
+	width:844px;
+	margin-left:142px;
+}
+.f7 .three {
+	width:134px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .three-four {
+	width:276px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .three-five {
+	width:418px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .three-six {
+	width:560px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .three-seven {
+	width:702px;
+	margin-left:284px;
+}
+.f7 .four {
+	width:134px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .four-five {
+	width:276px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .four-seven {
+	width:560px;
+	margin-left:426px;
+}
+.f7 .five {
+	width:134px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .five-seven {
+	width:418px;
+	margin-left:568px;
+}
+.f7 .six {
+	width:134px;
+	float:left;
+	margin-left:8px;
+}
+.f7 .six-seven {
+	width:276px;
+	margin-left:710px;
+}
+.f7 .seven {
+	width:134px;
+	margin-left:852px;
+}
+
+
+.f8 .one {
+	width:118px;
+	float:left;
+}
+.f8 .one-two {
+	width:242px;
+	float:left;
+}
+.f8 .one-three {
+	width:366px;
+	float:left;
+}
+.f8 .one-four {
+	width:490px;
+	float:left;
+}
+.f8 .one-five {
+	width:614px;
+	float:left;
+}
+.f8 .one-six {
+	width:738px;
+	float:left;
+}
+.f8 .one-seven {
+	width:862px;
+	float:left;
+}
+.f8 .two {
+	width:118px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .two-three {
+	width:242px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .two-four {
+	width:366px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .two-five {
+	width:490px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .two-six {
+	width:614px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .two-seven {
+	width:738px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .two-eight {
+	width:862px;
+	margin-left:124px;
+}
+.f8 .three {
+	width:118px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .three-four {
+	width:242px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .three-five {
+	width:366px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .three-six {
+	width:490px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .three-seven {
+	width:614px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .three-eight {
+	width:738px;
+	margin-left:248px;
+}
+.f8 .four {
+	width:118px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .four-five {
+	width:242px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .four-six {
+	width:366px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .four-seven {
+	width:490px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .four-eight {
+	width:614px;
+	margin-left:372px;
+}
+.f8 .five {
+	width:118px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .five-six {
+	width:242px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .five-seven {
+	width:366px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .five-eight {
+	width:490px;
+	margin-left:496px;
+}
+.f8 .six {
+	width:118px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .six-seven {
+	width:242px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .six-eight {
+	width:366px;
+	margin-left:620px;
+}
+.f8 .seven {
+	width:118px;
+	float:left;
+	margin-left:6px;
+}
+.f8 .seven-eight {
+	width:242px;
+	margin-left:744px;
+}
+.f8 .eight {
+	width:118px;
+	margin-left:868px;
+}

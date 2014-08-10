@@ -26,13 +26,8 @@ if (isset($_POST['rucForm'])) {
     $ambiente = $_POST['ambienteForm'];
     $emision = $_POST['emisionForm'];
     $token = $_POST['tokenForm'];
-    $nota = $_POST['notaForm'] . "\n";
-    $archivo = " ";
-    if(isset($_FILES['file']['name'])){
-    $archivo = $_FILES['file']['name'];
-    }
+
     $id = 0;
-    $logo = " ";
     $wk_ruc = 0;
     $wk_razon = "";
     $wk_comercial = "";
@@ -49,7 +44,6 @@ if (isset($_POST['rucForm'])) {
     $wk_token = 0;
     $wk_nota = "";
     $wk_id = 0;
-    $wk_logo = " ";
     $flagDB = chkContribuyente();
 //    var_dump($flagDB);
     if($flagDB == "Contribuyente adicionado") {
@@ -65,8 +59,8 @@ if (isset($_POST['rucForm'])) {
 
 function chkContribuyente() {
     global $id, $wk_id, $ruc, $wk_ruc, $razon, $wk_razon, $email, $nota, $telefono, $token;
-    global $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $logo, $ambiente, $emision;
-    global $wk_comercial, $wk_matriz, $wk_emisor, $wk_estab, $wk_punto, $wk_resol, $wk_lleva, $wk_logo, $wk_ambiente, $wk_emision;
+    global $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $ambiente, $emision;
+    global $wk_comercial, $wk_matriz, $wk_emisor, $wk_estab, $wk_punto, $wk_resol, $wk_lleva, $wk_ambiente, $wk_emision;
 
     $db = db_connect();
     if ($db->connect_errno) {
@@ -94,24 +88,15 @@ function chkContribuyente() {
 
 function nuevoContribuyente($db) {
     global $id, $wk_id, $ruc, $wk_ruc, $razon, $wk_razon, $email, $nota, $telefono, $token;
-    global $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $logo, $ambiente, $emision;
-    global $wk_comercial, $wk_matriz, $wk_emisor, $wk_estab, $wk_punto, $wk_resol, $wk_lleva, $wk_logo, $wk_ambiente, $wk_emision;
+    global $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $ambiente, $emision;
+    global $wk_comercial, $wk_matriz, $wk_emisor, $wk_estab, $wk_punto, $wk_resol, $wk_lleva, $wk_ambiente, $wk_emision;
     $sql = "insert into Contribuyente(ContribuyenteRuc, ContribuyenteRazon, ContribuyenteNombreComercial, ContribuyenteDirMatriz, ";
     $sql .= "ContribuyenteDirEmisor, ContribuyenteCodEmisor, ContribuyentePunto, ContribuyenteResolucion, ";
-    $sql .= "ContribuyenteLlevaContabilidad, ContribuyenteLogo, ContribuyenteAmbiente, ContribuyenteEmision";
-    $sql .= ") values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql .= "ContribuyenteLlevaContabilidad, ContribuyenteAmbiente, ContribuyenteEmision";
+    $sql .= ") values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
-/*
- * Estamos utilizando este ejemplo desde w3schools.com
- */    
-    if(isset($_FILES['file']['name'])) {
-        echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-        echo "Type: " . $_FILES["file"]["type"] . "<br>";
-        echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-        echo "Stored in: " . $_FILES["file"]["name"];
-    }
 
-    $stmt->bind_param("issssiisssii", $ruc, $razon, $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $logo, $ambiente, $emision);
+    $stmt->bind_param("issssiissii", $ruc, $razon, $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $ambiente, $emision);
     $stmt->execute();
     // Get the ID generated from the previous INSERT operation
     $newId = $db->insert_id;
@@ -132,8 +117,8 @@ function nuevoContribuyente($db) {
 function chkMail() {
    
     global $id, $wk_id, $ruc, $wk_ruc, $razon, $wk_razon, $email, $nota, $telefono, $token;
-    global $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $logo, $ambiente, $emision;
-    global $wk_comercial, $wk_matriz, $wk_emisor, $wk_estab, $wk_punto, $wk_resol, $wk_lleva, $wk_logo, $wk_ambiente, $wk_emision;
+    global $comercial, $matriz, $emisor, $estab, $punto, $resol, $lleva, $ambiente, $emision;
+    global $wk_comercial, $wk_matriz, $wk_emisor, $wk_estab, $wk_punto, $wk_resol, $wk_lleva, $wk_ambiente, $wk_emision;
     	
     require $_SERVER['DOCUMENT_ROOT'] . '/salgraf/include/enviamail.php';
     
@@ -156,12 +141,6 @@ function chkMail() {
     $body .= 'Ambiente de Proceso: ' . $ambiente . "    ";
     $body .= 'Forma de Emisiom: ' . $emision . "    ";
     $body .= 'Este contribuyente se ha adicionado correctamente';  
-//    
-//    if(isset($_FILES['file']['name'])) {
-//        $paraemail['attach'] = $_SERVER['DOCUMENT_ROOT'] . 'tmp/' . $_FILES["file"]["name"];
-//    } else {
-//        $paraemail['attach'] = $_SERVER['DOCUMENT_ROOT'] . 'Salgraf/nologo.jpg';
-//    }
     $paraemail['part'] = $part;
     $paraemail['body'] = $body;
     $paraemail['subject'] = 'Comprobantes Electronicos Nuevo Contribuyente';

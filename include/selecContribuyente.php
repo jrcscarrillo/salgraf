@@ -3,6 +3,7 @@
  * Autor:   Juan Carrillo
  * Fecha:   Julio 3, 2014
  * Modificado: Julio 24, 2014 (Modifica js)
+ * Modificado: Agosto 6, 2014 ($_SESSION)
  * Proyecto: Comprobantes Electronicos
  */
 session_start();
@@ -34,16 +35,23 @@ if (isset($_POST['Contribuyente'])) {
             } elseif ($key === "Direccion Emisor") {
                 $wk_emisor = $value;
             } elseif ($key === "Lleva Contabilidad") {
-                $wk_contab = $value;                
-                $flagDB = chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab);
-            } 
+                $wk_contab = $value;
+            } elseif ($key === "Especial") {
+                $wk_resol = $value;
+            } elseif ($key === "Ambiente") {
+                $wk_ambiente = $value;
+            } elseif ($key === "Emision") {
+                $wk_emision = $value;
+                $flagDB = chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab, $wk_resol, $wk_ambiente, $wk_emision);
+            }
         }
     }}
     echo $flagDB;    
     exit();
 } 
-
-function chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab) {
+                
+                
+function chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab, $wk_resol, $wk_ambiente, $wk_emision) {
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
@@ -53,17 +61,19 @@ function chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punt
     $sql = "select ";
     $sql .= "ContribuyenteRuc, ContribuyenteRazon, ContribuyenteNombreComercial, ";
     $sql .= "ContribuyenteCodEmisor, ContribuyentePunto, ContribuyenteDirMatriz, ";
-    $sql .= "ContribuyenteDirEmisor, ContribuyenteLlevaContabilidad ";
+    $sql .= "ContribuyenteDirEmisor, ContribuyenteLlevaContabilidad, ";
+    $sql .= "ContribuyenteResolucion, ContribuyenteAmbiente, ";
+    $sql .= "ContribuyenteEmision ";
     $sql .= "from Contribuyente where ContribuyenteCodEmisor=? and ContribuyentePunto=?";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
    
     $stmt->bind_param("ss", $wk_estab, $wk_punto);
     $flagDB = "";
     $existe = $stmt->execute();
-    $stmt->bind_result($db_ruc, $db_razon, $db_comercial, $db_estab, $db_punto, $db_matriz, $db_emisor, $db_contab);        /* fetch values */
+    $stmt->bind_result($db_ruc, $db_razon, $db_comercial, $db_estab, $db_punto, $db_matriz, $db_emisor, $db_contab, $db_resol, $db_ambiente, $db_emision);        /* fetch values */
     while ($stmt->fetch()) {
         $flagDB = "Se acceso al registro del Contribuyente";
-        updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab);
+        updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab, $wk_resol, $wk_ambiente, $wk_emision);
         }
     /* close statement */
     $stmt->close();
@@ -74,7 +84,7 @@ function chkContribuyente($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punt
         return $flagDB;
     }
     
-function updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab) {
+function updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, $wk_matriz, $wk_emisor, $wk_contab, $wk_resol, $wk_ambiente, $wk_emision) {
 
     $_SESSION['Ruc'] = $wk_ruc;
     $_SESSION['Razon'] = $wk_razon;
@@ -84,5 +94,8 @@ function updateSession($wk_ruc, $wk_razon, $wk_comercial, $wk_estab, $wk_punto, 
     $_SESSION['matriz'] = $wk_matriz;
     $_SESSION['emisor'] = $wk_emisor;
     $_SESSION['contabilidad'] = $wk_contab;
+    $_SESSION['resolucion'] = $wk_resol;
+    $_SESSION['ambiente'] = $wk_ambiente;
+    $_SESSION['emision'] = $wk_emision;
 }
 ?>

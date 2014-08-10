@@ -9,7 +9,7 @@
 function db_connect() {
     $userName = "salgraf";
     $password = "salgraf";
-    $dbName = "salgraf";
+    $dbName = "quickbooks";
     $server = "Juanito";
     $db = new mysqli($server, $userName, $password, $dbName);
     if ($db->connect_errno) {
