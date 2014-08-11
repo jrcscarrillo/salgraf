@@ -110,12 +110,13 @@ function chkFactura($wk_start, $wk_finish) {
 //    $sql = "select CustomerRefFullName, TxnDate, RefNumber,SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField11 from invoice where TxnDate >= ? and TxnDate <= ?";
     $sql = "select TxnID, CustomerRef_FullName, TxnDate, RefNumber, ";
     $sql .= "SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField11";
-    $sql .= " from invoice where CustomField11 =?";
+    $sql .= " from invoice where CustomField11 =? and TxnDate >=? and TxnDate <=?";
     
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
     
     $wk_seleccionada = "SELECCIONADA";
-    $stmt->bind_param("s", $wk_seleccionada);
+        
+    $stmt->bind_param("sss", $wk_seleccionada, $wk_start, $wk_finish);
     $stmt->execute();
     $stmt->bind_result($wk_TxnID, $wk_CustomerRefFullName, $wk_TxnDate, $wk_RefNumber, $wk_SalesTaxPercentage, $wk_SalesTaxTotal, $wk_AppliedAmount, $wk_BalanceRemaining, $wk_CustomField11 );        /* fetch values */
     $wk_NumeroFacturas = 0;

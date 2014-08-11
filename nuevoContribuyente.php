@@ -13,7 +13,17 @@ echo '<script type="text/javascript">'.
         "$('#mensaje').html('Usuario no ha ingresado al sistema');".
         "})".
         "</script>";
-} else {
+exit();
+}
+if ($_SESSION['email'] != 'contador@calcograf.com') {
+    require 'paraMensajes.html';
+    echo '<script type="text/javascript">'.
+        "$(document).ready(function(){".
+        "$('#mensaje').text('*** ERROR No tiene acceso a esta opcion');".
+        "})".
+        "</script>";
+        exit();
+}
     require ('addContribuyente.html');
     exit();
-}
+

@@ -13,7 +13,7 @@ if ((!isset($_SESSION['carrillosteam'])) or (!isset($_SESSION['email']))){
         "})".
         "</script>";
 } else {
-    if (($_SESSION['carrillosteam'] == 'carrillosteam') and ($_SESSION['email'] == 'jrcscarrillo@gmail.com')) {
+    if (($_SESSION['carrillosteam'] == 'carrillosteam') and ($_SESSION['email'] == 'contador@calcograf.com')) {
         require ('habilita.html');
         exit();
         } else {
