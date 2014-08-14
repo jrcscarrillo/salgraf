@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!-- INICIO DE LA FIRMA DIGITAL --> 
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature620397"> 
+    <ds:SignedInfo Id="Signature-SignedInfo814463"> 
+        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod> 
+        <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod> 
+        <ds:Reference Id="SignedPropertiesID157683" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature620397-SignedProperties24123"> 
+            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod> 
+            <ds:DigestValue><!-- HASH O DIGEST DEL ELEMENTO <etsi:SignedProperties> --></ds:DigestValue> 
+        </ds:Reference>  
+        <ds:Reference URI="#Certificate1562780"> 
+            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod> 
+            <ds:DigestValue><!-- HASH O DIGEST DEL CERTIFICADO X509 --></ds:DigestValue> 
+        </ds:Reference>   
+        <ds:Reference Id="Reference-ID-363558" URI="#comprobante"> 
+            <ds:Transforms> 
+                <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform> 
+            </ds:Transforms> 
+            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod> 
+            <ds:DigestValue><!-- HASH O DIGEST DE TODO EL ARCHIVO XML IDENTIFICADO POR EL id="comprobante"--></ds:DigestValue> 
+        </ds:Reference> 
+    </ds:SignedInfo> 
+    <ds:SignatureValue Id="SignatureValue398963">  <!-- VALOR DE LA FIRMA (ENCRIPTADO CON LA LLAVE PRIVADA DEL CERTIFICADO DIGITAL) --> </ds:SignatureValue> 
+    <ds:KeyInfo Id="Certificate1562780"> 
+        51   
+        FICHA TÉCNICA: Manual y especificaciones técnicas sobre el proceso de Emisión de Documentos Electrónicos   
+        Febrero, 2014   
+        <ds:X509Data> 
+            <ds:X509Certificate>  <!-- CERTIFICADO X509 CODIFICADO EN Base64 --> </ds:X509Certificate> 
+        </ds:X509Data> 
+        <ds:KeyValue> 
+            <ds:RSAKeyValue> 
+            <ds:Modulus>  <!-- MODULO DEL CERTIFICADO X509 --> </ds:Modulus>
+            <ds:Exponent>AQAB</ds:Exponent>
+            </ds:RSAKeyValue> 
+        </ds:KeyValue> 
+    </ds:KeyInfo>
+    <ds:Object Id="Signature620397-Object231987">
+        <etsi:QualifyingProperties Target="#Signature620397">
+            <etsi:SignedProperties Id="Signature620397- SignedProperties24123">
+                <etsi:SignedSignatureProperties>
+                    <etsi:SigningTime>2012-03-05T16:57:32- 05:00</etsi:SigningTime>
+                    <etsi:SigningCertificate>
+                        <etsi:Cert>
+                            <etsi:CertDigest>
+                                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+                                <ds:DigestValue>xUQewsj7MrjSfyMnhWz5DhQnWJM=</ds:DigestValue>
+                            </etsi:CertDigest>
+                            <etsi:IssuerSerial>
+                                <ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName>
+                                <ds:X509SerialNumber>1312833444</ds:X509SerialNumber>
+                            </etsi:IssuerSerial>
+                        </etsi:Cert>
+                    </etsi:SigningCertificate>
+                </etsi:SignedSignatureProperties>
+                <etsi:SignedDataObjectProperties>
+                    <etsi:DataObjectFormat ObjectReference="#Reference-ID-363558">
+                        <etsi:Description>contenido comprobante</etsi:Description>
+                        <etsi:MimeType>text/xml</etsi:MimeType>
+                    </etsi:DataObjectFormat>
+                </etsi:SignedDataObjectProperties>
+            </etsi:SignedProperties>
+        </etsi:QualifyingProperties>
+    </ds:Object> 
+</ds:Signature> 
+<!-- FIN DE LA FIRMA DIGITAL -->
+        

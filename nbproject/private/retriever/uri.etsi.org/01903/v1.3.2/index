@@ -1,0 +1,77 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 12.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Assigned ETSI XML URIs</title>
+<link rel="stylesheet" type="text/css" href="../../css/Technical.css">
+</head>
+
+<body bgcolor="#FFFFF0" topmargin="1" leftmargin="1">
+
+<div align="center">
+  <center>
+  <table border="0" cellspacing="0" width="100%" cellpadding="0">
+    <tr>
+      <td width="100%" valign="top" align="center">
+</td>
+    </tr>
+    <tr>
+      <td width="100%" valign="top" align="center">
+        <p class="heading1b">&nbsp;<p class="heading1b">ETSI TS 101 903 V1.3.2
+</td>
+    </tr>
+  </table>
+  </center>
+</div>
+<div align="center">
+  <center>
+  <table border="0" cellspacing="4" width="100%" cellpadding="2" height="300">
+    <tr>
+      <td width="100%" height="515" valign="top">
+     
+        <h1 align="center" class="heading2b">
+     
+        <br>
+        XML Advanced Electronic
+Signatures (XAdES)</h1>
+        <p align="center">&nbsp;</p>
+  </center>
+      <blockquote>
+        <div align="center">
+          <center>
+          <table border="0" cellpadding="2" cellspacing="4" style="width: 54%; height: 138px">
+            <tr>
+              <td width="64%" align="center">
+                Download the 
+				<a target="_blank" href="../v1.3.2/ts_101903v010302p.pdf">specification</a></td>
+              <td width="64%" align="center">
+                <p>View <a target="_blank" href="XAdES.xsd">XML Schema</a> 
+				(normative)</td>
+            </tr>
+            <tr>
+              <td width="64%" align="center">
+                &nbsp;</td>
+              <td width="64%" align="center">
+                <p>View <a target="_blank" href="XAdES.dtd">XML DTD</a> 
+				(informative)</td>
+            </tr>
+            <tr>
+              <td width="64%" align="center">
+                &nbsp;</td>
+              <td width="64%" align="center">
+                View <a href="old/XAdES.xsd">XML Schema</a> (old)</td>
+            </tr>
+          </table>
+          </center>
+        </div>
+      </blockquote>
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>
