@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<lote-masivo id="lote" version="1.1.0">
+  <ambiente>1</ambiente>
+  <tipoEmision>1</tipoEmision>
+  <ruc>1703644805001</ruc>
+  <claveAcceso>1234567890123456789012345678901234567890123456789</claveAcceso>
+  <estab>001</estab>
+  <codDoc>01</codDoc>
+  <comprobantes>
+    <comprobante/>
+  </comprobantes>
+</lote-masivo>

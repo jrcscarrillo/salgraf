@@ -1,0 +1,27 @@
+      <etsi:SignedProperties id="Salgraf-Firma" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" >
+        <etsi:SignedSignatureProperties>
+          <etsi:SigningTime>2014-08-18T11:58:50+02:00</etsi:SigningTime>
+          <etsi:SigningCertificate>
+            <etsi:Cert>
+              <etsi:CertDigest>
+                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+                <ds:DigestValue id="digestSigned"></ds:DigestValue>
+              </etsi:CertDigest>
+              <etsi:IssuerSerial>
+                <ds:X509SerialNumber>1313015603</ds:X509SerialNumber>
+                <ds:X509IssuerName>CN = AC BANCO CENTRAL DEL ECUADOR&#xD;
+L = QUITO&#xD;
+OU = ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE&#xD;
+O = BANCO CENTRAL DEL ECUADOR&#xD;
+C = EC</ds:X509IssuerName>
+              </etsi:IssuerSerial>
+            </etsi:Cert>
+          </etsi:SigningCertificate>
+        </etsi:SignedSignatureProperties>
+        <etsi:SignedDataObjectProperties>
+          <etsi:DataObjectFormat ObjectReference="#Reference-ID-363558">
+            <etsi:Description></etsi:Description>
+            <etsi:MimeType>text/xml</etsi:MimeType>
+          </etsi:DataObjectFormat>
+        </etsi:SignedDataObjectProperties>
+      </etsi:SignedProperties>

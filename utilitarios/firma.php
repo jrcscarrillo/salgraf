@@ -11,7 +11,7 @@ $doc = new DOMDocument();
 $doc -> load('factura.xml');
 $variableXML = $doc->C14N();
 $digest = base64_encode(pack("H*", sha1($variableXML)));
-echo $digest;
+//echo 'Del archivo html ' . $digest . '\r\n';
 /*
  * Definicion del documento que corresponde a la firma digital
  * estamos probando con varios documentos
@@ -19,6 +19,67 @@ echo $digest;
 $doc = new DOMDocument();
 $doc -> formatOutput = TRUE;
 $root = $doc ->createElementNS("http://www.w3.org/2000/09/xmldsig#", 'ds:Signature');
+/*
+ * Definicion de la firma que corresponde a "Object", "QualifyingProperties" ....
+ */
+$object = $doc ->createElement('ds:Object');
+$qualifyingProperties = $doc -> createElementNS("http://uri.etsi.org/01903/v1.3.2#",  'etsi:QualifyingProperties');
+$qualifyingProperties ->setAttribute("Target", "#SignatureSalgraf");
+$qualifyingProperties -> setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:ds', 'http://www.w3.org/2000/09/xmldsig#');
+
+$signed = $doc -> createElementNS("http://uri.etsi.org/01903/v1.3.2#", 'etsi:SignedProperties');
+$signed -> setAttribute('id', 'Salgraf-Firma');
+$properties = $doc ->createElement('etsi:SignedSignatureProperties');
+$o_tiempo = date(DATE_W3C);
+$tiempo = $doc ->createElementNS("http://uri.etsi.org/01903/v1.3.2#", "etsi:SigningTime", $o_tiempo);
+$certificado = $doc ->createElement('etsi:SigningCertificate');
+$cert = $doc ->createElement('etsi:Cert');
+$certD = $doc ->createElement('etsi:CertDigest');
+$digestM = $doc ->createElement('ds:DigestMethod');
+$digestM ->setAttribute('Algorithm', "http://www.w3.org/2000/09/xmldsig#sha1");
+
+/*
+ * Calcular el digest value of signed properties abajo
+ */
+$variableXML = $signed -> C14N();
+$o_digestV = base64_encode(pack("H*", sha1($variableXML)));
+echo 'Signed ==> ' . $o_digestV;
+$digestV = $doc ->createElement('ds:DigestValue', $o_digestV); 
+$issuerSerial = $doc ->createElement('etsi:IssuerSerial');
+
+$o_issuerName = "CN = AC BANCO CENTRAL DEL ECUADOR
+L = QUITO
+OU = ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE
+O = BANCO CENTRAL DEL ECUADOR
+C = EC";
+$issuerName = $doc ->createElement('ds:X509IssuerName', $o_issuerName);
+$o_serialNumber = "1313015603";
+$serialNumber = $doc ->createElement('ds:X509SerialNumber', $o_serialNumber);
+
+$signedDataObjectProperties = $doc ->createElement('etsi:SignedDataObjectProperties');
+$dataObjectFormat = $doc ->createElement('etsi:DataObjectFormat');
+$dataObjectFormat ->setAttribute("ObjectReference", "#Reference-ID-363558");
+$o_description = "Facturas del ";
+$description = $doc ->createElement('etsi:Description', $o_description);
+$mimeType = $doc ->createElement('etsi:MimeType', 'text/xml');
+
+$dataObjectFormat ->appendChild($description);
+$dataObjectFormat ->appendChild($mimeType);
+$signedDataObjectProperties ->appendChild($dataObjectFormat);
+
+$issuerSerial ->appendChild($serialNumber);
+$issuerSerial ->appendChild($issuerName);
+$certD ->appendChild($digestM);
+$certD ->appendChild($digestV);
+$cert ->appendChild($certD);
+$cert ->appendChild($issuerSerial);
+$certificado ->appendChild($cert);
+
+$properties ->appendChild($tiempo);
+$properties ->appendChild($certificado);
+$signed ->appendChild($properties);
+$signed ->appendChild($signedDataObjectProperties);
+
 $signedInfo = $doc ->createElement("ds:SignedInfo");
 $canoMethod = $doc ->createElement("ds:CanonicalizationMethod");
 $canoMethod ->setAttribute("Algorithm", "http://www.w3.org/TR/2001/REC-xml-c14n-20010315");
@@ -28,12 +89,7 @@ $reference = $doc ->createElement("ds:Reference");
 $reference ->setAttribute("URI", "#xmldsig-aae8151c-b8db-4525-bfb1-0b3cebdd1dbf-keyinfo");
 $digestMethod = $doc ->createElement("ds:DigestMethod");
 $digestMethod ->setAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha256");
-
-$variableXML = $signed -> C14N();
-$digest1 = base64_encode(pack("H*", sha1($variableXML)));
-echo $digest1;
-$digestValue = $doc ->createElement("ds:DigestValue", $digest1); // HASH O DIGEST DEL ELEMENTO <etsi:SignedProperties>
-
+$digestValue = $doc ->createElement("ds:DigestValue", $o_digestV); // HASH O DIGEST DEL ELEMENTO <etsi:SignedProperties>
 $reference1 = $doc ->createElement("ds:Reference");
 $reference1 ->setAttribute("URI", "#lote");
 $transforms = $doc ->createElement("ds:Transforms");
@@ -52,10 +108,7 @@ $reference2 ->setAttribute("URI", "#xmldsig-aae8151c-b8db-4525-bfb1-0b3cebdd1dbf
 $digestMethod2 = $doc ->createElement("ds:DigestMethod");
 $digestMethod2 ->setAttribute("Algorithm", "http://www.w3.org/2001/04/xmlenc#sha256");
 
-$variableXML = $signed -> C14N();
-$digest3 = base64_encode(pack("H*", sha1($variableXML)));
-echo $digest3;
-$digestValue2 = $doc ->createElement("ds:DigestValue", $digest3); // HASH O DIGEST DEL ELEMENTO <etsi:SignedProperties>
+$digestValue2 = $doc ->createElement("ds:DigestValue", $o_digestV); // HASH O DIGEST DEL ELEMENTO <etsi:SignedProperties>
 
 $o_signatureValue = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIczel8epedAoW
 3/r2g9TAwGhZBHKHfixAZLuyyrcDGi+E55zg0CTQOeREogp7Li1MRAuhdclD5xbC
@@ -120,94 +173,64 @@ $o_signatureValue1 = "a9:b9:a0:e9:e1:cd:e2:bd:43:47:22:93:9c:12:30:14:bf:65:
 $x509Certificate = $doc ->createElement("ds:X509Certificate", $o_signatureValue1); // CERTIFICADO X509 CODIFICADO EN Base64
 $keyValue = $doc ->createElement("ds:KeyValue");
 $rsaKeyValue = $doc ->createElement("ds:RSAKeyValue");
-$o_modulus = "";
-$modulus = $doc ->createElement("ds:Modulus"); // MODULO DEL CERTIFICADO X509 
-$exponet = $doc ->createElement("ds:Exponent", "AQAB");
+$o_modulus = "00:c8:73:37:a5:f1:ea:5e:74:0a:16:df:fa:f6:83:
+                    d4:c0:c0:68:59:04:72:87:7e:2c:40:64:bb:b2:ca:
+                    b7:03:1a:2f:84:e7:9c:e0:d0:24:d0:39:e4:44:a2:
+                    0a:7b:2e:2d:4c:44:0b:a1:75:c9:43:e7:16:c2:a4:
+                    83:dc:e1:e0:1d:42:79:85:12:e2:f9:f6:22:17:39:
+                    90:47:9c:66:e6:2b:ed:7f:85:d7:dc:ff:01:a4:64:
+                    23:0a:1c:c4:8f:4c:6f:7e:42:80:2d:fe:75:5c:f1:
+                    02:80:31:0c:14:56:15:59:5e:31:d5:dc:59:ff:5f:
+                    c7:19:1e:5d:1c:ac:44:6d:97:cc:a4:da:de:f4:13:
+                    ab:a0:19:59:c3:f1:dd:10:58:b1:a1:c7:1d:b7:98:
+                    8b:f1:2b:be:24:db:db:10:77:3f:f6:c0:d7:89:35:
+                    48:df:65:ea:95:e2:35:02:b4:6b:08:46:8e:d5:f4:
+                    27:f0:af:e9:ae:53:b6:b6:e0:20:c6:34:7c:d4:d7:
+                    f1:e0:00:07:be:87:35:2c:f5:dc:cf:64:65:92:cf:
+                    6e:8b:a2:f3:1e:07:c6:cf:99:b7:e6:58:36:e0:e7:
+                    b5:a9:5c:f3:5e:e9:66:1a:a5:8c:01:2a:65:95:24:
+                    db:ed:3a:fb:1d:43:7a:c3:2d:42:03:f5:c2:76:d6:
+                    b1:09
+";
+$modulus = $doc ->createElement("ds:Modulus", $o_modulus); // MODULO DEL CERTIFICADO X509 
+$exponet = $doc ->createElement("ds:Exponent", "65537");
 
-$rsaKeyValue ->appendChild($exponet);
 $rsaKeyValue ->appendChild($modulus);
+$rsaKeyValue ->appendChild($exponet);
 $keyValue ->appendChild($rsaKeyValue);
 $x509Data ->appendChild($x509Certificate);
-$keyInfo ->appendChild($keyValue);
 $keyInfo ->appendChild($x509Data);
+$keyInfo ->appendChild($keyValue);
 
 $transforms ->appendChild($transform);
-$reference2 ->appendChild($digestMethod2);
-$reference2 ->appendChild($digestValue2);
-$reference1 ->appendChild($digestMethod1);
-$reference1 ->appendChild($digestValue1);
 $reference ->appendChild($digestMethod);
 $reference ->appendChild($digestValue);
+$reference1 ->appendChild($digestMethod1);
+$reference1 ->appendChild($digestValue1);
+$reference2 ->appendChild($transforms);
+$reference2 ->appendChild($digestMethod2);
+$reference2 ->appendChild($digestValue2);
+$signedInfo ->appendChild($canoMethod);
+$signedInfo ->appendChild($signatureMethod);
 $signedInfo ->appendChild($reference);
 $signedInfo ->appendChild($reference1);
 $signedInfo ->appendChild($reference2);
-$signedInfo ->appendChild($signatureMethod);
-$signedInfo ->appendChild($canoMethod);
-
-/*
- * Definicion de la firma que corresponde a "QualifyingProperties"
- */
-
-$qualifyingProperties = $doc -> createElementNS("http://uri.etsi.org/01903/v1.3.2#",  'etsi:QualifyingProperties');
-$qualifyingProperties ->setAttribute("Target", "#SignatureSalgraf");
-$qualifyingProperties -> setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:ds', 'http://www.w3.org/2000/09/xmldsig#');
-
-$signed = $doc -> createElementNS('etsi:SignedProperties');
-$signed -> setAttribute('id', 'Salgraf-Firma');
-$properties = $doc ->createElement('etsi:SignedSignatureProperties');
-$o_tiempo = "";
-$tiempo = $doc ->createElementNS("etsi:SigningTime", $o_tiempo);
-$certificado = $doc ->createElement('etsi:SigningCertificate');
-$cert = $doc ->createElement('etsi:Cert');
-$certD = $doc ->createElement('etsi:CertDigest');
-$digestM = $doc ->createElement('ds:DigestMethod');
-$digestM ->setAttribute('Algorithm', "http://www.w3.org/2000/09/xmldsig#sha1");
-/*
- * Calcular el digest value of signed properties abajo
- */
-$o_digestV = " ";
-$digestV = $doc ->createElement('ds:DigestValue', $o_digestV); 
-$issuerSerial = $doc ->createElement('etsi:IssuerSerial');
-$issuerName = $doc ->createElement('ds:X509IssuerName');
-$o_issuerName = "CN = AC BANCO CENTRAL DEL ECUADOR
-L = QUITO
-OU = ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE
-O = BANCO CENTRAL DEL ECUADOR
-C = EC";
-$serialNumber = $doc ->createElement('ds:X509SerialNumber');
-$o_serialNumber = "1313015603";
-
-$signedDataObjectProperties = $doc ->createElement('etsi:SignedDataObjectProperties');
-$dataObjectFormat = $doc ->createElement('etsi:DataObjectFormat');
-$dataObjectFormat ->setAttribute("ObjectReference", "#Reference-ID-363558");
-$o_description = "Facturas del ";
-$description = $doc ->createElement('etsi:Description', $o_description);
-$mimeType = $doc ->createElement('etsi:MimeType', 'text/xml');
-
-$dataObjectFormat ->appendChild($mimeType);
-$dataObjectFormat ->appendChild($description);
-$signedDataObjectProperties ->appendChild($dataObjectFormat);
-
-$variableXML = $signed -> C14N();
-$o_digestV = base64_encode(pack("H*", sha1($variableXML)));
-$issuerSerial ->appendChild($serialNumber);
-$issuerSerial ->appendChild($issuerName);
-$certD ->appendChild($digestM);
-$certD ->appendChild($digestV);
-$cert ->appendChild($certD);
-$cert ->appendChild($issuerSerial);
-$certificado ->appendChild($cert);
-
-$properties ->appendChild($certificado);
-$properties ->appendChild($tiempo);
-$signed ->appendChild($properties);
-$signed ->appendChild($signedDataObjectProperties);
 
 $qualifyingProperties -> appendChild($signed);
-$root ->appendChild($qualifyingProperties);
+$object ->appendChild($qualifyingProperties);
+
 $root ->appendChild($signedInfo);
 $root ->appendChild($signatureValue);
 $root ->appendChild($keyInfo);
+$root ->appendChild($object);
+$variableXML = $root -> C14N();
+$digestRoot = base64_encode(pack("H*", sha1($variableXML)));
+echo 'Todo el documento' . $digestRoot . '\r\n';
 $doc -> appendChild($root);
-
+/*
+ * Poner en $param el tipo de comprobante que se esta firmando
+ */
+$param = "juansalida.xml";
+$salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
+$doc->save($salida);
     exit();

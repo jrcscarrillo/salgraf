@@ -1,0 +1,212 @@
+<lote-masivo id="lote" version="1.1.0">
+  <ambiente>1</ambiente>
+  <tipoEmision>1</tipoEmision>
+  <ruc>1703644805001</ruc>
+  <claveAcceso>1234567890123456789012345678901234567890123456789</claveAcceso>
+  <estab>001</estab>
+  <codDoc>01</codDoc>
+  <comprobantes>
+    <comprobante><factura id="comprobante" version="1.0.0">
+    <infoTributaria>
+        <ambiente>1</ambiente>
+        <tipoEmision>1</tipoEmision>
+        <razonSocial>Carrillo Serrano Juan Roberto</razonSocial>
+        <nombreComercial>CARRILLOS TEAM</nombreComercial>
+        <ruc>1703644805001</ruc>
+        <claveAcceso>2403201401170364480500110010010000000011234567812</claveAcceso>
+        <codDoc>01</codDoc>
+        <estab>001</estab>
+        <ptoEmi>001</ptoEmi>
+        <secuencial>000000001</secuencial>
+        <dirMatriz>La Condamine N16-37 y Solano
+La VIcentina
+Pichincha
+Quito-Ecuador, SA</dirMatriz>
+    </infoTributaria>
+    <infoFactura>
+        <fechaEmision>24/03/2014</fechaEmision>
+        <dirEstablecimiento>La Condamine N16-37 y Solano
+La VIcentina
+Pichincha
+Quito-Ecuador, SA</dirEstablecimiento>
+        <obligadoContabilidad>NO</obligadoContabilidad>
+        <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+        <razonSocialComprador>SALGRAF CIA. LTDA.</razonSocialComprador>
+        <identificacionComprador>1792067464001</identificacionComprador>
+        <totalSinImpuestos>1050.00</totalSinImpuestos>
+        <totalDescuento>0.00</totalDescuento>
+        <totalConImpuestos>
+            <totalImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>2</codigoPorcentaje>
+                <baseImponible>1050.00</baseImponible>
+                <valor>126.00</valor>
+            </totalImpuesto>
+        </totalConImpuestos>
+        <propina>0.00</propina>
+        <importeTotal>1176.00</importeTotal>
+        <moneda>DOLAR</moneda>
+    </infoFactura>
+    <detalles>
+        <detalle>
+            <codigoPrincipal>001</codigoPrincipal>
+            <codigoAuxiliar>001</codigoAuxiliar>
+            <descripcion>DESARROLLO DE SOFTWARE, PROGRAMAS PARA EL QUICKBOOKS</descripcion>
+            <cantidad>35</cantidad>
+            <precioUnitario>30</precioUnitario>
+            <descuento>0</descuento>
+            <precioTotalSinImpuesto>1050.00</precioTotalSinImpuesto>
+            <impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12.00</tarifa>
+                    <baseImponible>1050.00</baseImponible>
+                    <valor>126.00</valor>
+                </impuesto>
+            </impuestos>
+        </detalle>
+    </detalles>
+    <infoAdicional>
+        <campoAdicional nombre="Dirección">Panamericana Norte Km 5</campoAdicional>
+        <campoAdicional nombre="Teléfono">2504463</campoAdicional>
+        <campoAdicional nombre="Email">costos@salgraf.com</campoAdicional>
+    </infoAdicional>
+</factura></comprobante>
+  </comprobantes>
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#">
+  <ds:SignedInfo>
+    <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod>
+    <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"></ds:SignatureMethod>
+    <ds:Reference URI="#xmldsig-aae8151c-b8db-4525-bfb1-0b3cebdd1dbf-keyinfo">
+      <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></ds:DigestMethod>
+      <ds:DigestValue></ds:DigestValue>
+    </ds:Reference>
+    <ds:Reference URI="#lote">
+      <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></ds:DigestMethod>
+      <ds:DigestValue></ds:DigestValue>
+    </ds:Reference>
+    <ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xmldsig-aae8151c-b8db-4525-bfb1-0b3cebdd1dbf-signedprops">
+      <ds:Transforms>
+        <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform>
+      </ds:Transforms>
+      <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"></ds:DigestMethod>
+      <ds:DigestValue></ds:DigestValue>
+    </ds:Reference>
+  </ds:SignedInfo>
+  <ds:SignatureValue>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIczel8epedAoW&#xD;
+3/r2g9TAwGhZBHKHfixAZLuyyrcDGi+E55zg0CTQOeREogp7Li1MRAuhdclD5xbC&#xD;
+pIPc4eAdQnmFEuL59iIXOZBHnGbmK+1/hdfc/wGkZCMKHMSPTG9+QoAt/nVc8QKA&#xD;
+MQwUVhVZXjHV3Fn/X8cZHl0crERtl8yk2t70E6ugGVnD8d0QWLGhxx23mIvxK74k&#xD;
+29sQdz/2wNeJNUjfZeqV4jUCtGsIRo7V9Cfwr+muU7a24CDGNHzU1/HgAAe+hzUs&#xD;
+9dzPZGWSz26LovMeB8bPmbfmWDbg57WpXPNe6WYapYwBKmWVJNvtOvsdQ3rDLUID&#xD;
+9cJ21rEJAgMBAAECggEBAMUkA/vyM+WXTID44jLmryyvTzEVXaqCXfUq3StXkay8&#xD;
+aTXWMQUt0Lb16NnTYGmLncNfPO0cEcj1kv31nTZ089zzDt7hF1htSVP8KjkzykPf&#xD;
+uiHsOcRBDJVoYsnER1EEBLdxoe0aUMUKx8HZ+x5ZF4AgUvUZVW4C/aZnpX3Ysyfw&#xD;
+HjQd4WRaWA88D/fJAyy1eEvhOs5UvPWbVoupiI77UHMdUAjN3l6V98HoQ5bEXkn1&#xD;
++QrIvMWv17O5T/VcEnVeLeS64R4uZMjtdRxMhvzKorkKlko6UZuZveAyqbQ3MXAL&#xD;
+9W3OENJ787Xi/LUvNjABMCsCNWy2WA4rO2nceq2JzAECgYEA/f9JB1hDNte+ogZb&#xD;
+TaAGCcJ+Vlb4Dt8xa2nfcMMAFVaCH+tsWr/9ZVp5zdujgyL3cooQ15WtamIjyZ2J&#xD;
+1SFw5pLyWmcBmk9CpTlsjK5qSgr1VTHswcX0Ov3CbvrmejM2vRG+cWgL/FeXEj4u&#xD;
+a8XSaLCD5gMQ/u4iQbf0fLtQkoECgYEAygfXuzex848b3iTn2sGkZQWmQWlf4fi0&#xD;
+TemkWTTB9ga0nEpHaQf0JHbqqrdVIvRdbLzOWUU66iPHR4eFiU61kc4wOMMAbOe1&#xD;
+6IjWHimrL8KY2X4/3t/qzk+sFp0kMZYdA1c+LI2nXlsNm4BIZiWTSt8RQ3kVYzOF&#xD;
+qrBrZVDfSokCgYBr0uyAhrJ53Jpbk9E8obsOd5dENcU2Iv+KtrYY2170r/WrcThd&#xD;
+SfVbCk582kmOiNB8uimuKycj6yeAFjWF2Z1g9G6Xe/TNOepz023GRuBuMDq3gOsd&#xD;
+01f7lu/sRuyCYa1SE+9Bm0bDR7elEeqI68CHmq9TfGfBoPu/5ESQksAAgQKBgDBT&#xD;
+0fIx73qAqDzqfR/iJG4Z/Nw21b3bXV4p3quMKD2u+vNL/WsNgQRcAeSWeGIlLFf/&#xD;
+jijim6Y4qsncjD/9OQfI19YsJ2TlxKj8WqPaed2x4hhcz/CDhcqWWmcKbgcCjqwm&#xD;
+6XOE6x1yEH47IJZ2tJY7aAjI5SnWwEnFa9tPjippAoGAfyi9Gsh7WOEFR46HcPvd&#xD;
+YxbjynlmPNziY+dpiTWggwfU9/xmnKQ1T+38lp53VXP5PxLrTEBrc+1Sw8U3JGZn&#xD;
+0fSzH6V17LREIq8XX2FzSUO4htyeGpFHNlD3iE2MpLEsIjuuU6YWUWHWIjZPvRje&#xD;
+IApQdKJ+P7/Kpsa42AaJTTE=</ds:SignatureValue>
+  <ds:KeyInfo>
+    <ds:X509Data>
+      <ds:X509Certificate>a9:b9:a0:e9:e1:cd:e2:bd:43:47:22:93:9c:12:30:14:bf:65:&#xD;
+         34:ee:c7:14:ff:b2:73:7f:aa:e9:b3:e0:ca:88:01:bc:24:03:&#xD;
+         de:49:19:2a:52:20:83:18:f5:62:ca:87:92:05:b5:04:bc:25:&#xD;
+         93:8b:78:aa:46:82:24:32:b8:c5:5a:bb:80:88:b1:21:91:90:&#xD;
+         b5:6c:6f:af:f8:54:1f:d2:9e:34:a7:ae:15:03:6b:c1:7b:44:&#xD;
+         ad:8b:40:a4:5d:00:86:d4:3d:36:64:24:da:ed:f2:58:b9:b1:&#xD;
+         ec:98:21:74:e3:30:00:61:d9:af:a8:09:52:9e:8d:af:b7:5f:&#xD;
+         c7:88:88:5a:ad:5c:6f:83:05:0b:68:87:0f:21:d7:ef:d3:65:&#xD;
+         e3:6c:aa:fa:4b:f3:e2:d6:e7:ad:54:ee:27:79:6d:cf:f4:5e:&#xD;
+         f1:7e:61:67:90:67:88:f6:78:0f:5e:d1:0f:33:2f:48:1d:71:&#xD;
+         92:ad:0d:1a:67:19:9b:a6:b8:fc:c5:4c:0c:29:72:2a:b1:28:&#xD;
+         a2:5b:c7:0d:1f:f4:5f:f1:1b:c4:96:06:9c:4a:d5:ae:1f:9b:&#xD;
+         92:e7:e7:23:00:8c:47:3d:9a:50:5b:bd:9f:2a:68:99:f2:fd:&#xD;
+         54:b5:9d:55:ab:c2:84:b0:f6:ae:f1:05:b0:03:71:33:30:27:&#xD;
+         8c:ab:0f:1b:a1:83:3b:ef:78:96:35:81:e0:74:92:a8:3e:16:&#xD;
+         db:39:70:21:a8:a5:b0:ea:14:a4:f2:c3:75:29:68:2c:cd:cc:&#xD;
+         ac:a8:3b:10:cf:69:b7:4c:1a:db:44:dd:bd:09:fc:d3:59:61:&#xD;
+         07:f5:c7:27:d9:fe:ce:be:2b:6d:ab:fc:25:3a:27:34:af:5f:&#xD;
+         6a:7a:68:1e:8f:b1:b0:85:06:0a:e0:23:2f:66:c8:25:cc:ab:&#xD;
+         2f:e4:fe:ba:bd:13:8a:78:2e:38:1b:ea:9b:95:4c:d3:b7:d1:&#xD;
+         3d:6e:2f:3f:14:f7:bf:c7:31:51:48:ce:ea:b2:37:86:42:79:&#xD;
+         96:c1:89:7c:63:68:55:9e:e3:37:10:78:2a:94:a4:f6:de:9c:&#xD;
+         64:ad:bf:d5:cd:10:76:d1:85:17:26:1c:17:ad:0b:b4:89:3c:&#xD;
+         95:25:0b:8f:de:32:ac:13:c0:b7:40:9e:7f:86:6b:d5:d5:59:&#xD;
+         79:01:69:89:85:35:ac:40:76:3c:a0:ad:5c:5a:2b:68:35:48:&#xD;
+         40:83:99:6b:1e:0a:a7:10:f6:6a:da:f3:06:59:76:91:46:5d:&#xD;
+         57:d4:af:b5:d7:5a:74:48:cb:9e:50:8b:87:9b:e3:25:b7:ef:&#xD;
+         ca:72:cf:9a:93:58:6a:c1:d5:f0:87:97:de:5a:17:f3:4e:ab:&#xD;
+         3a:41:f0:26:be:c9:cb:1a&#xD;
+</ds:X509Certificate>
+    </ds:X509Data>
+    <ds:KeyValue>
+      <ds:RSAKeyValue>
+        <ds:Modulus>00:c8:73:37:a5:f1:ea:5e:74:0a:16:df:fa:f6:83:&#xD;
+                    d4:c0:c0:68:59:04:72:87:7e:2c:40:64:bb:b2:ca:&#xD;
+                    b7:03:1a:2f:84:e7:9c:e0:d0:24:d0:39:e4:44:a2:&#xD;
+                    0a:7b:2e:2d:4c:44:0b:a1:75:c9:43:e7:16:c2:a4:&#xD;
+                    83:dc:e1:e0:1d:42:79:85:12:e2:f9:f6:22:17:39:&#xD;
+                    90:47:9c:66:e6:2b:ed:7f:85:d7:dc:ff:01:a4:64:&#xD;
+                    23:0a:1c:c4:8f:4c:6f:7e:42:80:2d:fe:75:5c:f1:&#xD;
+                    02:80:31:0c:14:56:15:59:5e:31:d5:dc:59:ff:5f:&#xD;
+                    c7:19:1e:5d:1c:ac:44:6d:97:cc:a4:da:de:f4:13:&#xD;
+                    ab:a0:19:59:c3:f1:dd:10:58:b1:a1:c7:1d:b7:98:&#xD;
+                    8b:f1:2b:be:24:db:db:10:77:3f:f6:c0:d7:89:35:&#xD;
+                    48:df:65:ea:95:e2:35:02:b4:6b:08:46:8e:d5:f4:&#xD;
+                    27:f0:af:e9:ae:53:b6:b6:e0:20:c6:34:7c:d4:d7:&#xD;
+                    f1:e0:00:07:be:87:35:2c:f5:dc:cf:64:65:92:cf:&#xD;
+                    6e:8b:a2:f3:1e:07:c6:cf:99:b7:e6:58:36:e0:e7:&#xD;
+                    b5:a9:5c:f3:5e:e9:66:1a:a5:8c:01:2a:65:95:24:&#xD;
+                    db:ed:3a:fb:1d:43:7a:c3:2d:42:03:f5:c2:76:d6:&#xD;
+                    b1:09&#xD;
+</ds:Modulus>
+        <ds:Exponent>65537</ds:Exponent>
+      </ds:RSAKeyValue>
+    </ds:KeyValue>
+  </ds:KeyInfo>
+  <ds:Object>
+    <etsi:QualifyingProperties Target="#SignatureSalgraf">
+      <etsi:SignedProperties id="Salgraf-Firma">
+        <etsi:SignedSignatureProperties>
+          <etsi:SigningTime>2014-08-19T17:04:37+02:00</etsi:SigningTime>
+          <etsi:SigningCertificate>
+            <etsi:Cert>
+              <etsi:CertDigest>
+                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+                <ds:DigestValue id="digestSigned"></ds:DigestValue>
+              </etsi:CertDigest>
+              <etsi:IssuerSerial>
+                <ds:X509SerialNumber>1313015603</ds:X509SerialNumber>
+                <ds:X509IssuerName>CN = AC BANCO CENTRAL DEL ECUADOR&#xD;
+L = QUITO&#xD;
+OU = ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE&#xD;
+O = BANCO CENTRAL DEL ECUADOR&#xD;
+C = EC</ds:X509IssuerName>
+              </etsi:IssuerSerial>
+            </etsi:Cert>
+          </etsi:SigningCertificate>
+        </etsi:SignedSignatureProperties>
+        <etsi:SignedDataObjectProperties>
+          <etsi:DataObjectFormat ObjectReference="#Reference-ID-363558">
+            <etsi:Description></etsi:Description>
+            <etsi:MimeType>text/xml</etsi:MimeType>
+          </etsi:DataObjectFormat>
+        </etsi:SignedDataObjectProperties>
+      </etsi:SignedProperties>
+    </etsi:QualifyingProperties>
+  </ds:Object>
+</ds:Signature></lote-masivo>
