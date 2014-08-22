@@ -39,11 +39,11 @@ function firmaFactura($archivo) {
     $sql .= "TimeCreated, "; // fecha de creacion del documento
     $sql .= "TimeModified, ";// fecha de modificacion del documento
     $sql .= "EditSequence, "; // control de secuencia de los movimientos
-    $sql .= "TxnNumber, "; // Numero del documento
+    $sql .= "TxnNumber, "; // Numero de la transaccion
     $sql .= "CustomerRef_ListID, ";
     $sql .= "CustomerRef_FullName, ";
     $sql .= "TxnDate, "; // fecha de emision del documento
-    $sql .= "RefNumber, ";
+    $sql .= "RefNumber, "; // numero de la factura
     $sql .= "BillAddress_Addr1, ";
     $sql .= "BillAddress_Addr2, "; // Aqui esta el numero del RUC
     $sql .= "BillAddress_Addr3, ";
@@ -78,30 +78,29 @@ function firmaFactura($archivo) {
  */
         
         $infoTributaria = $doc->createElement('infoTributaria');
-        $db_ambiente = $_SESSION['Ambiente'];
+        $db_ambiente = $_SESSION['ambiente'];
         $ambiente = $doc->createElement('ambiente', $db_ambiente);
-        $db_tipoEmision = $_SESSION['Tipo Emision'];
+        $db_tipoEmision = $_SESSION['emision'];
         $tipoEmision = $doc->createElement('tipoEmision', $db_tipoEmision);
-        $db_razonSocial = $_SESSION['Razon Social'];
+        $db_razonSocial = $_SESSION['Razon'];
         $razonSocial = $doc->createElement('razonSocial', $db_razonSocial);
-        $db_nombreComercial = $_SESSION['Nombre Comercial'];
+        $db_nombreComercial = $_SESSION['comercial'];
         $nombreComercial = $doc->createElement('nombreComercial', $db_nombreComercial);
-        $db_ruc = $_SESSION['RUC'];
+        $db_ruc = $_SESSION['Ruc'];
         $ruc = $doc->createElement('ruc', $db_ruc);
-        $db_claveAcceso = $_SESSION['Clave Acceso'];
+        $db_claveAcceso = crea_clave();
         $claveAcceso = $doc->createElement('claveAcceso', $db_claveAcceso);
-        $db_codDoc = $_SESSION['Tipo Documento'];
+        $db_codDoc = '01';
         $codDoc = $doc->createElement('codDoc', $db_codDoc);
-        $db_estab = $_SESSION['Establecimiento'];
+        $db_estab = $_SESSION['establecimiento'];
         $estab = $doc->createElement('estab', $db_estab);
-        $db_ptoEmi = $_SESSION['Punto'];
+        $db_ptoEmi = $_SESSION['puntoemision'];
         $ptoEmi = $doc->createElement('ptoEmi', $db_ptoEmi);
-        $db_secuencial = "";
-        $secuencial = $doc->createElement('secuencial', $db_secuencial);
-        $db_dirMatriz = $_SESSION['Direccion Matriz'];
+        
+        $secuencial = $doc->createElement('secuencial', $db_RefNumber);
+        $db_dirMatriz = $_SESSION['matriz'];
         $dirMatriz = $doc->createElement('dirMatriz', $db_dirMatriz);
-        $db_codigo = "";
-        $codigo = $doc->createElement('codigo', $db_codigo);
+ 
         $infoTributaria->appendChild($ambiente);
         $infoTributaria->appendChild($codigo);
         $infoTributaria->appendChild($razonSocial);
@@ -113,11 +112,12 @@ function firmaFactura($archivo) {
         $infoTributaria->appendChild($ptoEmi);
         $infoTributaria->appendChild($secuencial);
         $infoTributaria->appendChild($dirMatriz);
-        $infoTributaria->appendChild($codigo);
 /*
  *      Aqui esta el proceso de todas las facturas
  */
-$sql = "select i.TxnID, i.TxnDate, l.IDKEY, l.ItemRef_FullName from invoice i join invoicelinedetail l on i.TxnID = l.IDKEY where i.TxnDate = \'2014-07-01\'";
+
+        $sql = "select i.TxnID, i.TxnDate, l.IDKEY, l.ItemRef_FullName from invoice i";
+        $sql .= "join invoicelinedetail l on i.TxnID = l.IDKEY where i.TxnDate = \'2014-07-01\'";
         $db_infoFactura = "";
         $infoFactura = $doc->createElement('infoFactura', $db_infoFactura);
 

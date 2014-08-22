@@ -6,7 +6,7 @@
   <claveAcceso>1234567890123456789012345678901234567890123456789</claveAcceso>
   <estab>001</estab>
   <codDoc>01</codDoc>
-  <comprobantes>
+  <comprobantes id="comprobante">
     <comprobante/>
   </comprobantes>
 </lote-masivo>

@@ -8,7 +8,7 @@ $doc = new DOMDocument();
 $doc -> formatOutput = TRUE;
 
 $root = $doc -> createElementNS("http://uri.etsi.org/01903/v1.3.2#",  'etsi:SignedProperties');
-$root ->setAttribute('id', 'Salgraf-Firma');
+$root ->setAttribute('id', 'Salgraf-SignedProperties');
 $root -> setAttributeNS('http://www.w3.org/2000/xmlns/' ,'xmlns:ds', 'http://www.w3.org/2000/09/xmldsig#');
 
 $properties = $doc ->createElement('etsi:SignedSignatureProperties');
@@ -21,9 +21,10 @@ $digestM = $doc ->createElement('ds:DigestMethod');
 $digestM ->setAttribute('Algorithm', "http://www.w3.org/2000/09/xmldsig#sha1");
 
 /*
- * Calcular el digest value of signed properties abajo
+ * Calcular el digest value del certificado con
+ * openssl dgst -binaty -sha1 juancarrillo.pem | openssl enc -base64 > juanDigestCertificate
  */
-$o_digestV = "";
+$o_digestV = "Ykdd3M8rVzRNPX9WMZGRw8VcjAc=";
 $digestV = $doc ->createElement('ds:DigestValue', $o_digestV); 
 $digestV->setAttribute('id', 'digestSigned');
 $issuerSerial = $doc ->createElement('etsi:IssuerSerial');

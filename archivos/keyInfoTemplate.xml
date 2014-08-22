@@ -1,6 +1,7 @@
-  <ds:KeyInfo>
-    <ds:X509Data>
-      <ds:X509Certificate>a9:b9:a0:e9:e1:cd:e2:bd:43:47:22:93:9c:12:30:14:bf:65:&#xD;
+<?xml version="1.0"?>
+<ds:Keyinfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#" id="keyInfo">
+  <ds:X509Data>
+    <ds:X509Certificate>a9:b9:a0:e9:e1:cd:e2:bd:43:47:22:93:9c:12:30:14:bf:65:&#xD;
          34:ee:c7:14:ff:b2:73:7f:aa:e9:b3:e0:ca:88:01:bc:24:03:&#xD;
          de:49:19:2a:52:20:83:18:f5:62:ca:87:92:05:b5:04:bc:25:&#xD;
          93:8b:78:aa:46:82:24:32:b8:c5:5a:bb:80:88:b1:21:91:90:&#xD;
@@ -30,10 +31,10 @@
          ca:72:cf:9a:93:58:6a:c1:d5:f0:87:97:de:5a:17:f3:4e:ab:&#xD;
          3a:41:f0:26:be:c9:cb:1a&#xD;
 </ds:X509Certificate>
-    </ds:X509Data>
-    <ds:KeyValue>
-      <ds:RSAKeyValue>
-        <ds:Modulus>00:c8:73:37:a5:f1:ea:5e:74:0a:16:df:fa:f6:83:&#xD;
+  </ds:X509Data>
+  <ds:KeyValue>
+    <ds:RSAKeyValue>
+      <ds:Modulus>00:c8:73:37:a5:f1:ea:5e:74:0a:16:df:fa:f6:83:&#xD;
                     d4:c0:c0:68:59:04:72:87:7e:2c:40:64:bb:b2:ca:&#xD;
                     b7:03:1a:2f:84:e7:9c:e0:d0:24:d0:39:e4:44:a2:&#xD;
                     0a:7b:2e:2d:4c:44:0b:a1:75:c9:43:e7:16:c2:a4:&#xD;
@@ -52,7 +53,7 @@
                     db:ed:3a:fb:1d:43:7a:c3:2d:42:03:f5:c2:76:d6:&#xD;
                     b1:09&#xD;
 </ds:Modulus>
-        <ds:Exponent>65537</ds:Exponent>
-      </ds:RSAKeyValue>
-    </ds:KeyValue>
-  </ds:KeyInfo>
+      <ds:Exponent>65537</ds:Exponent>
+    </ds:RSAKeyValue>
+  </ds:KeyValue>
+</ds:Keyinfo>

@@ -52,6 +52,7 @@ $root ->setAttribute('version', '1.1.0');
     $db_codDoc = '01';
     $codDoc = $doc ->createElement( 'codDoc' , $db_codDoc);
     $comprobantes = $doc ->createElement( 'comprobantes' );
+    $comprobantes->setAttribute('id', 'comprobante');
     $comprobante = $doc ->createElement( 'comprobante' );
 
 

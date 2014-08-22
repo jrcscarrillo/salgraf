@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
-<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#">
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" id="refQualifyingProperties">
   <ds:SignedInfo>
     <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-    <ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
-    <ds:Reference URI="#xmldsig-aae8151c-b8db-4525-bfb1-0b3cebdd1dbf-keyinfo">
-      <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-      <ds:DigestValue>2jmj7l5rSw0yVb/vlWAYkK/YBwk=</ds:DigestValue>
+    <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <ds:Reference URI="#Salgraf-SignedProperties">
+      <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+      <ds:DigestValue>HKSo+E/aFT5lUCubSfj53i+uZak=</ds:DigestValue>
     </ds:Reference>
-    <ds:Reference URI="#lote">
-      <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-      <ds:DigestValue>2jmj7l5rSw0yVb/vlWAYkK/YBwk=</ds:DigestValue>
+    <ds:Reference URI="#keyInfo">
+      <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+      <ds:DigestValue>IR9vkaa91yptUD+TpwshT0amTBM=</ds:DigestValue>
     </ds:Reference>
-    <ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#xmldsig-aae8151c-b8db-4525-bfb1-0b3cebdd1dbf-signedprops">
+    <ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#comprobante">
       <ds:Transforms>
         <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
       </ds:Transforms>
-      <ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
-      <ds:DigestValue>2jmj7l5rSw0yVb/vlWAYkK/YBwk=</ds:DigestValue>
+      <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+      <ds:DigestValue>u9OcWJtLc0pcv6OIjpTeGjvF2K8=</ds:DigestValue>
     </ds:Reference>
   </ds:SignedInfo>
   <ds:SignatureValue>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIczel8epedAoW&#xD;
@@ -45,9 +45,9 @@ jijim6Y4qsncjD/9OQfI19YsJ2TlxKj8WqPaed2x4hhcz/CDhcqWWmcKbgcCjqwm&#xD;
 YxbjynlmPNziY+dpiTWggwfU9/xmnKQ1T+38lp53VXP5PxLrTEBrc+1Sw8U3JGZn&#xD;
 0fSzH6V17LREIq8XX2FzSUO4htyeGpFHNlD3iE2MpLEsIjuuU6YWUWHWIjZPvRje&#xD;
 IApQdKJ+P7/Kpsa42AaJTTE=</ds:SignatureValue>
-  <ds:KeyInfo>
-    <ds:X509Data>
-      <ds:X509Certificate>a9:b9:a0:e9:e1:cd:e2:bd:43:47:22:93:9c:12:30:14:bf:65:&#xD;
+<ds:Keyinfo id="keyInfo">
+  <ds:X509Data>
+    <ds:X509Certificate>a9:b9:a0:e9:e1:cd:e2:bd:43:47:22:93:9c:12:30:14:bf:65:&#xD;
          34:ee:c7:14:ff:b2:73:7f:aa:e9:b3:e0:ca:88:01:bc:24:03:&#xD;
          de:49:19:2a:52:20:83:18:f5:62:ca:87:92:05:b5:04:bc:25:&#xD;
          93:8b:78:aa:46:82:24:32:b8:c5:5a:bb:80:88:b1:21:91:90:&#xD;
@@ -77,10 +77,10 @@ IApQdKJ+P7/Kpsa42AaJTTE=</ds:SignatureValue>
          ca:72:cf:9a:93:58:6a:c1:d5:f0:87:97:de:5a:17:f3:4e:ab:&#xD;
          3a:41:f0:26:be:c9:cb:1a&#xD;
 </ds:X509Certificate>
-    </ds:X509Data>
-    <ds:KeyValue>
-      <ds:RSAKeyValue>
-        <ds:Modulus>00:c8:73:37:a5:f1:ea:5e:74:0a:16:df:fa:f6:83:&#xD;
+  </ds:X509Data>
+  <ds:KeyValue>
+    <ds:RSAKeyValue>
+      <ds:Modulus>00:c8:73:37:a5:f1:ea:5e:74:0a:16:df:fa:f6:83:&#xD;
                     d4:c0:c0:68:59:04:72:87:7e:2c:40:64:bb:b2:ca:&#xD;
                     b7:03:1a:2f:84:e7:9c:e0:d0:24:d0:39:e4:44:a2:&#xD;
                     0a:7b:2e:2d:4c:44:0b:a1:75:c9:43:e7:16:c2:a4:&#xD;
@@ -99,39 +99,37 @@ IApQdKJ+P7/Kpsa42AaJTTE=</ds:SignatureValue>
                     db:ed:3a:fb:1d:43:7a:c3:2d:42:03:f5:c2:76:d6:&#xD;
                     b1:09&#xD;
 </ds:Modulus>
-        <ds:Exponent>65537</ds:Exponent>
-      </ds:RSAKeyValue>
-    </ds:KeyValue>
-  </ds:KeyInfo>
-  <ds:Object xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#">
-    <etsi:QualifyingProperties xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" Target="#SignatureSalgraf">
-      <etsi:SignedProperties id="Salgraf-Firma">
-        <etsi:SignedSignatureProperties>
-          <etsi:SigningTime xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#">2014-08-15T13:04:12+02:00</etsi:SigningTime>
-          <etsi:SigningCertificate>
-            <etsi:Cert>
-              <etsi:CertDigest>
-                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                <ds:DigestValue>2jmj7l5rSw0yVb/vlWAYkK/YBwk=</ds:DigestValue>
-              </etsi:CertDigest>
-              <etsi:IssuerSerial>
-                <ds:X509SerialNumber>1313015603</ds:X509SerialNumber>
-                <ds:X509IssuerName>CN = AC BANCO CENTRAL DEL ECUADOR&#xD;
+      <ds:Exponent>65537</ds:Exponent>
+    </ds:RSAKeyValue>
+  </ds:KeyValue>
+</ds:Keyinfo><ds:Object xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#">
+  <etsi:QualifyingProperties xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Target="#refQualifyingProperties">
+  <etsi:SignedProperties id="Salgraf-SignedProperties">
+  <etsi:SignedSignatureProperties>
+    <etsi:SigningTime xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#">2014-08-20T23:57:52+02:00</etsi:SigningTime>
+    <etsi:SigningCertificate>
+      <etsi:Cert>
+        <etsi:CertDigest>
+          <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+          <ds:DigestValue id="digestSigned">Ykdd3M8rVzRNPX9WMZGRw8VcjAc=</ds:DigestValue>
+        </etsi:CertDigest>
+        <etsi:IssuerSerial>
+          <ds:X509SerialNumber>1313015603</ds:X509SerialNumber>
+          <ds:X509IssuerName>CN = AC BANCO CENTRAL DEL ECUADOR&#xD;
 L = QUITO&#xD;
 OU = ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE&#xD;
 O = BANCO CENTRAL DEL ECUADOR&#xD;
 C = EC</ds:X509IssuerName>
-              </etsi:IssuerSerial>
-            </etsi:Cert>
-          </etsi:SigningCertificate>
-        </etsi:SignedSignatureProperties>
-        <etsi:SignedDataObjectProperties>
-          <etsi:DataObjectFormat ObjectReference="#Reference-ID-363558">
-            <etsi:Description>Facturas del </etsi:Description>
-            <etsi:MimeType>text/xml</etsi:MimeType>
-          </etsi:DataObjectFormat>
-        </etsi:SignedDataObjectProperties>
-      </etsi:SignedProperties>
-    </etsi:QualifyingProperties>
-  </ds:Object>
-</ds:Signature>
+        </etsi:IssuerSerial>
+      </etsi:Cert>
+    </etsi:SigningCertificate>
+  </etsi:SignedSignatureProperties>
+  <etsi:SignedDataObjectProperties>
+    <etsi:DataObjectFormat ObjectReference="#Reference-ID-363558">
+      <etsi:Description/>
+      <etsi:MimeType>text/xml</etsi:MimeType>
+    </etsi:DataObjectFormat>
+  </etsi:SignedDataObjectProperties>
+</etsi:SignedProperties>
+</etsi:QualifyingProperties>
+</ds:Object></ds:Signature>
