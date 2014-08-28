@@ -1,0 +1,18 @@
+{
+    "RespuestaRecepcionComprobante": {
+        "estado": "RECIBIDA",
+        "comprobantes": {
+            "comprobante": {
+                "claveAcceso": "N\/A",
+                "mensajes": {
+                    "mensaje": {
+                        "identificador": "49",
+                        "mensaje": "ARCHIVOS ENVIADOS NO CUMPLEN LAS ESPECIFICACIONES ESTABLECIDAS: EXTENSION, CODIFICACION",
+                        "tipo": "ERROR"
+                    }
+                }
+            }
+        }
+    }
+}
+

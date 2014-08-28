@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	
+	<title>Comprobantes Electronicos</title>
+	
+	<link rel="stylesheet" href="../css/style.css">
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script src="../js/jquery.mousewheel.js"></script>
+	<script>
+	$(function(){
+		$("#page-wrap").wrapInner("<table cellspacing='30'><tr>");
+		$(".post").wrap("<td>");
+		$(".puerta").wrap("<td>");
+		$("body").mousewheel(function(event, delta) {
+			this.scrollLeft -= (delta * 30);
+			event.preventDefault();
+		});   
+	});
+	</script>
+</head>
+
+<body>
+	
+	<h1>Facturas Seleccionadas</h1>
+
+	<div id="page-wrap">
+		
+		<div class="post">
+			<h2>Nombre del Cliente</h2><div id="cliente"></div></div>
+		
+		<div class="puerta">
+			<h2>Fecha Emision</h2><div id="fecha"></div></div>
+		
+		<div class="puerta">
+			<h2>Numero de Factura</h2><div id="numero"></div></div>
+		
+		<div class="puerta">
+			<h2>% impuesto</h2><div id="cien"></div></div>
+		
+		<div class="puerta">
+			<h2>Valor sin Impuestos</h2><div id="sinimpuesto"></div></div>
+		
+		<div class="puerta">
+			<h2>Valor Impuestos</h2><div id="impuesto"></div></div>
+		
+		<div class="puerta">
+			<h2>Valor De La Factura</h2><div id="valor"></div></div>	
+	</div>
+	
+</body>
+
+</html>

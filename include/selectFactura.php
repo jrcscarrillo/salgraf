@@ -107,10 +107,10 @@ function chkFactura($wk_start, $wk_finish) {
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-//    $sql = "select CustomerRefFullName, TxnDate, RefNumber,SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField11 from invoice where TxnDate >= ? and TxnDate <= ?";
+//    $sql = "select CustomerRefFullName, TxnDate, RefNumber,SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField15 from invoice where TxnDate >= ? and TxnDate <= ?";
     $sql = "select TxnID, CustomerRef_FullName, TxnDate, RefNumber, ";
-    $sql .= "SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField11";
-    $sql .= " from invoice where CustomField11 =? and TxnDate >=? and TxnDate <=?";
+    $sql .= "SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField15";
+    $sql .= " from invoice where CustomField15 =? and TxnDate >=? and TxnDate <=?";
     
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
     
@@ -118,7 +118,7 @@ function chkFactura($wk_start, $wk_finish) {
         
     $stmt->bind_param("sss", $wk_seleccionada, $wk_start, $wk_finish);
     $stmt->execute();
-    $stmt->bind_result($wk_TxnID, $wk_CustomerRefFullName, $wk_TxnDate, $wk_RefNumber, $wk_SalesTaxPercentage, $wk_SalesTaxTotal, $wk_AppliedAmount, $wk_BalanceRemaining, $wk_CustomField11 );        /* fetch values */
+    $stmt->bind_result($wk_TxnID, $wk_CustomerRefFullName, $wk_TxnDate, $wk_RefNumber, $wk_SalesTaxPercentage, $wk_SalesTaxTotal, $wk_AppliedAmount, $wk_BalanceRemaining, $wk_CustomField15 );        /* fetch values */
     $wk_NumeroFacturas = 0;
     $wk_ValorSinImpuestos = 0;
     $wk_TotalImpuestos = 0;
@@ -214,8 +214,8 @@ function updateFactura($fechaInicio, $fechaFin) {
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-    $sql = "UPDATE invoice SET CustomField11 = 'SELECCIONADA' where TxnDate >=? and TxnDate <= ? and CustomField11 is null";
-//    $sql = "UPDATE invoice SET CustomField11 = 'SELECCIONADA' LIMIT 40";
+    $sql = "UPDATE invoice SET CustomField15 = 'SELECCIONADA' where TxnDate >=? and TxnDate <= ? and CustomField15 is null";
+//    $sql = "UPDATE invoice SET CustomField15 = 'SELECCIONADA' LIMIT 40";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
 //   $seleccionada = NULL;
     $stmt->bind_param("ss", $fechaInicio, $fechaFin);

@@ -1,288 +1,265 @@
 <?php
 
-/*
+/* 
  * Autor:   Juan Carrillo
- * Fecha:   Julio 2 2014
+ * Fecha:   Agosto 22, 2014
+ * 
  * Proyecto: Comprobantes Electronicos
+ * Version: 2.0
+ * Primero: Actualiza en invoice en el campo CustomField15 por hasta 50 facturas con "PASA FIRMA"
+ * Segundo: Lee las "PASA FIRMA" y genere el XML comprobante en un archivo en el Servidor
+ * Tercero: Actualiza las "PASA FIRMA" a "CONVERTIDAS"
+ * Cuarto: Genera el archivo de lotes en XML
+ * 4.1. genera el digest de comprobanteTemplate.xml
+ * 4.2. Usando el template de lotemasico aumenta comprobanteTemplate.xml
+ * 4.3. Usando el template de lotemasico aumenta firmaFirma.xml
+ * 4.4. Guarda el documento XML
+ * 
  */
+ 
 session_start();
-include 'conectaBaseDatos.php';
-/*
- *      1. Revisar que la sesion tenga seleccionado al contribuyente
- *      2. Revisar que se hayan seleccionados las fechas para procesar
- */
-if (!isset($_SESSION['establecimiento']) or !isset($_SESSION['puntoemision'])) {
-    require 'paraMensajes.html';
-    echo '<script type="text/javascript">'.
-        "$(document).ready(function(){".
-        "$('#mensaje').text('*** ERROR No tiene seleccionado emisor');".
-        "})".
-        "</script>";
-        exit();
-}
-if (isset($_POST['archivo'])) {
-    $archivo = $_POST['archivo'];
-    $flag = firmaFactura($archivo);
-}
+$fijoCodImp = 2;
+$fijoPorcentaje = 12;
+$fijoTarifa = 2;
+$facturaBase = 0;
+$facturaValorImp = 0;
+$facturaSinImp = 0;
+$facturaDesc = 0;
+$facturaTotal = 0;
+include 'conectaQuickBooks.php';
+include 'claveAcceso.php';
+include 'cambiaString.php';
+include '../utilitarios/mergeComprobantes.php';
 
-function firmaFactura($archivo) {
-/*
- *      Consideraciones;
- *          La sesion debe tner cargaados todos los campo del emisor 
- *          para la generacion del archivo XML
- */    
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-    $sql = "select TxnID, "; // Numero transaccion index y foreign key para invoice line
-    $sql .= "TimeCreated, "; // fecha de creacion del documento
-    $sql .= "TimeModified, ";// fecha de modificacion del documento
-    $sql .= "EditSequence, "; // control de secuencia de los movimientos
-    $sql .= "TxnNumber, "; // Numero de la transaccion
-    $sql .= "CustomerRef_ListID, ";
-    $sql .= "CustomerRef_FullName, ";
-    $sql .= "TxnDate, "; // fecha de emision del documento
-    $sql .= "RefNumber, "; // numero de la factura
-    $sql .= "BillAddress_Addr1, ";
-    $sql .= "BillAddress_Addr2, "; // Aqui esta el numero del RUC
-    $sql .= "BillAddress_Addr3, ";
-    $sql .= "BillAddress_City, ";
-    $sql .= "Subtotal, ";
-    $sql .= "SalesTaxPercentaje, ";
-    $sql .= "SalesTaxTotal, ";
-    $sql .= "AppliedAmount, ";
-    $sql .= "CustomField10 from invoice where CustomField10=?";
+
+    $flagPasa = pasaFirma();
+    if ($flagPasa == 'Actualizacion OK') {
+        $flagGenera = generaXML();
+        if ($flagGenera == 'Generacion OK') {
+            $flagConvertida = convierte();
+            if ($flagConvertida == 'Conversion OK') {
+                $flagXML = mergeXMLs();
+                if ($flagXML == "Listo Lote") {
+                    echo 'Listo para el webservice';
+                }
+            }
+            
+        }
+}
+exit();
+function pasaFirma() {
+    global $db;
+    $flagPasa = 'Inicio pasaFirma';
+    $sql = "UPDATE invoice SET CustomField15 = 'PASA FIRMA' where CustomField15 = 'SELECCIONADA' LIMIT 5";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
-    $selec = "SELECCIONADA";
-    $stmt->bind_param("s", $selec);
-    $flag = "*** ERROR no existen Facturas Seleccionadas";
     $stmt->execute();
-    $stmt->bind_result($db_TxnID, $db_TimeCreated, $db_TimeModified, $db_EditSequence, $db_TxnNumber, $db_CustomerRef_ListID, $db_CustomerRef_FullName, $db_TxnDate, $db_RefNumber, $db_BillAddress_Addr1, $db_BillAddress_Addr2, $db_BillAddress_Addr3, $db_BillAddress_City, $db_Subtotal, $db_SalesTaxPercentaje, $db_SalesTaxTotal, $db_AppliedAmount, $db_CustomField10);        /* fetch values */
-/*
- * DOMDocument es el nombre del objetgo para crear un archivo XML
- * Despues se utiliza la forma de PHP de generar tags en XML
- */
-    $doc = new DOMDocument();
-    $doc->formatOutput = TRUE;
-    $root = $doc->createElement('Facturas');
-    $factura = $doc->createElement('factura');
-/*
- *      Se procesan todas las facturas que tienen en el campo del usuario de la tabla de invoices del QB
- *      el estado SELECCIONADA
- */
-    while ($stmt->fetch()) {
-
-/*
- *      Informacion del Emisor
- */
-        
-        $infoTributaria = $doc->createElement('infoTributaria');
-        $db_ambiente = $_SESSION['ambiente'];
-        $ambiente = $doc->createElement('ambiente', $db_ambiente);
-        $db_tipoEmision = $_SESSION['emision'];
-        $tipoEmision = $doc->createElement('tipoEmision', $db_tipoEmision);
-        $db_razonSocial = $_SESSION['Razon'];
-        $razonSocial = $doc->createElement('razonSocial', $db_razonSocial);
-        $db_nombreComercial = $_SESSION['comercial'];
-        $nombreComercial = $doc->createElement('nombreComercial', $db_nombreComercial);
-        $db_ruc = $_SESSION['Ruc'];
-        $ruc = $doc->createElement('ruc', $db_ruc);
-        $db_claveAcceso = crea_clave();
-        $claveAcceso = $doc->createElement('claveAcceso', $db_claveAcceso);
-        $db_codDoc = '01';
-        $codDoc = $doc->createElement('codDoc', $db_codDoc);
-        $db_estab = $_SESSION['establecimiento'];
-        $estab = $doc->createElement('estab', $db_estab);
-        $db_ptoEmi = $_SESSION['puntoemision'];
-        $ptoEmi = $doc->createElement('ptoEmi', $db_ptoEmi);
-        
-        $secuencial = $doc->createElement('secuencial', $db_RefNumber);
-        $db_dirMatriz = $_SESSION['matriz'];
-        $dirMatriz = $doc->createElement('dirMatriz', $db_dirMatriz);
- 
-        $infoTributaria->appendChild($ambiente);
-        $infoTributaria->appendChild($codigo);
-        $infoTributaria->appendChild($razonSocial);
-        $infoTributaria->appendChild($nombreComercial);
-        $infoTributaria->appendChild($ruc);
-        $infoTributaria->appendChild($claveAcceso);
-        $infoTributaria->appendChild($codDoc);
-        $infoTributaria->appendChild($estab);
-        $infoTributaria->appendChild($ptoEmi);
-        $infoTributaria->appendChild($secuencial);
-        $infoTributaria->appendChild($dirMatriz);
-/*
- *      Aqui esta el proceso de todas las facturas
- */
-
-        $sql = "select i.TxnID, i.TxnDate, l.IDKEY, l.ItemRef_FullName from invoice i";
-        $sql .= "join invoicelinedetail l on i.TxnID = l.IDKEY where i.TxnDate = \'2014-07-01\'";
-        $db_infoFactura = "";
-        $infoFactura = $doc->createElement('infoFactura', $db_infoFactura);
-
-        $db_fechaEmision = $db_TxnDate;
-        $fechaEmision = $doc->createElement('fechaEmision', $db_fechaEmision);
-        $db_dirEstablecimiento = $db_BillAddress_Addr1;
-        $dirEstablecimiento = $doc->createElement('dirEstablecimiento', $db_dirEstablecimiento);
-        $db_contribuyenteEspecial = "";
-        $contribuyenteEspecial = $doc->createElement('contribuyenteEspecial', $db_contribuyenteEspecial);
-        $db_obligadoContabilidad = "SI";
-        $obligadoContabilidad = $doc->createElement('obligadoContabilidad', $db_obligadoContabilidad);
-        $db_tipoIdentificacionComprador = "04"; // ruc 04 cedula 05 pasaporte 06 consumidor final 07
-        $tipoIdentificacionComprador = $doc->createElement('tipoIdentificacionComprador', $db_tipoIdentificacionComprador);
-        $db_razonSocialComprador = $db_CustomerRef_FullName;
-        $razonSocialComprador = $doc->createElement('razonSocialComprador', $db_razonSocialComprador);
-        $db_identificacionComprador = $db_BillAddress_Addr3; // addr3 esta el RUC
-        $identificacionComprador = $doc->createElement('identificacionComprador', $db_identificacionComprador);
-        $db_totalSinImpuestos = $db_AppliedAmount - $db_SalesTaxTotal;
-        $totalSinImpuestos = $doc->createElement('totalSinImpuestos', $db_totalSinImpuestos);
-        $db_totalDescuento = 0;
-        $totalDescuento = $doc->createElement('totalDescuento', $db_totalDescuento);
-        $db_totalConImpuestos = $db_AppliedAmount;
-        $totalConImpuestos = $doc->createElement('totalConImpuestos', $db_totalConImpuestos);
-
-        /*
-          Una factura puede tener mas de un impuesto
-         */
-        $db_totalImpuesto = $db_SalesTaxTotal;
-        $totalImpuesto = $doc->createElement('totalImpuesto', $db_totalImpuesto);
-
-        $codigo = $doc->createElement('codigo', $db_codigo);
-
-        $db_codigoPorcentaje = "";
-        $codigoPorcentaje = $doc->createElement('codigoPorcentaje', $db_codigoPorcentaje);
-
-        $db_baseImponible = "";
-        $baseImponible = $doc->createElement('baseImponible', $db_baseImponible);
-
-        $db_valor = "";
-        $valor = $doc->createElement('valor', $db_valor);
-
-        $totalImpuesto->appendChild($codigo);
-        $totalImpuesto->appendChild($codigoPorcentaje);
-        $totalImpuesto->appendChild($baseImponible);
-        $totalImpuesto->appendChild($valor);
-
-        $totalConImpuestos->appendChild($totalImpuesto);
-
-        $db_propina = "";
-        $propina = $doc->createElement('propina', $db_propina);
-        $db_importeTotal = $db_AppliedAmount;
-        $importeTotal = $doc->createElement('importeTotal', $db_importeTotal);
-        $db_moneda = "DOLAR";
-        $moneda = $doc->createElement('moneda', $db_moneda);
-
-        $infoFactura->appendChild($fechaEmision);
-        $infoFactura->appendChild($dirEstablecimiento);
-        $infoFactura->appendChild($contribuyenteEspecial);
-        $infoFactura->appendChild($obligadoContabilidad);
-        $infoFactura->appendChild($tipoIdentificacionComprador);
-        $infoFactura->appendChild($razonSocialComprador);
-        $infoFactura->appendChild($identificacionComprador);
-        $infoFactura->appendChild($totalSinImpuestos);
-        $infoFactura->appendChild($totalDescuento);
-        $infoFactura->appendChild($totalConImpuestos);
-        $infoFactura->appendChild($propina);
-        $infoFactura->appendChild($importeTotal);
-        $infoFactura->appendChild($moneda);
-
-        $db_detalles = "";
-        $detalles = $doc->createElement('detalles', $db_detalles);
-
-        /*
-          Esto es por cada producto
-         */
-    $sql1 .= "SELECT FROM invoiceline where IDKEY=?";
-    $stmt1 = $db->prepare($sql) or die(mysqli_error($db));
-    $selec = $db_TxnID;
-    $stmt1->bind_param("s", $selec);
-    $flag = "*** ERROR no existe relacion de los productos con las facturas Seleccionadas";
-    $stmt1->execute();
-    $stmt1->bind_result();        /* fetch values */
-
-     while ($stmt1->fetch()) {
-        $db_detalle = "";
-        $detalle = $doc->createElement('detalle', $db_detalle);
-
-        $db_codigoPrincipal = "";
-        $codigoPrincipal = $doc->createElement('codigoPrincipal', $db_codigoPrincipal);
-        $db_descripcion = "";
-        $descripcion = $doc->createElement('descripcion', $db_descripcion);
-        $db_cantidad = "";
-        $cantidad = $doc->createElement('cantidad', $db_cantidad);
-        $db_precioUnitario = "";
-        $precioUnitario = $doc->createElement('precioUnitario', $db_precioUnitario);
-        $db_descuento = "";
-        $descuento = $doc->createElement('descuento', $db_descuento);
-        $db_precioTotalSinImpuesto = "";
-        $precioTotalSinImpuesto = $doc->createElement('precioTotalSinImpuesto', $db_precioTotalSinImpuesto);
-
-        $db_impuestos = "";
-        $impuestos = $doc->createElement('impuestos', $db_impuestos);
-
-        /*
-          Puede haber mas de un impuesto por el mismo producto
-         */
-        $db_impuesto = "";
-        $impuesto = $doc->createElement('impuesto', $db_impuesto);
-
-        $codigo = $doc->createElement('codigo', $db_codigo);
-        $codigoPorcentaje = $doc->createElement('codigoPorcentaje', $db_codigoPorcentaje);
-        $db_tarifa = "";
-        $tarifa = $doc->createElement('tarifa', $db_tarifa);
-        $baseImponible = $doc->createElement('baseImponible', $db_baseImponible);
-        $valor = $doc->createElement('valor', $db_valor);
-        $impuesto->appendChild($codigo);
-        $impuesto->appendChild($codigoPorcentaje);
-        $impuesto->appendChild($tarifa);
-        $impuesto->appendChild($baseImponible);
-        $impuesto->appendChild($valor);
-
-        $impuestos->appendChild($impuesto);
-
-        $detalle->appendChild($codigoPrincipal);
-        $detalle->appendChild($descripcion);
-        $detalle->appendChild($cantidad);
-        $detalle->appendChild($precioUnitario);
-        $detalle->appendChild($descuento);
-        $detalle->appendChild($precioTotalSinImpuesto);
-        $detalle->appendChild($impuestos);
-
-        $detalles->appendChild($detalle);
-     }
-        $db_infoAdicional = "";
-        $infoAdicional = $doc->createElement('infoAdicional', $db_infoAdicional);
-
-        $db_campoAdicional = "";
-        $campoAdicional = $doc->createElement('campoAdicional', $db_campoAdicional);
-        $campoAdicionalATTR = $doc->createElement('nombre');
-        $campoAdicionalATTR->value = "Direccion";
-        $campoAdicional->appendChild($campoAdicionalATTR);
-
-        $campoAdicional = $doc->createElement('campoAdicional', $db_campoAdicional);
-        $campoAdicionalATTR = $doc->createElement('Email');
-        $campoAdicionalATTR->value = "jrcscarrillo@gmail.com";
-        $campoAdicional->appendChild($campoAdicionalATTR);
-
-        $factura->appendChild($infoAdicional);
-        $factura->appendChild($detalles);
-        $factura->appendChild($infoFactura);
-        $factura->appendChild($infoTributaria);
-
-        $root->appendChild($factura);
+    $numero = $stmt->affected_rows;
+    if ($numero > 0) {
+        $flagPasa = 'Actualizacion OK';
     }
-    $doc->appendChild($root);
-    $doc->save("../tmp/$archivo");
-    /* close statement */
+    return $flagPasa;
+}
+function generaXML() {
+    global $db, $doc, $db_RefNumber, $db_Name, $db_Ruc, $db_TxnDate, $db_Item, $db_descripcion, $db_Quantity, $db_Rate, $db_Amount, $db_Campo;
+    global $db_claveAcceso1, $wk_RefNumber, $wk_Name, $wk_Ruc, $wk_TxnDate, $wk_Item, $wk_descripcion, $db_Quantity, $db_Rate, $db_Amount, $db_Campo;
+    global $fijoCodImp, $fijoPorcentaje, $fijoTarifa, $detalles, $infoTributaria, $infoFactura, $factura;
+    $sql = "SELECT i.RefNumber, i.CustomerRef_FullName, i.BillAddress_Addr2, i.TxnDate, ";
+    $sql .= "l.ItemRef_FullName, l.Description, l.Quantity, l.Rate, l.Amount, i.CustomField15";
+    $sql .= " FROM invoice i join invoicelinedetail l on i.TxnID = l.IDKEY ";
+    $sql .= "WHERE i.CustomField15 = 'PASA FIRMA' ";
+    $stmt = $db->prepare($sql) or die(mysqli_error($db));
+    $stmt->bind_result($db_RefNumber, $db_Name, $db_Ruc, $db_TxnDate, $db_Item, $db_descripcion, $db_Quantity, $db_Rate, $db_Amount, $db_Campo);        /* fetch values */
+    $stmt->execute();
+    $control = 0;
+    $procesadas = 0;
+    $totalFactura = 0;
+    $totalLote = 0;
+
+    while ($stmt->fetch()) {
+//        echo 'Lee Factura => ' . $db_RefNumber;
+        if ($control == 0) {
+             $control = $db_RefNumber;
+             $wk_RefNumber = $db_RefNumber;
+             $wk_Name = $db_Name;
+             $wk_Ruc = $db_Ruc;
+             $wk_TxnDate = $db_TxnDate;
+             $wk_Item = $db_Item;
+             $wk_descripcion = $db_descripcion;
+             $wk_Quantity = $db_Quantity;
+             $wk_Rate = $db_Rate;
+             $wk_Amount = $db_Amount;
+             $wk_Campo =$db_Campo;
+             $stringDetalles = '<detalles>';
+             $stringComprobante = '<comprobante id="comprobantes">';
+             }
+        if ($control != $db_RefNumber) {
+             $stringFactura = totalFactura();
+             $stringComprobante .= $stringFactura . $stringDetalles . '</detalles></factura>';
+//             var_dump($stringComprobante, $stringDetalles);
+             $control = $db_RefNumber;
+             $wk_RefNumber = $db_RefNumber;
+             $wk_Name = $db_Name;
+             $wk_Ruc = $db_Ruc;
+             $wk_TxnDate = $db_TxnDate;
+             $wk_Item = $db_Item;
+             $wk_descripcion = $db_descripcion;
+             $wk_Quantity = $db_Quantity;
+             $wk_Rate = $db_Rate;
+             $wk_Amount = $db_Amount;
+             $wk_Campo = $db_Campo;
+             $stringDetalles = '<detalles>';
+             
+        } 
+        if ($db_Item != NULL) {
+            $stringItem = procesaItem();
+            $stringDetalles .= $stringItem;
+            
+        } 
+    }
+    if ($control != 0) {
+        $stringFactura = totalFactura();
+        $stringComprobante .= $stringFactura . $stringDetalles . '</detalles></factura>';
+    }
     $stmt->close();
     $db->close();
-    generaArchivo($archivo);
-}
-
-function generaArchivo($archivo) {
     
-    $db = db_connect();
+    $stringDoc = '<?xml version="1.0" encoding="UTF-8" standalone="no"?><lote-masivo id="lote" version="1.0.0"><ambiente>';
+    $stringDoc .= $_SESSION['ambiente'] . '</ambiente><tipoEmision>';
+    $stringDoc .= $_SESSION['emision'] . '</tipoEmision><ruc>';
+    $stringDoc .= $_SESSION['Ruc'] . '</ruc><claveAcceso>';
+    $stringDoc .= $db_claveAcceso1 . '</claveAcceso><establecimiento>';
+    $stringDoc .= $_SESSION['establecimiento'] . '</establecimiento><codDoc>01</codDoc><comprobantes>';
+    $stringDoc .= $stringComprobante . '</comprobante></comprobantes></lote-masivo>';
+    file_put_contents('loteMasivo.xml', $stringDoc);
+    $stringComprobante .= '</comprobante>';
+    file_put_contents('comprobante.xml', $stringComprobante);
+    juntaComprobantes();
+    include 'SRIcliente.php';
+    $param = $_POST['archivo'] . '.xml';
+    $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
+    enviaComprobante($salida);
+    exit();
+} 
+
+function totalFactura() {
+    global $doc, $db_RefNumber, $db_Name, $db_Ruc, $db_TxnDate, $db_Item, $db_descripcion, $db_Quantity, $db_Rate, $db_Amount, $db_Campo;
+    global $db_claveAcceso1, $wk_RefNumber, $wk_Name, $wk_Ruc, $wk_TxnDate, $wk_Item, $wk_descripcion, $wk_Quantity, $wk_Rate, $wk_Amount, $wk_Campo;
+    global $fijoCodImp, $fijoPorcentaje, $fijoTarifa, $regresaRuc;
+    global $facturaBase, $facturaDesc, $facturaSinImp, $facturaTotal, $facturaValorImp;
+    
+    $db_claveAcceso = crea_clave();
+    $db_claveAcceso1 = implode($db_claveAcceso);
+    $db_tipoIdentificacionComprador = "04"; // ruc 04 cedula 05 pasaporte 06 consumidor final 07
+    if ($wk_Ruc == '9999999999999') {
+        $db_tipoIdentificacionComprador = "07";
+    } else {
+        if (strlen($wk_Ruc) == 10) {
+            $db_tipoIdentificacionComprador = "05";    
+        }
+    }
+    $stringDate = strtotime($wk_TxnDate);
+    $dateString = date('d/m/Y', $stringDate);
+    $out_SinImp = number_format($facturaSinImp, '2', ',', '');
+    $out_Base = number_format($facturaBase, '2', ',','');
+    $out_ValorImp = number_format($facturaValorImp, '2', ',','');
+    $out_Total = number_format($facturaTotal, '2', ',','');
+    $stringFactura = '<factura id="comprobante" version="1.1.1"><infoTributaria><ambiente>' . $_SESSION['ambiente'] . '</ambiente>';
+    $stringFactura .= '<tipoEmision>' . $_SESSION['emision'] . '</tipoEmision><razonSocial>PRUEBAS SERVICIO DE RENTAS INTERNA</razonSocial>';
+    $stringFactura .= '<nombreComercial>PRUEBAS SERVICIO DE RENTAS INTERNA</nombreComercial>';
+    $stringFactura .= '<ruc>' . $_SESSION['Ruc'] . '</ruc><claveAcceso>' . $db_claveAcceso1 . '</claveAcceso><codDoc>01</codDoc>';
+    $stringFactura .= '<estab>' . $_SESSION['establecimiento'] . '</estab><ptoEmi>' .  $_SESSION['puntoemision'] . '</ptoEmi><secuencial>' . $wk_RefNumber . '</secuencial>';
+    $stringFactura .= '<dirMatriz>' . $_SESSION['matriz'] . '</dirMatriz></infoTributaria>';
+    $stringFactura .= '<infoFactura><fechaEmision>' . $dateString . '</fechaEmision><dirEstablecimiento>' . $_SESSION['emisor'] . '</dirEstablecimiento>';
+    $stringFactura .= '<contribuyenteEspecial>' . $_SESSION['resolucion'] . '</contribuyenteEspecial><obligadoContabilidad>' . $_SESSION['contabilidad'] . '</obligadoContabilidad>';
+    $stringFactura .= '<tipoIdentificacionComprador>' . $db_tipoIdentificacionComprador . '</tipoIdentificacionComprador><razonSocialComprador>'.'</razonSocialComprador>';
+    $stringFactura .= '<identificacionComprador>' . $regresaRuc . '</identificacionComprador><totalSinImpuestos>' . $out_SinImp . '</totalSinImpuestos>';
+    $stringFactura .= '<totalDescuento>' . $facturaDesc . '</totalDescuento><totalConImpuestos><totalImpuesto><codigo>' . $fijoCodImp;
+    $stringFactura .= '</codigo><codigoPorcentaje>' . $fijoPorcentaje . '</codigoPorcentaje><baseImponible>' . $out_Base . '</baseImponible>';
+    $stringFactura .= '<valor>' . $out_ValorImp . '</valor></totalImpuesto></totalConImpuestos><propina>0.00</propina><importeTotal>' . $out_Total;
+    $stringFactura .= '</importeTotal><moneda>DOLAR</moneda></infoFactura>';
+        
+    $facturaBase = 0;
+    $facturaValorImp = 0;
+    $facturaSinImp = 0;
+    $facturaDesc = 0;
+    $facturaTotal = 0;
+    return $stringFactura;
+    }
+
+function crea_clave() {
+    global $doc, $wk_RefNumber, $wk_Name, $wk_Ruc, $wk_TxnDate, $wk_Item, $wk_descripcion, $wk_Quantity, $wk_Rate, $wk_Amount, $wk_Campo;
+    global $fijoCodImp, $fijoPorcentaje, $fijoTarifa, $regresaRuc;
+    global $facturaBase, $facturaDesc, $facturaSinImp, $facturaTotal, $facturaValorImp;
+    
+    $stringDate = strtotime($wk_TxnDate);
+    $dateString = date('dmY', $stringDate);
+    $args['fecha'] = $dateString;
+    $args['tipodoc'] = '01';
+    
+    $args1['dato'] = $wk_Ruc;
+    $args1['longitud'] = 12; // debe ser -1 de la longitud deseada
+    $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
+    $args1['relleno'] = 'N'; //N=Numero A=Alfas;
+    $regresaRuc = implode(generaString($args1));
+    
+    $args['ruc'] = $regresaRuc; // llenar a 13 si es cedula
+    
+    $args['ambiente'] = $_SESSION['ambiente'];
+    $args['establecimiento'] = $_SESSION['establecimiento'];
+    $args['punto'] = $_SESSION['puntoemision'];
+     
+    $args1['dato'] = $wk_RefNumber;
+    $args1['longitud'] = 8; // debe ser -1 de la longitud deseada
+    $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
+    $args1['relleno'] = 'N'; //N=Numero A=Alfas;
+    $regresaString = implode(generaString($args1));   
+    
+    $args['factura'] = $regresaString; // llenar a 9
+    
+    $args1['dato'] = $wk_RefNumber;
+    $args1['longitud'] = 7; // debe ser -1 de la longitud deseada
+    $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
+    $args1['relleno'] = 'N'; //N=Numero A=Alfas;
+    $regresaString = implode(generaString($args1));    
+    
+    $args['codigo'] = $regresaString; // mismo numero factura? o secuencial
+    $args['emision'] = $_SESSION['emision'];
+    $claveArray = [];
+//    var_dump($args);
+    $claveArray = generaClave($args);
+//    echo 'Esta es la resultante ';
+//    var_dump($claveArray);
+    return $claveArray;
+}
+function procesaItem() {
+    global $db_RefNumber, $db_Name, $db_Ruc, $db_TxnDate, $db_Item, $db_descripcion, $db_Quantity, $db_Rate, $db_Amount, $db_Campo;
+    global $fijoCodImp, $fijoPorcentaje, $fijoTarifa;
+    global $facturaBase, $facturaDesc, $facturaSinImp, $facturaTotal, $facturaValorImp;
+    $db_valor = $db_Amount * $fijoPorcentaje / 100;
+    $out_valor = number_format($db_valor, '2', ',', '');
+    $out_Amount = number_format($db_Amount, '2', ',', '');
+    $stringItem = '<detalle><codigoPrincipal>'. $db_Item . '</codigoPrincipal><codigoAuxiliar>'.'</codigoAuxiliar>';
+    $stringItem .= '<descripcion>'. $db_descripcion . '</descripcion><cantidad>' . $db_Quantity . '</cantidad>';
+    $stringItem .= '<precioUnitario>' . $db_Rate . '</precioUnitario><descuento>0</descuento>';
+    $stringItem .= '<precioTotalSinImpuesto>' . $out_Amount . '</precioTotalSinImpuesto><detallesAdicionales><detAdicional/></detallesAdicionales>';
+    $stringItem .= '<impuestos><impuesto><codigo>' . $fijoCodImp . '</codigo><codigoPorcentaje>' . $fijoPorcentaje . '</codigoPorcentaje>';
+    $stringItem .= '<tarifa>' . $fijoTarifa . '</tarifa><baseImponible>' . $out_Amount . '</baseImponible><valor>' . $out_valor . '</valor></impuesto></impuestos></detalle>';
+     
+    $facturaBase = $facturaBase + $db_Amount;
+    $facturaValorImp = $facturaValorImp + $db_valor;
+    $facturaSinImp = $facturaSinImp + $db_Amount;
+    $facturaDesc = 0;
+    $facturaTotal = $facturaTotal + $db_Amount + $db_valor;
+    return $stringItem;
+}
+ 
+function generaArchivo($archivo) {
+    include 'conexionDB.php';
+    $db = conecta_DB();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
@@ -301,9 +278,9 @@ function generaArchivo($archivo) {
         $selectTaskStmt->bind_result($wk_nombre);
         $selectTaskStmt->execute();
         if ($selectTaskStmt->fetch()) {
-            echo "Archivo adicionado:" . $wk_nombre . "\r\n";
+//            echo "Archivo adicionado:" . $wk_nombre . "\r\n";
         } else {
-            echo "error archivo no se adiciono\r\n";
+//            echo "error archivo no se adiciono\r\n";
         }
     }
 }

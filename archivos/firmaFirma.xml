@@ -11,12 +11,12 @@
       <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
       <ds:DigestValue>IR9vkaa91yptUD+TpwshT0amTBM=</ds:DigestValue>
     </ds:Reference>
-    <ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#comprobante">
+    <ds:Reference Type="http://uri.etsi.org/01903#SignedProperties" URI="#comprobantes">
       <ds:Transforms>
         <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
       </ds:Transforms>
       <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-      <ds:DigestValue>u9OcWJtLc0pcv6OIjpTeGjvF2K8=</ds:DigestValue>
+      <ds:DigestValue id="DelLote">u9OcWJtLc0pcv6OIjpTeGjvF2K8=</ds:DigestValue>
     </ds:Reference>
   </ds:SignedInfo>
   <ds:SignatureValue>MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIczel8epedAoW&#xD;

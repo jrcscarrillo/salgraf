@@ -41,7 +41,7 @@ function poneDigito($param) {
             $flag = FALSE;
         }
     }
-//    echo 'Esta es la suna ' . $suma;
+//    echo 'Esta es la suma ' . $suma;
     $digito = 11 - ($suma % 11);
 //    echo '<br>Este es el digito verificador ' . $digito;
     return $digito;
@@ -126,11 +126,12 @@ $args['posfin'] = 47;
 $args['claveArray'] = $claveArray;
 $claveArray = haceArray($args);
 $digito = poneDigito($claveArray);
-return $digito;
+$claveArray[48] = $digito;
+return $claveArray;
 }
 
 function haceArray($param) {
-    echo 'Viene ';
+//    echo 'Viene ';
 //    var_dump($param);
     $paso = str_split($param['tabla']);
     

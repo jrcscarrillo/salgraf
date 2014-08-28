@@ -49,6 +49,9 @@ a:hover {
 .body-s {
 	max-width: 400px;
 }
+.body-m {
+	max-width: 600px;
+}
 .modal {
 	padding: 25px 30px;
 	background: rgba(255,255,255,0.9);
