@@ -39,10 +39,12 @@
 <?php
 //   parserMensajes('pruebaError.xml');
 //exit();
-function parserMensajes($param) {
-    $doc = new DOMDocument();
-    $doc->load($param);
-    emiteMensajes($doc);
+function parserMensajes() {
+
+//function parserMensajes($param) {
+//    $doc = new DOMDocument();
+//    $doc->load($param);
+//    emiteMensajes($doc);
     ?>
                                             </section>
                 </fieldset>

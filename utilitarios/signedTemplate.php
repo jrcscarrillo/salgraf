@@ -19,8 +19,10 @@ $digestM ->setAttribute('Algorithm', "http://www.w3.org/2000/09/xmldsig#sha1");
 
 /*
  * Calcular el digest value of signed properties abajo
+ * Actualizado con el digest de salgraf 29.08.2014
+ * 
  */
-$o_digestV = "Ykdd3M8rVzRNPX9WMZGRw8VcjAc=";
+$o_digestV = "WgIwpCTeMIEAqw5/b8OisIwrQ+I=";
 $digestV = $doc ->createElement('ds:DigestValue', $o_digestV); 
 $digestV->setAttribute('id', 'digestSigned');
 $issuerSerial = $doc ->createElement('etsi:IssuerSerial');
@@ -31,7 +33,8 @@ OU = ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE
 O = BANCO CENTRAL DEL ECUADOR
 C = EC";
 $issuerName = $doc ->createElement('ds:X509IssuerName', $o_issuerName);
-$o_serialNumber = "1313015603";
+//$o_serialNumber = "1313015603"; // este es el digest del certificado juan carrillo
+$o_serialNumber = "1313023559"; // este es el digest del certificado de salgraf
 $serialNumber = $doc ->createElement('ds:X509SerialNumber', $o_serialNumber);
 
 $signedDataObjectProperties = $doc ->createElement('etsi:SignedDataObjectProperties');
@@ -57,15 +60,11 @@ $properties ->appendChild($tiempo);
 $properties ->appendChild($certificado);
 $root ->appendChild($properties);
 
-$root ->appendChild($signedInfo);
-$root ->appendChild($signatureValue);
-$root ->appendChild($keyInfo);
-$root ->appendChild($object);
 $doc -> appendChild($root);
 /*
  * Poner en $param el tipo de comprobante que se esta firmando
  */
-$param = "firmaTemplate.xml";
+$param = "signedTemplate.xml";
 $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
 $doc->save($salida);
     exit();

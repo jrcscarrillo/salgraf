@@ -31,7 +31,7 @@ function poneDigito($param) {
     while ($flag) {
         if ($posfin >= 0) {
             $suma = $suma + ($param[$posfin] * $j);
-            echo $suma;
+//            echo $suma;
             $j++;
             if ($j > 7) {
                 $j = 2;
