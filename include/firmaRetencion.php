@@ -1,190 +1,197 @@
 <?php
 
-/*
+/* 
  * Autor:   Juan Carrillo
- * Fecha:   Julio 29 2014
+ * Fecha:  Septiembre 10, 2014
+ * 
  * Proyecto: Comprobantes Electronicos
+ * Version: 2.0
+ * Primero: Actualiza en la tabla vendorcrediten el campo CustomField15 "SELECCIONADA" con "PASA FIRMA"
+ * Segundo: Lee las "PASA FIRMA"
+ * 2.1. genera comprobante.xml y comprobantes.xml
+ * 2.2. calcula digest del comprobante.xml
+ * 2.3. genera el XML con el nombre compuesta por el nombre del usuario y numero de factura en en el Servidor
+ * 2.4. modifica el XML con el digest calculado
+ * 2.5. genera una entrada en la tabla archivo y guarda el archivo
+ * Tercero: Toma cada archivo no procesado 
+ * 3.1. Envia archivo a validar el comprobante
+ * 3.2. Si tiene errores emite y sigue con otro
+ * 3.3. Si no tiene errores requiere autorizacion del SRI
+ * 3.4. Recibe autorizacion
+ * 3.5. Actualiza tabla archivo
+ * 3.6. Actualiza DB salgraf tablas de retenciones
+ * 3.7. Envia mail a usuario con la retencion autorizada
+ * 
  */
 session_start();
-include 'conectaBaseDatos.php';
-/*
- *      1. Revisar que la sesion tenga seleccionado al contribuyente
- *      2. Revisar que se hayan seleccionados las fechas para procesar
- */
-if (!isset($_SESSION['establecimiento']) or ! isset($_SESSION['puntoemision'])) {
-    require 'paraMensajes.html';
-    echo '<script type="text/javascript">' .
-    "$(document).ready(function(){" .
-    "$('#mensaje').text('*** ERROR No tiene seleccionado emisor');" .
-    "})" .
-    "</script>";
-    exit();
-}
-if (isset($_POST['archivo'])) {
-    $archivo = $_POST['archivo'];
-    $flag = firmaRetencion($archivo);
-}
+$args['valorRetencion'] = 0;
+$args['totalRetencion'] = 0;
+$args['codDoc'] = "07"; 
 
-function firmaRetencion($archivo) {
-    /*
-     *      Consideraciones;
-     *          La sesion debe tner cargaados todos los campo del emisor 
-     *          para la generacion del archivo XML
-     */
+include 'conectaQuickBooks.php';
+include 'claveAcceso.php';
+include 'cambiaString.php';
+include '../utilitarios/mergeComprobantes.php';
+$flagPasa = pasaFirma();
+$flagGenera = generaXML();
+exit();
+
+function pasaFirma() {
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-    $sql = "select TxnID, "; // Numero transaccion index y foreign key para invoice line
-
-    $sql .= "CustomField10 from invoice where CustomField10=?";
+    $flagPasa = 'Inicio pasaFirma';
+    $sql = "UPDATE vendorcredit SET CustomField15 = 'PASA FIRMA' where CustomField15 = 'SELECCIONADA'";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
-    $selec = "SELECCIONADA";
-    $stmt->bind_param("s", $selec);
-    $flag = "*** ERROR no existen Notas de Debito Seleccionadas";
     $stmt->execute();
-    $stmt->bind_result($db_TxnID, $db_TimeCreated, $db_TimeModified, $db_EditSequence, $db_TxnNumber, $db_CustomerRef_ListID, $db_CustomerRef_FullName, $db_TxnDate, $db_RefNumber, $db_BillAddress_Addr1, $db_BillAddress_Addr2, $db_BillAddress_Addr3, $db_BillAddress_City, $db_Subtotal, $db_SalesTaxPercentaje, $db_SalesTaxTotal, $db_AppliedAmount, $db_CustomField10);        /* fetch values */
-    /*
-     * DOMDocument es el nombre del objetgo para crear un archivo XML
-     * Despues se utiliza la forma de PHP de generar tags en XML
-     */
-    $doc = new DOMDocument();
-    $doc->formatOutput = TRUE;
-    $root = $doc->createElement('Retencion');
-    
-    /*
-     *      Se procesan todas las notas de debito que tienen en el campo del usuario de la tabla de invoices del QB
-     *      el estado SELECCIONADA
-     */
-    while ($stmt->fetch()) {
-
-        /*
-         *      Informacion del Emisor
-         */
-$db_comprobanteRetencion = " ";
-$comprobanteRetencion = $doc->createElement('comprobanteRetencion', $db_comprobanteRetencion);
-
-$db_infoTributaria = " ";
-   $infoTributaria = $doc -> createElement('infoTributaria', $db_infoTributaria);
-    $db_ambiente = " ";
-       $ambiente = $doc -> createElement('ambiente', $db_ambiente );
-       
-       $db_tipoEmision = " ";
-	$tipoEmision = $doc -> createElement('tipoEmision', $db_tipoEmision );
-	$db_razonSocial = " ";
-	$razonSocial = $doc -> createElement('razonSocial', $db_razonSocial );
-	$db_nombreComercial = " ";
-	$nombreComercial = $doc -> createElement('nombreComercial', $db_nombreComercial );
-	$db_ruc = " ";
-	$ruc = $doc -> createElement('ruc', $db_ruc );
-	$db_claveAcceso = " ";
-	$claveAcceso = $doc -> createElement('claveAcceso', $db_claveAcceso );
-	$db_codDoc = " ";
-	$codDoc = $doc -> createElement('codDoc', $db_codDoc );
-	$db_estab = " ";
-	$estab = $doc -> createElement('estab', $db_estab );
-	$db_ptoEmi = " ";
-	$ptoEmi = $doc -> createElement('ptoEmi', $db_ptoEmi);
-	$db_secuencial = " ";
-	$secuencial = $doc -> createElement('secuencial', $db_secuencial);
-	$db_dirMatriz = " ";
-	$dirMatriz = $doc -> createElement('dirMatriz', $db_dirMatriz);
-	
-$infoTributaria->appendChild( $ambiente );
-$infoTributaria->appendChild( $tipoEmision );
-$infoTributaria->appendChild( $razonSocial );
-$infoTributaria->appendChild( $nombreComercial );
-$infoTributaria->appendChild( $ruc );
-$infoTributaria->appendChild( $claveAcceso );
-$infoTributaria->appendChild( $codDoc );
-$infoTributaria->appendChild( $estab );
-$infoTributaria->appendChild( $ptoEmi );
-$infoTributaria->appendChild( $secuencial );
-$infoTributaria->appendChild( $dirMatriz );
-
-   $db_infoCompRetencion = "";
-   $infoCompRetencion = $doc -> createElement( 'infoCompRetencion', $db_infoCompRetencion );
-	$db_fechaEmision  = "";
-	$fechaEmision = $doc -> createElement( 'fechaEmision', $db_fechaEmision );
-	$db_dirEstablecimiento = "";
-	$dirEstablecimiento = $doc -> createElement( 'dirEstablecimiento', $db_dirEstablecimiento );
-	$db_contribuyenteEspecial = "";
-	$contribuyenteEspecial = $doc -> createElement( 'contribuyenteEspecial', $db_contribuyenteEspecial );
-	$db_obligadoContabilidad = "";
-	$obligadoContabilidad = $doc -> createElement( 'obligadoContabilidad', $db_obligadoContabilidad );
-	$db_tipoIdentificacionSujetoRetenido = "";
-	$tipoIdentificacionSujetoRetenido = $doc -> createElement( 'tipoIdentificacionSujetoRetenido', $db_tipoIdentificacionSujetoRetenido );
-	$db_razonSocialSujetoRetenido  = "";
-	$razonSocialSujetoRetenido = $doc -> createElement( 'razonSocialSujetoRetenido', $db_razonSocialSujetoRetenido );
-	$db_identificacionSujetoRetenido = "";
-	$identificacionSujetoRetenido = $doc -> createElement( 'identificacionSujetoRetenido', $db_identificacionSujetoRetenido );
-	$db_periodoFiscal = "";
-	$periodoFiscal = $doc -> createElement( 'periodoFiscal', $db_periodoFiscal );
- 
- $infoCompRetencion ->appendChild( $fechaEmision );  
- $infoCompRetencion ->appendChild( $dirEstablecimiento );
- $infoCompRetencion ->appendChild( $contribuyenteEspecial );
- $infoCompRetencion ->appendChild( $obligadoContabilidad );
- $infoCompRetencion ->appendChild( $tipoIdentificacionSujetoRetenido );
-$infoCompRetencion ->appendChild( $razonSocialSujetoRetenido );
-$infoCompRetencion ->appendChild( $identificacionSujetoRetenido );
-$infoCompRetencion ->appendChild( $periodoFiscal );
-$infoCompRetencion ->appendChild( $fechaEmision );
-
-    $db_impuestos = "";
-   $impuestos = $doc -> createElement( 'impuestos', $db_impuestos );
-	$db_impuesto = "";
-	$impuesto = $doc -> createElement( 'impuesto', $db_impuesto );
-	    $db_codigo = "";
-           $codigo = $doc -> createElement( 'codigo', $db_codigo );
-	   $db_codigoRetencion = "";
-	   $codigoRetencion = $doc -> createElement( 'codigoRetencion', $db_codigoRetencion );
-	   $db_baseImponible = "";
-	   $baseImponible = $doc -> createElement( 'baseImponible', $db_baseImponible );
-	   $db_porcentajeRetener = "";
-	   $porcentajeRetener = $doc -> createElement( 'porcentajeRetener', $db_porcentajeRetener );
-	   $db_valorRetenido = "";
-	   $valorRetenido = $doc -> createElement( 'valorRetenido', $db_valorRetenido );
-	   $db_codDocSustento = "";
-	   $codDocSustento = $doc -> createElement( 'codDocSustento', $db_codDocSustento );
-	   $db_numDocSustento = "";
-	   $numDocSustento = $doc -> createElement( 'numDocSustento', $db_numDocSustento );
-	   $db_fechaEmisionDocSustento = "";
-	   $fechaEmisionDocSustento = $doc -> createElement( 'fechaEmisionDocSustento', $db_fechaEmisionDocSustento );
-
-$impuesto -> appendChild( $codigo );	
-$impuesto -> appendChild( $codigoRetencion );
-$impuesto -> appendChild( $baseImponible );
-$impuesto -> appendChild( $porcentajeRetener );
-$impuesto -> appendChild( $valorRetenido );
-$impuesto -> appendChild( $codDocSustento );
-$impuesto -> appendChild( $numDocSustento );
-$impuesto -> appendChild( $fechaEmisionDocSustento );
-
-$impuestos -> appendChild( $impuesto );
-    
-    $db_infoAdicional = "";
-   $infoAdicional = $doc -> createElement( 'infoAdicional', $db_infoAdicional );
-	$db_campoAdicional = "";
-       $campoAdicional = $doc -> createElement( 'campoAdicional', $db_campoAdicional );
-
-$infoAdicional -> appendChild( $campoAdicional );
-
-$comprobanteRetencion -> appendChild( $infoAdicional );
-$comprobanteRetencion -> appendChild( $impuestos );
-$comprobanteRetencion -> appendChild( $infoCompRetencion );
-$comprobanteRetencion -> appendChild( $infoTributaria );
-
-	
-$root ->appendChild( $comprobanteRetencion );
-    }
-    $doc->appendChild( $root );
-    $doc->save("../tmp/$archivo");
-    /* close statement */
+    $numero = $stmt->affected_rows;
     $stmt->close();
     $db->close();
-    generaArchivo($archivo);
+    return $flagPasa;
 }
+function generaXML($args) {
+ 
+    $sql = "SELECT v.TxnID, v.TxnNumber, v.VendorRef_FullName, v.TxnDate, ";
+    $sql .= "v. CreditAmount, v.RefNumber, v.Memo, t.ItemRef_FullName, t.Description, ";
+    $sql .+ "t.Quantity, t.Cost, t.Amount, t.IDKEY FROM `vendorcredit` v ";
+    $sql .= "LEFT JOIN txnitemlinedetail t ON v.TxnID = t.IDKEY ";
+    $sql .= "WHERE v.CustomField15 = 'PASA FIRMA' ";
+    $stmt = $db->prepare($sql) or die(mysqli_error($db));
+    $stmt->bind_result($db_TxnId, $db_TxnNumber, $db_VendorRef_FullName, $db_TxnDate, $db_RefNumber, $db_Memo, $db_ItemRef_FullName, $db_Description, $db_Quantity, $db_Cost, $db_Amount, $db_Idkey);        /* fetch values */
+    $stmt->execute();
+    $control = 0;
+    $procesadas = 0;
+    $totalFactura = 0;
+    $totalLote = 0;
+
+    while ($stmt->fetch()) {
+        if ($control == 0) {
+             $control = $db_RefNumber;
+             $_SESSION['numeroDocumento'] = $db_RefNumber;
+             $_SESSION['razonSocial'] = $db_VendorRef_FullName;
+             $_SESSION['rucComprador'] = $db_Ruc;
+             $_SESSION['fechaDocumento'] = $db_TxnDate;
+             $_SESSION['numeroTransaccion'] = $db_TxnNumber;
+             $_SESSION['customfield15'] = $db_Campo;
+             $_SESSION['direccionComprador'] = $db_direccionComprador;
+             $stringDetalles = '<detalles>';
+             }
+        if ($control != $db_RefNumber) {
+             totalFactura();
+             $control = $db_RefNumber;
+             $wk_RefNumber = $db_RefNumber;
+             $wk_Name = $db_Name;
+             $wk_Ruc = $db_Ruc;
+             $wk_TxnDate = $db_TxnDate;
+             $wk_Item = $db_Item;
+             $wk_descripcion = $db_descripcion;
+             $wk_Quantity = $db_Quantity;
+             $wk_Rate = $db_Rate;
+             $wk_Amount = $db_Amount;
+             $wk_Campo = $db_Campo;
+             $wk_direccionComprador = $db_direccionComprador;
+             $stringDetalles = '<detalles>';
+             
+        } 
+        if ($db_Item != NULL) {
+            $stringItem = retencion_unaXuna();
+            $stringDetalles .= $stringItem;
+            
+        } 
+    }
+    if ($control != 0) {
+        totalFactura();
+    }
+    $stmt->close();
+    $db->close();
+    exit();
+} 
+function retencion_unaXuna($param) {
+    $stringImpuesto = '<impuesto><codigo>' . $wk_ . '</codigo><codigoRetencion>' . $wk_ . '</codigoRetencion>';
+    $stringImpuesto .= '<baseImponible>' . $wk_ . '</baseImponible>' . '<porcentajeRetener>' . $wk_ . '</porcentajeRetener>';
+    $stringImpuesto .= '<valorRetenido>' . $wk_ . '</valorRetenido>' . '<codDocSustento>' . $wk_ . '</codDocSustento>';
+    $stringImpuesto .= '<numDocSustento>' . $wk_ . '</numDocSustento><fechaEmisionDocSustento>' . $wk_ . '</fechaEmisionDocSustento>';
+    $stringImpuesto .= '</impuesto>';
+}
+
+function retencionCabecera($param) {
+    echo 'Entrando al proceso total factura ';
+    var_dump($_SESSION);
+    
+    crea_clave();
+    $db_claveAcceso1 = implode($_SESSION['claveAcceso']);
+    $stringTributaria = '<infoTributaria><ambiente>' . $_SESSION['ambiente'] . '</ambiente>';
+    $stringTributaria .= '<tipoEmision>' . $_SESSION['emision'] . '</tipoEmision><razonSocial>' . $_SESSION['Razon'] . '</razonSocial>';
+    $stringTributaria .= '<nombreComercial>' . $_SESSION['Comercial'] . '</nombreComercial>';
+    $stringTributaria .= '<ruc>' . $_SESSION['Ruc'] . '</ruc><claveAcceso>' . $db_claveAcceso1 . '</claveAcceso><codDoc>01</codDoc>';
+    $stringTributaria .= '<estab>' . $_SESSION['establecimiento'] . '</estab><ptoEmi>' .  $_SESSION['puntoemision'] . '</ptoEmi><secuencial>' . $_SESSION['numeroDocumentoLleno'] . '</secuencial>';
+    $stringTributaria .= '<dirMatriz>' . $_SESSION['matriz'] . '</dirMatriz></infoTributaria>';
+    $stringCab .= '<infoCompRetencion><fechaEmision>' . $args['fechaEmision'] . '</fechaEmision><dirEstablecimiento>' . $args['direccion'] . '</dirEstablecimiento>';
+    $stringCab .= '<contribuyenteEspecial>' . $args['especial'] . '</contribuyenteEspecial><obligadoContabilidad>' . $args['contribuyente_E'] . '</obligadoContabilidad>';
+    $stringCab .= '<tipoIdentificacionSujetoRetenido>'. $args['tipoDocmto'] . '</tipoIdentificacionSujetoRetenido>';
+    $stringCab .= '<razonSocialSujetoRetenido>'. $wk_ . '</razonSocialSujetoRetenido>';
+    $stringCab .= '<identificacionSujetoRetenido>'. $wk_ . '</identificacionSujetoRetenido>';
+    $stringCab .= '<periodoFiscal>'. $wk_ . '</periodoFiscal></infoCompRetencion><impuestos>';
+
+    $stringRetencion = '<comprobanteRetencion id="comprobante" version="1.1.1">' . $stringTributaria . $stringCab . $_SESSION['xmlImpuestos'] . '</impuestos></comprobanteRetencion>';
+    
+    $stringDoc = '<?xml version="1.0" encoding="UTF-8" ?>';
+    $stringDoc .= $stringRetencion;
+    file_put_contents('retencion.xml', $stringDoc);
+    file_put_contents('InfoRetencion.xml', $stringCab);
+    $prefijo = $_POST['archivo'] . $_SESSION['numeroDocumento'] . '.xml';
+    $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $prefijo;
+    juntaComprobantes($salida);
+//    include_once 'SRIcliente.php';
+//    enviaComprobante($salida);
+}
+
+function crea_clave() {
+
+    $stringDate = strtotime($_SESSION['fechaDocumento']);
+    $dateString = date('dmY', $stringDate);
+    $args['fecha'] = $dateString;
+    $args['tipodoc'] = '01';
+    
+    $args1['dato'] = $_SESSION['rucComprador'];
+    $args1['longitud'] = 12; // debe ser -1 de la longitud deseada
+    $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
+    $args1['relleno'] = 'N'; //N=Numero A=Alfas;
+    $_SESSION['rucLimpio'] = implode(generaString($args1));
+    
+    $args['ruc'] = $_SESSION['Ruc']; // llenar a 13 si es cedula
+    
+    $args['ambiente'] = $_SESSION['ambiente'];
+    $args['establecimiento'] = $_SESSION['establecimiento'];
+    $args['punto'] = $_SESSION['puntoemision'];
+     
+    $args1['dato'] = $_SESSION['numeroDocumento'];
+    $args1['longitud'] = 8; // debe ser -1 de la longitud deseada
+    $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
+    $args1['relleno'] = 'N'; //N=Numero A=Alfas;
+    $_SESSION['numeroDocumentoLleno'] = implode(generaString($args1));   
+    
+    $args['factura'] = $_SESSION['numeroDocumentoLleno']; // llenar a 9
+    
+    $args1['dato'] = $_SESSION['numeroTransaccion'];
+    $args1['longitud'] = 7; // debe ser -1 de la longitud deseada
+    $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
+    $args1['relleno'] = 'N'; //N=Numero A=Alfas;
+    $_SESSION['numeroTransaccionLleno'] = implode(generaString($args1));    
+    
+    $args['codigo'] = $_SESSION['numeroTransaccionLleno']; // mismo numero factura? o secuencial
+    $args['emision'] = $_SESSION['emision'];
+    $claveArray = [];
+//    var_dump($args);
+    $claveArray = generaClave($args);
+//    echo 'Esta es la resultante ';
+//    var_dump($claveArray);
+    $_SESSION['claveAcceso'] = $claveArray;
+    return TRUE;
+}		
+
+
 
 function generaArchivo($archivo) {
 

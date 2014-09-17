@@ -33,11 +33,12 @@
     <?php
 /* 
  * Autor:   Juan Carrillo
- * Fecha:   Julio 25, 2014
+ * Fecha:   Septiembre 10, 2014
  * Proyecto: Comprobantes Electronicos
  */
 //var_dump($GLOBALS);
     session_start();
+    include_once 'cambiaString.php';
 if (!isset($_SESSION['carrillosteam'])) {
     require 'paraMensajes.html';
     echo '<script type="text/javascript">'.
@@ -71,18 +72,17 @@ if (!isset($_POST['start']) or !isset($_POST['finish'])) {
         exit();    
 }
     include 'conectaQuickBooks.php';
-    include_once 'cambiaString.php';
     $wk_start = $_POST['start'];
     $wk_finish = $_POST['finish'];
     $inicioDB = strtotime($wk_start);
     $finDB = strtotime($wk_finish);
 //    echo "Fecha con strtotime : " . $inicioDB;
-    $fechaInicio = date('Y-m-d', $inicioDB);
-    $fechaFin = date('Y-m-d', $finDB);
+    $_SESSION['fechaInicio'] = date('Y-m-d', $inicioDB);
+    $_SESSION['fechaFin'] = date('Y-m-d', $finDB);
 //    echo "Fecha con date : " . $inicio;
-    $flagDB = updateFactura($fechaInicio, $fechaFin);
-    if ($flagDB == 'OK Se Actualizaron las facturas seleccionadas') {
-        $flagDB = chkFactura($fechaInicio, $fechaFin);
+    $flagDB = updateRetencion();
+    if ($flagDB == 'OK Se Actualizaron las retenciones seleccionadas') {
+        $flagDB = chkRetencion();
     }?>
         <body class="bg-cyan">
         <div class="body body-s">		
@@ -103,26 +103,25 @@ if (!isset($_POST['start']) or !isset($_POST['finish'])) {
     exit();?>
     
 <?php
-function chkFactura($wk_start, $wk_finish) {
+function chkRetencion() {
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-//    $sql = "select CustomerRefFullName, TxnDate, RefNumber,SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField15 from invoice where TxnDate >= ? and TxnDate <= ?";
-    $sql = "select TxnID, CustomerRef_FullName, TxnDate, RefNumber, ";
-    $sql .= "SalesTaxPercentage, SalesTaxTotal, AppliedAmount, BalanceRemaining, CustomField15";
-    $sql .= " from invoice where CustomField15 =? and TxnDate >=? and TxnDate <=?";
+
+    $sql = "select TxnID, VendorRef_FullName, TxnDate, RefNumber, ";
+    $sql .= "CreditAmount, Memo, CustomField15";
+    $sql .= " from vendorcredit where CustomField15 =? and CreditAmount > 0 and TxnDate >=? and TxnDate <=? ORDER BY RefNumber";
     
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
     
     $wk_seleccionada = "SELECCIONADA";
         
-    $stmt->bind_param("sss", $wk_seleccionada, $wk_start, $wk_finish);
+    $stmt->bind_param("sss", $wk_seleccionada, $_SESSION['fechaInicio'], $_SESSION['fechaFin']);
     $stmt->execute();
-    $stmt->bind_result($wk_TxnID, $wk_CustomerRefFullName, $wk_TxnDate, $wk_RefNumber, $wk_SalesTaxPercentage, $wk_SalesTaxTotal, $wk_AppliedAmount, $wk_BalanceRemaining, $wk_CustomField15 );        /* fetch values */
-    $wk_NumeroFacturas = 0;
-    $wk_ValorSinImpuestos = 0;
-    $wk_TotalImpuestos = 0;
+    $stmt->bind_result($wk_TxnID, $wk_VendorRefFullName, $wk_TxnDate, $wk_RefNumber, $wk_CreditAmount, $wk_Memo, $wk_CustomField15 );        /* fetch values */
+    $wk_NumeroRetenciones = 0;
+    $wk_ValorRetenciones = 0;
     $wk_TotalTotal = 0;
     $wk_hoy = date("F j, Y, g:i a"); 
 /*
@@ -130,8 +129,8 @@ function chkFactura($wk_start, $wk_finish) {
  *  2. Copia el template de las facturas
  *  3. Genera un DOMDocument 
  */
-    $param = $_SESSION['nombre'] . $wk_start . '.html';
-    $directorio = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . 'facturasScroll.html';
+    $param = $_SESSION['nombre'] . $_SESSION['fechaInicio'] . '.html';
+    $directorio = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . 'retencionesScroll.html';
     $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
     copy($directorio, $salida);
     $doc = new DOMDocument();
@@ -139,10 +138,8 @@ function chkFactura($wk_start, $wk_finish) {
     $E_cliente = $doc->getElementById('cliente');
     $E_fecha = $doc->getElementById('fecha');
     $E_numero = $doc->getElementById('numero');
-    $E_cien = $doc->getElementById('cien');
-    $E_sinimpuesto = $doc->getElementById('sinimpuesto');
-    $E_impuesto = $doc->getElementById('impuesto');
-    $E_valor = $doc->getElementById('valor');
+    $E_memo = $doc->getElementById('memo');
+    $E_retencion = $doc->getElementById('retencion');
     
 /*
  *   1. Procesa cada factura
@@ -150,58 +147,39 @@ function chkFactura($wk_start, $wk_finish) {
  */
     while ($stmt->fetch()) {
 
-    $wk_valorFactura = $wk_AppliedAmount * -1 + $wk_BalanceRemaining;
-    $wk_sinimpuesto = $wk_AppliedAmount * -1 + $wk_BalanceRemaining - $wk_SalesTaxTotal;
-    $out_iva = number_format($wk_SalesTaxPercentage, 2, ',', ' ');
-    $out_valoriva = number_format($wk_SalesTaxTotal, 2, ',', ' ');
-    $out_pagado = number_format($wk_sinimpuesto, 2, ',', ' ');
-    $out_debe = number_format($wk_valorFactura, 2, ',', ' ');
-    
-    $regresaString = limpiaString($wk_CustomerRefFullName);
-    $uno = $doc -> createElement('p', $regresaString);
+    $out_retencion = number_format($wk_CreditAmount, 2, ',', ' ');
+    $regresaName = limpiaString($wk_VendorRefFullName);
+    $uno = $doc -> createElement('p', $regresaName);
     $dos = $doc -> createElement('p', $wk_TxnDate);
     $tres = $doc -> createElement('p', $wk_RefNumber);
-    $cuatro = $doc -> createElement('p', $out_iva);
-    $seis = $doc -> createElement('p', $out_valoriva);
-    $cinco = $doc -> createElement('p', $out_pagado);
-    $siete = $doc -> createElement('p', $out_debe);
+    $cuatro = $doc -> createElement('p', $wk_Memo);
+    $cinco = $doc -> createElement('p', $out_retencion);
 
     $E_cliente -> appendChild($uno);
     $E_fecha -> appendChild($dos);
     $E_numero -> appendChild($tres);
-    $E_cien -> appendChild($cuatro);
-    $E_sinimpuesto -> appendChild($cinco);
-    $E_impuesto -> appendChild($seis);
-    $E_valor -> appendChild($siete);
-    
-        $wk_TotalImpuestos = $wk_TotalImpuestos + $wk_SalesTaxTotal;
-        $wk_ValorSinImpuestos = $wk_ValorSinImpuestos + ($wk_valorFactura - $wk_SalesTaxTotal);
-        $wk_TotalTotal = $wk_TotalTotal + $wk_valorFactura;
-        $wk_NumeroFacturas ++;
+    $E_memo -> appendChild($cuatro);
+    $E_retencion -> appendChild($cinco);
+    $wk_TotalTotal = $wk_TotalTotal + $wk_CreditAmount;
+    $wk_NumeroRetenciones ++;
         
   }
-    $uno = $doc -> createElement('h2', 'Facturas Seleccionadas');
-    $out_valoriva = number_format($wk_TotalImpuestos, 2, ',', ' ');
-    $out_pagado = number_format($wk_ValorSinImpuestos, 2, ',', ' ');
+    $unof = $doc -> createElement('h2', 'Retenciones Seleccionadas');
     $out_debe = number_format($wk_TotalTotal, 2, ',', ' ');
+    $wk_blanco = "  ";
+    $dosf = $doc -> createElement('p', $wk_blanco);
+    $tresf = $doc -> createElement('p', $wk_blanco);
+    $cuatrof = $doc -> createElement('p', $wk_NumeroRetenciones);
+    $cincof = $doc -> createElement('p', $out_debe);
     
-    $dos = $doc -> createElement('p', '');
-    $tres = $doc -> createElement('p', '');
-    $cuatro = $doc -> createElement('p', $wk_NumeroFacturas);
-    $cinco = $doc -> createElement('p', $out_valoriva);
-    $seis = $doc -> createElement('p', $out_pagado);
-    $siete = $doc -> createElement('p', $out_debe);
-    
-    $E_cliente -> appendChild($uno);
-    $E_fecha -> appendChild($dos);
-    $E_numero -> appendChild($tres);
-    $E_cien -> appendChild($cuatro);
-    $E_sinimpuesto -> appendChild($cinco);
-    $E_impuesto -> appendChild($seis);
-    $E_valor -> appendChild($siete);
+    $E_cliente -> appendChild($unof);
+    $E_fecha -> appendChild($dosf);
+    $E_numero -> appendChild($tresf);
+    $E_memo -> appendChild($cuatrof);
+    $E_retencion -> appendChild($cincof);
     
     $doc->saveHTMLFile($salida);
-    $flagEmail = enviaFacturasSeleccionadas($param);
+    $flagEmail = enviaRetencionesSeleccionadas($param);
     
     /* close statement */
     $stmt->close();
@@ -210,30 +188,30 @@ function chkFactura($wk_start, $wk_finish) {
     return $flagEmail;;
  }
 
-function updateFactura($fechaInicio, $fechaFin) {
+function updateRetencion() {
 //    var_dump($fechaInicio, $fechaFin);
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
     }
-    $sql = "UPDATE invoice SET CustomField15 = 'SELECCIONADA' where TxnDate >=? and TxnDate <= ? and CustomField15 is null";
+    $sql = "UPDATE vendorcredit SET CustomField15 = 'SELECCIONADA' where TxnDate >=? and TxnDate <= ? and CustomField15 is null";
 //    $sql = "UPDATE invoice SET CustomField15 = 'SELECCIONADA' LIMIT 40";
     $stmt = $db->prepare($sql) or die(mysqli_error($db));
 //   $seleccionada = NULL;
-    $stmt->bind_param("ss", $fechaInicio, $fechaFin);
-    $flag = "No se proceso Actualizacion de facturas seleccionadas";
+    $stmt->bind_param("ss", $_SESSION['fechaInicio'], $_SESSION['fechaFin']);
+    $flag = "No se proceso Actualizacion de retenciones seleccionadas";
     $stmt->execute();
     $nroRegistrosAfectados = $stmt->affected_rows;
-    $flag = "*** ERROR No se han seleccionado facturas " . $nroRegistrosAfectados;
+    $flag = "*** ERROR No se han seleccionado retenciones " . $nroRegistrosAfectados;
     if ($nroRegistrosAfectados > 0) {
-        $flag = 'OK Se Actualizaron las facturas seleccionadas';
+        $flag = 'OK Se Actualizaron las retenciones seleccionadas';
     }
         /* close statement */
     $stmt->close();
     
     return $flag;
 }
-function enviaFacturasSeleccionadas($param) {
+function enviaRetencionesSeleccionadas($param) {
     
     require $_SERVER['DOCUMENT_ROOT'] . '/salgraf/include/enviamail.php';
 //    $directorio = 'http://serverml110/salgraf/archivos/' . $param;
@@ -248,7 +226,7 @@ function enviaFacturasSeleccionadas($param) {
     
     $paraemail['part'] = $part;
     $paraemail['body'] = $body;
-    $paraemail['subject'] = 'Comprobantes Electronicos Facturas Seleccionadas';
+    $paraemail['subject'] = 'Comprobantes Electronicos Retenciones Seleccionadas';
     $paraemail['fromemail']['email'] = 'salgraf.sistema@gmail.com';
     $paraemail['fromemail']['nombre'] = 'Sistema';
     $paraemail['toemail']['email'] = $_SESSION['email'];
@@ -256,10 +234,10 @@ function enviaFacturasSeleccionadas($param) {
     
     $flagEmail = enviamail($paraemail);
     if ($flagEmail == "Sent") {
-    $flagEmail = 'OK Se Actualizaron las facturas seleccionadas, y se envio el email';
+    $flagEmail = 'OK Se Actualizaron las retenciones seleccionadas, y se envio el email';
         
     } else {
-        $flagEmail = 'OK Se Actualizaron las facturas seleccionadas no se pudo enviar email';
+        $flagEmail = 'OK Se Actualizaron las retenciones seleccionadas no se pudo enviar email';
     
     } 
     

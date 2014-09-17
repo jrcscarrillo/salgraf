@@ -15,15 +15,6 @@ echo '<script type="text/javascript">'.
         "</script>";
 exit();
 }
-if ($_SESSION['email'] != 'jrcscarrillo@gmail.com') {
-    require 'paraMensajes.html';
-    echo '<script type="text/javascript">'.
-        "$(document).ready(function(){".
-        "$('#mensaje').text('*** ERROR No tiene acceso a esta opcion');".
-        "})".
-        "</script>";
-        exit();
-}
-    require ('addContribuyente.html');
+    require ('addGuia.html');
     exit();
 

@@ -7,10 +7,10 @@
  */
 
 function db_connect() {
-    $userName = "salgraf";
+    $userName = "root";
     $password = "salgraf";
     $dbName = "salgraf";
-    $server = "Juanito";
+    $server = "localhost";
     $db = new mysqli($server, $userName, $password, $dbName);
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);

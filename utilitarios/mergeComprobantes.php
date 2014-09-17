@@ -12,8 +12,25 @@
  * 5. Calculo digest de InfoFactura
  * 6. Modifico en ds:DigestValue id='DelLote' el nuevo valor del digest
  */
-
 function juntaComprobantes($salida) {
+    global $doc1, $doc2, $doc3, $archivo;
+    $archivo = $salida;
+
+    $param = "factura.xml";
+    $factura = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/include/' . $param;    
+    $param = "firmaTemplate.xml";
+    $signed = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
+
+    $doc2 = new DOMDocument();
+    $doc2->load($signed);
+    $doc3 = new DOMDocument();
+    $doc3->formatOutput = TRUE;
+    $doc3->load($factura);
+    juntaLotes( $doc3 );
+ 
+    $doc3->save($archivo);
+    }
+function juntaComprobantesOLD($salida) {
     global $doc1, $doc2, $doc3, $archivo;
     $archivo = $salida;
     $param = "InfoFactura.xml";

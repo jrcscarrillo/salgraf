@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nueva Guia de Remision</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+		<!--
+				Los siguiente estilos son para el menu
+		-->
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/text.css" />
+		<link rel="stylesheet" href="./css/960_12_col.css" />
+		<link rel="stylesheet" href="./css/skin1.css" />
+		<link rel="stylesheet" href="./css/nivo-slider.css" />
+		<link rel="stylesheet" href="./css/jqueryslidemenu.css" />
+		<!--
+		
+		-->
+		<link rel="stylesheet" href="./css/demo.css">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="./css/sky-forms.css">
+		<link rel="stylesheet" href="./css/sky-forms-blue.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="./js/jquery.form.min.js"></script>
+		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.js"></script>
+		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.js"></script>
+		<!--
+				Los siguientes includes son para el manejo del menu
+		-->
+		<script type="text/javascript" src="./js/jqueryslidemenu.js"></script>
+		<script type="text/javascript" src="./js/jquery.nivo.slider.js"></script>
+		<script type="text/javascript" src="./js/jquery.bxSlider.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.elastislide.js"></script>
+		<script type="text/javascript" src="./js/custom.js"></script>
+		<script type="text/javascript" src="./js/scrolltop.js"></script>
+		<script type="text/javascript" src="./js/nuevaGuia.js"></script>
+
+	</head>
+<body class="bg-blue">
+<div id="wrapper" class="boxed">
+
+    <div class="body">
+        <form action="./include/addGuia.php" method="post" enctype="multipart/form-data" id="sky-form" class="sky-form">
+            <header>Guia</header>
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-user"></i>
+                            <input type="text" name="nroGuiaForm" placeholder="Numero de Guia"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"><i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="fechaGuiaForm" id="fechaGuiaForm" placeholder="Fecha Emision Guia"></label>
+                    </section>
+                </div>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="select">
+                            <select name="tipoIDDestinoForm">
+                                <option value="seleccione" selected disabled>Tipo de Identificacion Destinatario</option>
+                                <option value="04">Ruc</option>
+                                <option value="05">Cedula</option>
+                                <option value="06">Pasaporte</option>
+                                <option value="07">Consumidor Final</option>
+                            </select> <i></i> </label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                            <input type="text" name="numeroIDDestinoForm" placeholder="Numero de Identificacion">
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <section>
+                        <label class="input"> <i class="icon-append fa fa-user"></i>
+                            <input type="text" name="razonForm" placeholder="Razon Social o Nombres y Apellidos"></label>
+                    </section>
+                    <section>
+                        <label class="input"> <i class="icon-append fa fa-briefcase"></i>
+                            <input type="text" name="dirPartidaForm" placeholder="Direccion Punto de Partida"></label>
+                    </section>
+                </div>
+                <div class="row">
+                    <section>
+                        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                            <input type="text" name="dirDestinoForm" placeholder="Direccion Destino">
+                        </label>
+                    </section>
+                    <section>
+                        <label class="input"> <i class="icon-append fa fa-phone"></i>
+                            <input type="text" name="motivoForm" placeholder="Motivo del Transporte">
+                        </label>
+                    </section>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                    <label>Datos del Transportista</label>
+                        <label class="select">
+                            <select name="tipoIDTransporteForm">
+                                <option value="seleccione" selected disabled>Tipo de Identificacion Transportista</option>
+                                <option value="04">Ruc</option>
+                                <option value="05">Cedula</option>
+                                <option value="06">Pasaporte</option>
+                                <option value="07">Consumidor Final</option>
+                            </select> <i></i> </label>
+                    </section>
+                    <section class="col col-6"><br>
+                        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                            <input type="text" name="numeroIDTransporteForm" placeholder="Numero de Identificacion">
+                        </label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-cubes"></i>
+                            <input type="email" name="emailTransporteForm" placeholder="Direccion Correo Electronico"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-legal"></i>
+                            <input type="text" name="telTransporteForm" placeholder="Telefono"></label>
+                    </section>                    
+                </div>
+                
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-cubes"></i>
+                            <input type="text" name="placaForm" placeholder="Numero de la Placa"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-legal"></i>
+                            <input type="text" name="usoFuturoForm" placeholder="Uso Futuro"></label>
+                    </section>                    
+                </div>
+                
+                <div class="row">
+                    <section>
+                        <label class="input"> <i class="icon-append fa fa-building"></i>
+                            <input type="text" name="razonTransporteForm" placeholder="Razon Social o Nombres y Apellidos Transportista"></label>
+                    </section>                    
+                    <section>
+                        <label class="input"> <i class="icon-append fa fa-cubes"></i>
+                            <input type="text" name="dirTransporteForm" placeholder="Direccion Transportista"></label>
+                    </section>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <div class="row">
+                    <section class="col col-6">
+                    <label>Datos Documento de Respaldo</label>
+                        <label class="select">
+                            <select name="tipoDocRespaldoForm">
+                                <option value="seleccione" selected disabled>Tipo Documento</option>
+                                <option value="01">Factura</option>
+                                <option value="02">Nota de Venta</option>
+                                <option value="08">Traslado entre Bodegas</option>
+                                <option value="09">Otros Movimientos</option>
+                            </select> <i></i> </label>
+                    </section>
+                    <section class="col col-6"><br>
+                        <label class="input"> <i class="icon-append fa fa-envelope-o"></i>
+                            <input type="text" name="numeroDocRespaldoForm" placeholder="Numero Documento Respaldo">
+                        </label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"><i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="fechaDocRespaldoForm" id="fechaDocRespaldoForm" placeholder="Fecha Documento Respaldo"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"><i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="fechaInicioTForm" id="fechaInicioTForm" placeholder="Fecha Inicio Transporte"></label>
+                    </section>
+                </div>
+
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"><i class="icon-append fa fa-calendar"></i>
+                        <input type="text" name="fechaFinTForm" id="fechaFinTForm" placeholder="Fecha Fin Transporte"></label>
+                    </section>
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-legal"></i>
+                            <input type="text" name="rutaForm" placeholder="Ruta"></label>
+                    </section>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="row">
+                    <section>
+                        <label>Informacion de productos y embalaje</label>
+                        <label class="textarea"><i class="icon-append fa fa-comment"></i>
+                            <textarea rows="5" name="productosForm" placeholder="Descripcion Productos"></textarea></label>
+                    </section>
+                    <section>
+                        <label class="textarea"><i class="icon-append fa fa-comment"></i>
+                            <textarea rows="5" name="embalajeForm" placeholder="Descripcion Embalaje"></textarea></label>
+                    </section>                    
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <div class="progress">
+                    <section class="col col-6">
+                        <button type="submit" class="button">Validar</button>
+                    </section>
+                </div>
+                <div class="progress"></div>
+            </fieldset>
+            <div class="message">
+                <i class="fa fa-check"></i>
+                <p>Se ha adicionado una nueva guia!<br>
+                    esta listo para iniciar la seleccion y firma.
+                </p>
+                <section class="col col-6">
+                    <a href="index.html">Home</a>
+                </section>
+            </div>
+</form>
+</div>
+    <div id="pre_footer">
+        <div class="pre_footer_wrapper"></div>
+    </div>
+    <div id="footer_wrapper">
+        <div class="container_12 clearfix">
+            <div id="footer">
+                <div class="copyright_left">
+                    &reg; Copyright 2014 Carrillos Team
+                </div>
+                <div class="copyright_right">
+                    Powered by <a href="http://www.thunderthemes.net">ThunderThemes.net</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="topcontrol" style="position: fixed; bottom: 0px; right: 0px; opacity: 1; cursor: pointer;" title="To the top! To the victory!"></div>
+</div>
+<script type="text/javascript">
+        $(function()
+        {
+            $('#fechaDocRespaldoForm').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function( selectedDate )
+                {
+                    $('#fechaGuiaForm').datepicker('option', 'minDate', selectedDate);
+                }
+                });
+            $('#fechaGuiaForm').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function( selectedDate )
+                {
+                    $('#fechaDocRespaldoForm').datepicker('option', 'maxDate', selectedDate);
+                }
+                });
+                
+        $('#fechaInicioTForm').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function( selectedDate )
+                {
+                    $('#fechaFinTForm').datepicker('option', 'minDate', selectedDate);
+                }
+                });
+            $('#fechaFinTForm').datepicker({
+                dateFormat: 'yy-mm-dd',
+                prevText: '<i class="fa fa-chevron-left"></i>',
+                nextText: '<i class="fa fa-chevron-right"></i>',
+                onSelect: function( selectedDate )
+                {
+                    $('#fechaInicioTForm').datepicker('option', 'maxDate', selectedDate);
+                }
+                });
+        });			
+</script>
+</body>
+</html>

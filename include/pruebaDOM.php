@@ -6,9 +6,9 @@
  * and open the template in the editor.
  */
 //    $param = $_POST['archivo'] . '.xml';
-    $param = 'Juancho.xml';
-    $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
-    poneDigest($salida);
+//    $param = 'Juancho.xml';
+//    $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
+//    poneDigest($salida);
 function poneDigest($param) {
     
     $doc = new DOMDocument();

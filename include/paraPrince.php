@@ -6,20 +6,24 @@
  * and open the template in the editor.
  */
 
-require '../prince.php';
 
+//$param = "bootstrap-guia.html";
+//paraPrince($param);
 function paraPrince($param) {
-
-$prince = new Prince("/Apps/Engine/bin/prince");
-if(!$prince) 
-{	die("<p>Prince instantiation failed</p>");	}
-else 
-{	echo "Prince instantiation OK<br />";	}
+    $flagPDF = 'No se genero';
+    include_once '../prince.php';
+    $prince = new Prince("/Apps/Engine/bin/prince");
+    if(!$prince)
+        {	die("<p>Prince instantiation failed</p>");	}
+//        else {	echo "Prince instantiation OK<br />";	}
 
 try{
-    $directorio = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/';
-    $prince->convert_file($directorio . $param);
+    $prince->addStyleSheet('../css/bootstrap_prince.css');
+    $prince->addScript('../js/bootstrap_prince.js');
+    $prince->convert_file($param);
+    $flagPDF = 'Genero';
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage(), "\n";
 }
+return $flagPDF;
 }

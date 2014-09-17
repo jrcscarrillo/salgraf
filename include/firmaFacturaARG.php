@@ -25,25 +25,34 @@
  */
  
 session_start();
-$_SESSION['codigoImpuesto'] = 2;
-$_SESSION['porcentajeImpuesto'] = 12;
-$_SESSION['codigoTarifaImpuesto'] = 2;
-$_SESSION['baseImponible'] = 0;
-$_SESSION['valorImpuestos'] = 0;
-$_SESSION['valorSinImpuestos'] = 0;
-$_SESSION['valorDescuentos'] = 0;
-$_SESSION['valorTotal'] = 0;
+$args['codigoImpuesto'] = 2;
+$args['porcentajeImpuesto'] = 12;
+$args['codigoTarifaImpuesto'] = 2;
+$args['baseImponible'] = 0;
+$args['valorImpuestos'] = 0;
+$args['valorSinImpuestos'] = 0;
+$args['valorDescuentos'] = 0;
+$args['valorTotal'] = 0;
 include 'conectaQuickBooks.php';
 include 'claveAcceso.php';
 include 'cambiaString.php';
-include 'calculaDigest.php';
 include '../utilitarios/mergeComprobantes.php';
 
-    $flagPasa = pasaFirma();
-    $flagGenera = generaXML();
+    $flagPasa = pasaFirma($args);
+    $flagGenera = generaXML($args);
+        if ($flagGenera == 'Generacion OK') {
+            $flagConvertida = convierte();
+            if ($flagConvertida == 'Conversion OK') {
+                $flagXML = mergeXMLs();
+                if ($flagXML == "Listo Lote") {
+                    echo 'Listo para el webservice';
+                }
+            }
+            
+        }
 
 exit();
-function pasaFirma() {
+function pasaFirma($args) {
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
@@ -57,7 +66,7 @@ function pasaFirma() {
     $db->close();
     return $flagPasa;
 }
-function generaXML() {
+function generaXML($args) {
     $db = db_connect();
     if ($db->connect_errno) {
         die('Error de Conexion: ' . $db->connect_errno);
@@ -77,117 +86,124 @@ function generaXML() {
     while ($stmt->fetch()) {
         if ($control == 0) {
              $control = $db_RefNumber;
-             $_SESSION['numeroDocumento'] = $db_RefNumber;
-             $_SESSION['razonSocial'] = $db_Name;
-             $_SESSION['rucComprador'] = $db_Ruc;
-             $_SESSION['fechaDocumento'] = $db_TxnDate;
-             $_SESSION['numeroTransaccion'] = $db_TxnNumber;
-             $_SESSION['customfield15'] = $db_Campo;
-             $_SESSION['direccionComprador'] = $db_direccionComprador;
+             $args['numeroDocumento'] = $db_RefNumber;
+             $args['razonSocial'] = $db_Name;
+             $args['ruc'] = $db_Ruc;
+             $args['fechaDocumento'] = $db_TxnDate;
+             $args['numeroTransaccion'] = $db_TxnNumber;
+             $args['customfield15'] = $db_Campo;
+             $args['direccionComprador'] = $db_direccionComprador;
              $stringDetalles = '<detalles>';
              }
         if ($control != $db_RefNumber) {
-            $_SESSION['xmlDetalles'] = $stringDetalles;
-             totalFactura();             
-             $_SESSION['numeroDocumento'] = $db_RefNumber;
-             $_SESSION['razonSocial'] = $db_Name;
-             $_SESSION['rucComprador'] = $db_Ruc;
-             $_SESSION['fechaDocumento'] = $db_TxnDate;
-             $_SESSION['numeroTransaccion'] = $db_TxnNumber;
-             $_SESSION['customfield15'] = $db_Campo;
-             $_SESSION['direccionComprador'] = $db_direccionComprador;
+            $args['xmlDetalles'] = $stringDetalles;
+             totalFactura($args);             
+             $args['numeroDocumento'] = $db_RefNumber;
+             $args['razonSocial'] = $db_Name;
+             $args['ruc'] = $db_Ruc;
+             $args['fechaDocumento'] = $db_TxnDate;
+             $args['numeroTransaccion'] = $db_TxnNumber;
+             $args['customfield15'] = $db_Campo;
+             $args['direccionComprador'] = $db_direccionComprador;
              $control = $db_RefNumber;
-             $_SESSION['baseImponible'] = 0;
-             $_SESSION['valorImpuestos'] = 0;
-             $_SESSION['valorSinImpuestos'] = 0;
-             $_SESSION['valorDescuentos'] = 0;
-             $_SESSION['valorTotal'] = 0;
+             $args['baseImponible'] = 0;
+             $args['valorImpuestos'] = 0;
+             $args['valorSinImpuestos'] = 0;
+             $args['valorDescuentos'] = 0;
+             $args['valorTotal'] = 0;
              $stringDetalles = '<detalles>';
              
         } 
         if ($db_Item != NULL) {
-            $_SESSION['codigoProducto'] = $db_Item;
-             $_SESSION['descripcionProducto'] = $db_descripcion;
-             $_SESSION['cantidad'] = $db_Quantity;
-             $_SESSION['precioProducto'] = $db_Rate;
-             $_SESSION['valorProducto'] = $db_Amount;
-            procesaItem();
-            $stringDetalles .= $_SESSION['xmlItem'];
+            $args['codigoProducto'] = $db_Item;
+             $args['descripcionProducto'] = $db_descripcion;
+             $args['cantidad'] = $db_Quantity;
+             $args['precioProducto'] = $db_Rate;
+             $args['valorProducto'] = $db_Amount;
+            $param = procesaItem($args);
+            $args['baseImponible'] = $param['baseImponible'];
+            $args['valorImpuestos'] = $param['valorImpuestos'];
+            $args['valorSinImpuestos'] = $param['valorSinImpuestos'];
+            $args['valorDescuentos'] = $param['valorDescuentos'];
+            $args['valorTotal'] = $param['valorTotal'];
+            $stringDetalles .= $param['xmlItem'];
             
         } 
     }
     if ($control != 0) {
-        $_SESSION['xmlDetalles'] = $stringDetalles;
-        totalFactura();
+        totalFactura($args);
     }
     $stmt->close();
     $db->close();
     exit();
 } 
 
-function totalFactura() {
+function totalFactura($args) {
     
     echo 'Entrando al proceso total factura ';
-    var_dump($_SESSION);
+    var_dump($args);
     
-    crea_clave();
-    $db_claveAcceso1 = implode($_SESSION['claveAcceso']);
+    $param = crea_clave($args);
+    
+    echo 'Despues del proceso de claves';
+    var_dump($param);
+    $db_claveAcceso1 = implode($param['claveAcceso']);
     $db_tipoIdentificacionComprador = "04"; // ruc 04 cedula 05 pasaporte 06 consumidor final 07
-    if ($_SESSION['rucLimpio'] == '9999999999999') {
+    if ($param['rucLimpio'] == '9999999999999') {
         $db_tipoIdentificacionComprador = "07";
     } else {
-        if (strlen($_SESSION['rucLimpio']) == 10) {
+        if (strlen($param['rucLimpio']) == 10) {
             $db_tipoIdentificacionComprador = "05";    
         }
     }
-    $stringDate = strtotime($_SESSION['fechaDocumento']);
+    $stringDate = strtotime($args['fechaDocumento']);
     $dateString = date('d/m/Y', $stringDate);
-    $out_SinImp = number_format($_SESSION['valorSinImpuestos'], '2', '.', '');
-    $out_Base = number_format($_SESSION['baseImponible'], '2', '.','');
-    $out_ValorImp = number_format($_SESSION['valorImpuestos'], '2', '.','');
-    $out_Total = number_format($_SESSION['valorTotal'], '2', '.','');
-    $regresaName = limpiaString($_SESSION['razonSocial']);
-    $regresaDireccion = limpiaString($_SESSION['direccionComprador']);
+    $out_SinImp = number_format($args['valorSinImpuestos'], '2', '.', '');
+    $out_Base = number_format($args['baseImponible'], '2', '.','');
+    $out_ValorImp = number_format($args['valorImpuestos'], '2', '.','');
+    $out_Total = number_format($args['valorTotal'], '2', '.','');
+    $regresaName = limpiaString($args['razonSocial']);
+    $regresaDireccion = limpiaString($args['direccionComprador']);
     $stringTributaria = '<infoTributaria><ambiente>' . $_SESSION['ambiente'] . '</ambiente>';
     $stringTributaria .= '<tipoEmision>' . $_SESSION['emision'] . '</tipoEmision><razonSocial>' . $_SESSION['Razon'] . '</razonSocial>';
     $stringTributaria .= '<nombreComercial>' . $_SESSION['Comercial'] . '</nombreComercial>';
     $stringTributaria .= '<ruc>' . $_SESSION['Ruc'] . '</ruc><claveAcceso>' . $db_claveAcceso1 . '</claveAcceso><codDoc>01</codDoc>';
-    $stringTributaria .= '<estab>' . $_SESSION['establecimiento'] . '</estab><ptoEmi>' .  $_SESSION['puntoemision'] . '</ptoEmi><secuencial>' . $_SESSION['numeroDocumentoLleno'] . '</secuencial>';
+    $stringTributaria .= '<estab>' . $_SESSION['establecimiento'] . '</estab><ptoEmi>' .  $_SESSION['puntoemision'] . '</ptoEmi><secuencial>' . $param['numeroDocumentoLleno'] . '</secuencial>';
     $stringTributaria .= '<dirMatriz>' . $_SESSION['matriz'] . '</dirMatriz></infoTributaria>';
     $stringInfo = '<infoFactura><fechaEmision>' . $dateString . '</fechaEmision><dirEstablecimiento>' . $regresaDireccion . '</dirEstablecimiento>';
     $stringInfo .= '<obligadoContabilidad>' . $_SESSION['contabilidad'] . '</obligadoContabilidad>';
     $stringInfo .= '<tipoIdentificacionComprador>' . $db_tipoIdentificacionComprador . '</tipoIdentificacionComprador><razonSocialComprador>' . 'PRUEBAS SERVICIO DE RENTAS INTERNAS' . '</razonSocialComprador>';
-    $stringInfo .= '<identificacionComprador>' . $_SESSION['rucLimpio'] . '</identificacionComprador><totalSinImpuestos>' . $out_SinImp . '</totalSinImpuestos>';
-    $stringInfo .= '<totalDescuento>0.00</totalDescuento><totalConImpuestos><totalImpuesto><codigo>' . $_SESSION['codigoImpuesto'];
-    $stringInfo .= '</codigo><codigoPorcentaje>' . $_SESSION['codigoTarifaImpuesto'] . '</codigoPorcentaje><baseImponible>' . $out_Base . '</baseImponible>';
+    $stringInfo .= '<identificacionComprador>' . $param['rucLimpio'] . '</identificacionComprador><totalSinImpuestos>' . $out_SinImp . '</totalSinImpuestos>';
+    $stringInfo .= '<totalDescuento>0.00</totalDescuento><totalConImpuestos><totalImpuesto><codigo>' . $args['codigoImpuesto'];
+    $stringInfo .= '</codigo><codigoPorcentaje>' . $args['porcentajeImpuesto'] . '</codigoPorcentaje><baseImponible>' . $out_Base . '</baseImponible>';
     $stringInfo .= '<valor>' . $out_ValorImp . '</valor></totalImpuesto></totalConImpuestos><propina>0.00</propina><importeTotal>' . $out_Total;
     $stringInfo .= '</importeTotal><moneda>DOLAR</moneda></infoFactura>';
 
-    $stringFactura = '<factura id="comprobante" version="1.1.0">' . $stringTributaria . $stringInfo . $_SESSION['xmlDetalles'] . '</detalles></factura>';
+    $stringFactura = '<factura id="comprobante" version="1.1.0">' . $stringTributaria . $stringInfo . $args['xmlDetalles'] . '</detalles></factura>';
     
     $stringDoc = '<?xml version="1.0" encoding="UTF-8" ?>';
     $stringDoc .= $stringFactura;
     file_put_contents('factura.xml', $stringDoc);
     file_put_contents('InfoFactura.xml', $stringInfo);
-    $prefijo = $_POST['archivo'] . $_SESSION['numeroDocumento'] . '.xml';
+    $prefijo = $_POST['archivo'] . $args['numeroDocumento'] . '.xml';
     $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $prefijo;
     juntaComprobantes($salida);
 //    include_once 'SRIcliente.php';
 //    enviaComprobante($salida);
     }
 
-function crea_clave() {
+function crea_clave($param) {
 
-    $stringDate = strtotime($_SESSION['fechaDocumento']);
+    $stringDate = strtotime($param['fechaDocumento']);
     $dateString = date('dmY', $stringDate);
     $args['fecha'] = $dateString;
     $args['tipodoc'] = '01';
     
-    $args1['dato'] = $_SESSION['rucComprador'];
+    $args1['dato'] = $param['ruc'];
     $args1['longitud'] = 12; // debe ser -1 de la longitud deseada
     $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
     $args1['relleno'] = 'N'; //N=Numero A=Alfas;
-    $_SESSION['rucLimpio'] = implode(generaString($args1));
+    $param['rucLimpio'] = implode(generaString($args1));
     
     $args['ruc'] = $_SESSION['Ruc']; // llenar a 13 si es cedula
     
@@ -195,50 +211,50 @@ function crea_clave() {
     $args['establecimiento'] = $_SESSION['establecimiento'];
     $args['punto'] = $_SESSION['puntoemision'];
      
-    $args1['dato'] = $_SESSION['numeroDocumento'];
+    $args1['dato'] = $param['numeroDocumento'];
     $args1['longitud'] = 8; // debe ser -1 de la longitud deseada
     $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
     $args1['relleno'] = 'N'; //N=Numero A=Alfas;
-    $_SESSION['numeroDocumentoLleno'] = implode(generaString($args1));   
+    $param['numeroDocumentoLleno'] = implode(generaString($args1));   
     
-    $args['factura'] = $_SESSION['numeroDocumentoLleno']; // llenar a 9
+    $args['factura'] = $param['numeroDocumentoLleno']; // llenar a 9
     
-    $args1['dato'] = $_SESSION['numeroTransaccion'];
+    $args1['dato'] = $param['numeroTransaccion'];
     $args1['longitud'] = 7; // debe ser -1 de la longitud deseada
     $args1['vector'] = 'D'; //I=Izquierdo D=Derecho;
     $args1['relleno'] = 'N'; //N=Numero A=Alfas;
-    $_SESSION['numeroTransaccionLleno'] = implode(generaString($args1));    
+    $param['numeroTransaccionLleno'] = implode(generaString($args1));    
     
-    $args['codigo'] = $_SESSION['numeroTransaccionLleno']; // mismo numero factura? o secuencial
+    $args['codigo'] = $param['numeroTransaccionLleno']; // mismo numero factura? o secuencial
     $args['emision'] = $_SESSION['emision'];
     $claveArray = [];
 //    var_dump($args);
     $claveArray = generaClave($args);
 //    echo 'Esta es la resultante ';
 //    var_dump($claveArray);
-    $_SESSION['claveAcceso'] = $claveArray;
-    return TRUE;
+    $param['claveAcceso'] = $claveArray;
+    return $param;
 }
-function procesaItem() {
+function procesaItem($args) {
     echo 'Entrando al proceso por items';
-    var_dump($_SESSION);
-    $db_valor = $_SESSION['valorProducto'] * $_SESSION['porcentajeImpuesto'] / 100;
+    var_dump($args);
+    $db_valor = $args['valorProducto'] * $args['porcentajeImpuesto'] / 100;
     $out_valor = number_format($db_valor, '2', '.', '');
-    $out_Amount = number_format($_SESSION['valorProducto'], '2', '.', '');
-    $regresaDescripcion = limpiaString($_SESSION['descripcionProducto']);
-    $stringItem = '<detalle><codigoPrincipal>'. $_SESSION['codigoProducto'] . '</codigoPrincipal>';
-    $stringItem .= '<descripcion>'. $regresaDescripcion . '</descripcion><cantidad>' . $_SESSION['cantidad'] . '</cantidad>';
-    $stringItem .= '<precioUnitario>' . $_SESSION['precioProducto'] . '</precioUnitario><descuento>0</descuento>';
+    $out_Amount = number_format($args['valorProducto'], '2', '.', '');
+    $regresaDescripcion = limpiaString($args['descripcionProducto']);
+    $stringItem = '<detalle><codigoPrincipal>'. $args['codigoProducto'] . '</codigoPrincipal>';
+    $stringItem .= '<descripcion>'. $regresaDescripcion . '</descripcion><cantidad>' . $args['cantidad'] . '</cantidad>';
+    $stringItem .= '<precioUnitario>' . $args['precioProducto'] . '</precioUnitario><descuento>0</descuento>';
     $stringItem .= '<precioTotalSinImpuesto>' . $out_Amount . '</precioTotalSinImpuesto><detallesAdicionales><detAdicional/></detallesAdicionales>';
-    $stringItem .= '<impuestos><impuesto><codigo>' . $_SESSION['codigoImpuesto'] . '</codigo><codigoPorcentaje>' . $_SESSION['codigoTarifaImpuesto'] . '</codigoPorcentaje>';
-    $stringItem .= '<tarifa>' . $_SESSION['porcentajeImpuesto'] . '</tarifa><baseImponible>' . $out_Amount . '</baseImponible><valor>' . $out_valor . '</valor></impuesto></impuestos></detalle>';
+    $stringItem .= '<impuestos><impuesto><codigo>' . $args['codigoImpuesto'] . '</codigo><codigoPorcentaje>' . $args['codigoTarifaImpuesto'] . '</codigoPorcentaje>';
+    $stringItem .= '<tarifa>' . $args['porcentajeImpuesto'] . '</tarifa><baseImponible>' . $out_Amount . '</baseImponible><valor>' . $out_valor . '</valor></impuesto></impuestos></detalle>';
      
-    $_SESSION['baseImponible'] = $_SESSION['baseImponible'] + $_SESSION['valorProducto'];
-    $_SESSION['valorImpuestos'] = $_SESSION['valorImpuestos'] + $db_valor;
-    $_SESSION['valorSinImpuestos'] = $_SESSION['valorSinImpuestos'] + $_SESSION['valorProducto'];
-    $_SESSION['valorTotal'] = $_SESSION['valorTotal'] + $_SESSION['valorProducto'] + $db_valor;
-    $_SESSION['xmlItem'] = $stringItem;
-    return TRUE;
+    $args['baseImponible'] = $args['baseImponible'] + $args['valorProducto'];
+    $args['valorImpuestos'] = $args['valorImpuestos'] + $db_valor;
+    $args['valorSinImpuestos'] = $args['valorSinImpuestos'] + $args['valorProducto'];
+    $args['valorTotal'] = $args['valorTotal'] + $args['valorProducto'] + $db_valor;
+    $args['xmlItem'] = $stringItem;
+    return $args;
 }
  
 function generaArchivo($archivo) {

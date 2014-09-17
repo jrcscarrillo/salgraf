@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?> 
+<factura id="comprobante" version="1.0.0">     
+    <infoTributaria>         
+        <ambiente>1</ambiente>         
+        <tipoEmision>1</tipoEmision>         
+        <razonSocial>SERVICIO DE RENTAS INTERNAS</razonSocial>         
+        <nombreComercial>LE HACE BIEN AL PAIS</nombreComercial>         
+        <ruc>1760013210001</ruc>         
+        <claveAcceso>0503201201176001321000110010030009900641234567814</claveAcceso>         
+        <codDoc>01</codDoc>         
+        <estab>001</estab>         
+        <ptoEmi>003</ptoEmi>         
+        <secuencial>000990064</secuencial>         
+        <dirMatriz>AMAZONAS Y ROCA</dirMatriz>     
+    </infoTributaria>     
+    <infoFactura>         
+        <fechaEmision>05/03/2012</fechaEmision>         
+        <dirEstablecimiento>SALINAS Y SANTIAGO</dirEstablecimiento>         
+        <contribuyenteEspecial>12345</contribuyenteEspecial>         
+        <obligadoContabilidad>SI</obligadoContabilidad>         
+        <tipoIdentificacionComprador>05</tipoIdentificacionComprador>         
+        <razonSocialComprador>EGUIGUREN PENARRETA GABRIEL FERNANDO</razonSocialComprador>         
+        <identificacionComprador>1103029144</identificacionComprador>         
+        <totalSinImpuestos>100.00</totalSinImpuestos>         
+        <totalDescuento>0.00</totalDescuento>         
+        <totalConImpuestos>             
+            <totalImpuesto>                 
+                <codigo>2</codigo>                 
+                <codigoPorcentaje>2</codigoPorcentaje>                 
+                <baseImponible>100.00</baseImponible>                 
+                <valor>12.00</valor>             
+            </totalImpuesto>         
+        </totalConImpuestos>         
+        <propina>0.00</propina>         
+        <importeTotal>112.00</importeTotal>         
+        <moneda>DOLAR</moneda>     
+    </infoFactura>     
+    <detalles>         
+        <detalle>             
+            <codigoPrincipal>001</codigoPrincipal>             
+            <codigoAuxiliar>001</codigoAuxiliar>             
+            <descripcion>SILLA DE MADERA</descripcion>             
+            <cantidad>1.00</cantidad>             
+            <precioUnitario>100.00</precioUnitario>             
+            <descuento>0.00</descuento>             
+            <precioTotalSinImpuesto>100.00</precioTotalSinImpuesto>             
+            <impuestos>                 
+                <impuesto>                     
+                    <codigo>2</codigo>                     
+                    <codigoPorcentaje>2</codigoPorcentaje>                     
+                    <tarifa>12.00</tarifa>                     
+                    <baseImponible>100.00</baseImponible>                     
+                    <valor>12.00</valor>                 
+                </impuesto>             
+            </impuestos>         
+        </detalle>     
+    </detalles>     
+    <infoAdicional>         
+        <campoAdicional nombre="Dirección">LOS PERALES Y AV. ELOY ALFARO</campoAdicional>         
+        <campoAdicional nombre="Teléfono">2123123</campoAdicional>         
+        <campoAdicional nombre="Email">gfeguiguren@sri.gob.ec</campoAdicional>     
+    </infoAdicional> 
+<!-- INICIO DE LA FIRMA DIGITAL --> 
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature620397"> 
+    <ds:SignedInfo Id="Signature-SignedInfo814463"> 
+        <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"></ds:CanonicalizationMethod> 
+        <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"></ds:SignatureMethod> 
+        <ds:Reference Id="SignedPropertiesID157683" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature620397-SignedProperties24123"> 
+            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod> 
+            <ds:DigestValue><!-- HASH O DIGEST DEL ELEMENTO <etsi:SignedProperties> --></ds:DigestValue> 
+        </ds:Reference>  
+        <ds:Reference URI="#Certificate1562780"> 
+            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod> 
+            <ds:DigestValue><!-- HASH O DIGEST DEL CERTIFICADO X509 --></ds:DigestValue> 
+        </ds:Reference>   
+        <ds:Reference Id="Reference-ID-363558" URI="#comprobante"> 
+            <ds:Transforms> 
+                <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform> 
+            </ds:Transforms> 
+            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod> 
+            <ds:DigestValue><!-- HASH O DIGEST DE TODO EL ARCHIVO XML IDENTIFICADO POR EL id="comprobante"--></ds:DigestValue> 
+        </ds:Reference> 
+    </ds:SignedInfo> 
+    <ds:SignatureValue Id="SignatureValue398963">  <!-- VALOR DE LA FIRMA (ENCRIPTADO CON LA LLAVE PRIVADA DEL CERTIFICADO DIGITAL) --> </ds:SignatureValue> 
+    <ds:KeyInfo Id="Certificate1562780"> 
+        51   
+        FICHA TÉCNICA: Manual y especificaciones técnicas sobre el proceso de Emisión de Documentos Electrónicos   
+        Febrero, 2014   
+        <ds:X509Data> 
+            <ds:X509Certificate>  <!-- CERTIFICADO X509 CODIFICADO EN Base64 --> </ds:X509Certificate> 
+        </ds:X509Data> 
+        <ds:KeyValue> 
+            <ds:RSAKeyValue> 
+                <ds:Modulus>  <!-- MODULO DEL CERTIFICADO X509 --> </ds:Modulus> 
+                <ds:Exponent>AQAB</ds:Exponent> 
+            </ds:RSAKeyValue> 
+        </ds:KeyValue> 
+    </ds:KeyInfo> 
+    <ds:Object Id="Signature620397-Object231987">
+        <etsi:QualifyingProperties Target="#Signature620397">
+            <etsi:SignedProperties Id="Signature620397- SignedProperties24123">
+                <etsi:SignedSignatureProperties>
+                    <etsi:SigningTime>2012-03-05T16:57:32- 05:00</etsi:SigningTime>
+                    <etsi:SigningCertificate>
+                        <etsi:Cert>
+                            <etsi:CertDigest>
+                                <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"></ds:DigestMethod>
+                                <ds:DigestValue>xUQewsj7MrjSfyMnhWz5DhQnWJM=</ds:DigestValue>
+                            </etsi:CertDigest>
+                            <etsi:IssuerSerial>
+                                <ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName>
+                                <ds:X509SerialNumber>1312833444</ds:X509SerialNumber>
+                            </etsi:IssuerSerial>
+                        </etsi:Cert>
+                    </etsi:SigningCertificate>
+                </etsi:SignedSignatureProperties>
+                <etsi:SignedDataObjectProperties>
+                    <etsi:DataObjectFormat ObjectReference="#Reference-ID-363558">
+                        <etsi:Description>contenido comprobante</etsi:Description>
+                        <etsi:MimeType>text/xml</etsi:MimeType>
+                    </etsi:DataObjectFormat>
+                </etsi:SignedDataObjectProperties>
+            </etsi:SignedProperties>
+            </etsi:QualifyingProperties>
+    </ds:Object> 
+</ds:Signature> <!-- FIN DE LA FIRMA DIGITAL --> 
+</factura>

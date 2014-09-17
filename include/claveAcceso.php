@@ -8,21 +8,21 @@
 /*
  * El argumento $param debe ser una array asociativa 
  */
-//$args['fecha'] = '27072014';
+//$args['fecha'] = '02062014';
 //$args['tipodoc'] = '01';
-//$args['ruc'] = '1703644805001';
-//$args['ambiente'] = '1';
+//$args['ruc'] = '1792067464001';
+//$args['ambiente'] = '2';
 //$args['establecimiento'] = '001';
 //$args['punto'] = '001';
-//$args['factura'] = '000010001';
-//$args['codigo'] = '00010001';
+//$args['factura'] = '000039540';
+//$args['codigo'] = '00039540';
 //$args['emision'] = '1';
 //$claveArray = [];
 //$claveArray = generaClave($args);
 //echo 'Esta es la resultante ';
 //var_dump($claveArray);
 //$digito = poneDigito($claveArray);
-
+//echo 'Este es el digito autoverificador => ' . $digito;
 function poneDigito($param) {
     $posfin = 47;
     $flag = TRUE;
@@ -42,7 +42,12 @@ function poneDigito($param) {
         }
     }
 //    echo 'Esta es la suma ' . $suma;
-    $digito = 11 - ($suma % 11);
+    $tienecero = $suma % 11;
+    if ($tienecero == 0){
+        $digito = 0;
+    } else {
+        $digito = 11 - ($suma % 11);
+    }
 //    echo '<br>Este es el digito verificador ' . $digito;
     return $digito;
 }

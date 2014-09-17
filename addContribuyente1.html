@@ -42,59 +42,6 @@
 	</head>
 <body class="bg-blue">
 <div id="wrapper" class="boxed">
-    <div id="header">
-        <!-- Header start -->
-
-        <div class="container_12 clearfix">
-            <!-- Menu container -->
-            <div class="grid_12">
-                <!-- Start Menu -->
-                <div id="topnav" class="jqueryslidemenu">
-                    <ul><li><a href="login.html">Ingresar</a></li>
-                        <li><a href="#">Administracion</a>
-                            <ul><li><a href="./listaContribuyente.php">Lista de Contribuyentes</a></li>
-                                <li><a href="./nuevoContribuyente.php">Nuevo Contribuyente</a></li>
-                                <li><a href="./selectContribuyente.php">Seleccionar Contribuyente</a></li>
-                                <li><a href="./generaClave.php">Generacion de Claves</a></li>
-                                <li><a href="./listaClaves.php">Lista de Claves</a></li>
-                                <li><a href="./recuperaClave.php">Recuperacion de Claves</a></li>
-                                <li><a href="./habilita.php">Habilita Usuario</a></li>
-                                <li><a href="./utilitarios/cleanContribuyente.php">Vaciar Contribuyentes</a></li>
-                                <li><a href="./utilitarios/cleanUsuarios.php">Vaciar Usuarios</a></li>
-                            </ul></li>
-                    <li><a href="#">Facturas</a>
-                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
-                                <li><a href="./firmaFactura.php">Firmar</a></li>
-                                <li><a href="./autoFactura.php">Autorizadas</a></li>
-                                <li><a href="./noautoFactura.php">No Autorizadas</a></li></ul></li>
-                        <li><a href="#">Notas DB</a>
-                            <ul><li><a href="./selecNotasDB.php">Seleccion</a></li>
-                                <li><a href="./firmaNotasDB.php">Firmar</a></li>
-                                <li><a href="./autoNotasDB.php">Autorizadas</a></li>
-                                <li><a href="./noautoNotasDB.php">No Autorizadas</a></li></ul></li>
-                        <li><a href="#">Notas CR</a>
-                            <ul><li><a href="./selecNotasCR.php">Seleccion</a></li>
-                                <li><a href="./firmaNotasCR.php">Firmar</a></li>
-                                <li><a href="./autoNotasCR.php">Autorizadas</a></li>
-                                <li><a href="./noautoNotasCR.php">No Autorizadas</a></li></ul></li>
-                        <li><a href="#">Retenciones</a>
-                            <ul><li><a href="./selecRetencion.php">Seleccion</a></li>
-                                <li><a href="./firmaRetencion.php">Firmar</a></li>
-                                <li><a href="./autoRetencion.php">Autorizadas</a></li>
-                                <li><a href="./noautoRetencion.php">No Autorizadas</a></li></ul></li>
-                        <li><a href="#">Guias</a>
-                            <ul><li><a href="./nuevasGuias.php">Ingresar</a></li>
-                                <li><a href="./modificarGuias.php">Modificar</a></li>
-                                <li><a href="./borrarGuias.php">Eliminar</a></li>
-                                <li><a href="./firmaGuias.php">Firmar</a></li>
-                                <li><a href="./autoGuias.php">Autorizadas</a></li>
-                                <li><a href="./noautoGuias.php">No Autorizadas</a></li></ul></li>
-                        <li><a href="./logout.php">Salir</a></li>
-                    </ul>
-                </div>
-            </div><!-- end menu -->
-        </div><!-- end menu container -->
-    </div><!-- Header end -->
 
     <div class="body">
         <form action="./include/addContribuyente.php" method="post" enctype="multipart/form-data" id="sky-form" class="sky-form">
@@ -103,7 +50,8 @@
                 <div class="row">
                     <section class="col col-6">
                         <label class="input"> <i class="icon-append fa fa-user"></i>
-                            <input type="text" name="rucForm" placeholder="Registro Unico"></label>
+                            <output class="prueba">Probando Probando</output>
+                            </label>
                     </section>
                     <section class="col col-6">
                         <label class="input"> <i class="icon-append fa fa-briefcase"></i>
@@ -173,8 +121,8 @@
                         <label class="select">
                             <select name="ambienteForm">
                                 <option value="seleccione" selected disabled>Ambiente</option>
-                                <option value="1">Pruebas</option>
-                                <option value="2">Produccion</option>
+                                <option value="1">Produccion</option>
+                                <option value="2">Pruebas</option>
                             </select> <i></i> </label>
                     </section>
                 </div>
