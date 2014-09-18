@@ -36,8 +36,7 @@ $_SESSION['valorTotal'] = 0;
 include 'conectaQuickBooks.php';
 include 'claveAcceso.php';
 include 'cambiaString.php';
-include 'calculaDigest.php';
-include '../utilitarios/mergeComprobantes.php';
+include '../utilitarios/calculaDigest.php';
 
     $flagPasa = pasaFirma();
     $flagGenera = generaXML();
@@ -172,6 +171,7 @@ function totalFactura() {
     $prefijo = $_POST['archivo'] . $_SESSION['numeroDocumento'] . '.xml';
     $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $prefijo;
     juntaComprobantes($salida);
+    calcularDgst($salida);
 //    include_once 'SRIcliente.php';
 //    enviaComprobante($salida);
     }
