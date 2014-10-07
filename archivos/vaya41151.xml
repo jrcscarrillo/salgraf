@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.1.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>Salgraf Cia. Ltda.</razonSocial>
+    <nombreComercial>Salgraf Cia. Ltda.</nombreComercial>
+    <ruc>1792067464001</ruc>
+    <claveAcceso>0409201401179206746400110010010000411510013207814</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000041151</secuencial>
+    <dirMatriz>Eucaliptos E1-374</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>04/09/2014</fechaEmision>
+    <dirEstablecimiento>-AV-12-DE-OCTUBRE-N24-562-Y-LUIS</dirEstablecimiento>
+    <obligadoContabilidad>SI</obligadoContabilidad>
+    <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+    <razonSocialComprador>PRUEBAS SERVICIO DE RENTAS INTERNAS</razonSocialComprador>
+    <identificacionComprador>1792309905001</identificacionComprador>
+    <totalSinImpuestos>459.00</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>2</codigoPorcentaje>
+        <baseImponible>459.00</baseImponible>
+        <valor>55.08</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>514.08</importeTotal>
+    <moneda>DOLAR</moneda>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>PTC0409A01</codigoPrincipal>
+      <descripcion>PILA-RECARGABLE-POWER-BANK-TE-08-SILVER</descripcion>
+      <cantidad>30</cantidad>
+      <precioUnitario>15.30</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>459.00</precioTotalSinImpuesto>
+      <detallesAdicionales>
+        <detAdicional/>
+      </detallesAdicionales>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>2</codigoPorcentaje>
+          <tarifa>12</tarifa>
+          <baseImponible>459.00</baseImponible>
+          <valor>55.08</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+  <ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" id="refQualifyingProperties">
+  <ds:SignedInfo>
+    <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+    <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <ds:Reference URI="#Salgraf-SignedProperties">
+      <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+      <ds:DigestValue>vgJ9sJApJedmm6LyjkpFVN6i3co=</ds:DigestValue>
+    </ds:Reference>
+    <ds:Reference URI="#keyInfo">
+      <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+      <ds:DigestValue>oLKCjzcPsMHrGVkJIXkvL0YjVzA=</ds:DigestValue> 
+    </ds:Reference>
+  </ds:SignedInfo>
+  <ds:SignatureValue>Y4doSMlpjuuYKXOTmzMqXEaZDFxuypfHCesmvqSyPoozRETbZZsk0Snbg7UdOwgLzd5Dt9n9Sm/wzH4AohU+a0hKKfwzuq+l+F9q7+3HpT/aRw7B2Hia7ynLR7p8rQhP55zjNVR848QW9eU3QLQeaAgLRVYvTEDjBu+0Bm4v9HiNBR6/Yek0Zi/nn9SreuYSomkiRlTP9XCaWQtDMhXEWJzplW2Mi3X3bEKppbfEjrQ2UnnhBZan/KO4NXK+EcUrEF83cQeLpTa5vIQjwg6+lnJeKGPa380Owx+VsljNAgSLIGx4w2sywdS2Paa70/biJ+24+G+Vgab07BuPwwSN5w==</ds:SignatureValue>
+<ds:Keyinfo id="keyInfo">
+    <ds:X509Data>
+        <ds:X509Certificate>MIIJYzCCB0ugAwIBAgIETkMmRjANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMC
+RUMxIjAgBgNVBAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsT
+LkVOVElEQUQgREUgQ0VSVElGSUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0Ux
+DjAMBgNVBAcTBVFVSVRPMSUwIwYDVQQDExxBQyBCQU5DTyBDRU5UUkFMIERFTCBF
+Q1VBRE9SMB4XDTE0MDgyNzIwNTExOVoXDTE1MDgyNzIxMjExOVowgbYxCzAJBgNV
+BAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMTcwNQYD
+VQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJ
+QkNFMQ4wDAYDVQQHEwVRVUlUTzE6MBEGA1UEBRMKMDAwMDA3NDk1NzAlBgNVBAMT
+HkpPU0UgR0FCUklFTCBNT05TQUxWRSBPVEFMVkFSTzCCASIwDQYJKoZIhvcNAQEB
+BQADggEPADCCAQoCggEBALGrpSFVUgt/IUHA4YYLJw9MeV0beHMaEOzJxFiBrkhy
+hFtrnGRdzA95qC36XXfbYrXpjIspAWj2pVI6l6vW/fmc/2aciu5Q2lQFPqCoP6M8
+PNdSrckUhygb6gwzzuL5wb5Cz6vNb6juqMYLd48GLQZk+BUyXIEBbPdHKCvIOHVC
+UqV0B/f8y3MiNP3F8aF8CVayLTRitIEQdpybZLZpF+8jqkzkaktDlCNGFEZzKBIE
+t2iaf15Z3PwePyCk7lCFK7mzzmuk77xkhHtQrXPYFZYXsnXuPlB/YwyvAQFPMKf5
+zJcsOWOIWMVcPL8p1HJu3zp4dXuZV3N0Fl06ZwOHFzECAwEAAaOCBIowggSGMAsG
+A1UdDwQEAwIFIDCBkQYIKwYBBQUHAQEEgYQwgYEwPgYIKwYBBQUHMAGGMmh0dHA6
+Ly9vY3NwLmVjaS5iY2UuZWMvZWpiY2EvcHVibGljd2ViL3N0YXR1cy9vY3NwMD8G
+CCsGAQUFBzABhjNodHRwOi8vb2NzcDEuZWNpLmJjZS5lYy9lamJjYS9wdWJsaWN3
+ZWIvc3RhdHVzL29jc3AwIAYKKwYBBAGCqDsDCgQSExBTQUxHUkFGIENJQSBMVERB
+MB0GCisGAQQBgqg7AwsEDxMNMTc5MjA2NzQ2NDAwMTAaBgorBgEEAYKoOwMBBAwT
+CjE3MTIyNzQ2MzYwHAYKKwYBBAGCqDsDAgQOEwxKT1NFIEdBQlJJRUwwGAYKKwYB
+BAGCqDsDAwQKEwhNT05TQUxWRTAYBgorBgEEAYKoOwMEBAoTCE9UQUxWQVJPMB8G
+CisGAQQBgqg7AwUEERMPR0VSRU5URSBHRU5FUkFMMDgGCisGAQQBgqg7AwcEKhMo
+REUgTE9TIEVVQ0FMSVBUT1MgRTEzNyBZIEFWIDEwIERFIEFHT1NUTzAZBgorBgEE
+AYKoOwMIBAsTCTAyMjQ3MTIzMzAVBgorBgEEAYKoOwMJBAcTBVF1aXRvMBcGCisG
+AQQBgqg7AwwECRMHRUNVQURPUjAgBgorBgEEAYKoOwMzBBITEFNPRlRXQVJFLUFS
+Q0hJVk8wIwYDVR0RBBwwGoEYamdtb25zYWx2ZUBhbWVuaWdyYWYuY29tMIIB3wYD
+VR0fBIIB1jCCAdIwggHOoIIByqCCAcaGgdVsZGFwOi8vYmNlcWxkYXBzdWJwMS5i
+Y2UuZWMvY249Q1JMMTUwLGNuPUFDJTIwQkFOQ08lMjBDRU5UUkFMJTIwREVMJTIw
+RUNVQURPUixsPVFVSVRPLG91PUVOVElEQUQlMjBERSUyMENFUlRJRklDQUNJT04l
+MjBERSUyMElORk9STUFDSU9OLUVDSUJDRSxvPUJBTkNPJTIwQ0VOVFJBTCUyMERF
+TCUyMEVDVUFET1IsYz1FQz9jZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0P2Jhc2WG
+NGh0dHA6Ly93d3cuZWNpLmJjZS5lYy9DUkwvZWNpX2JjZV9lY19jcmxmaWxlY29t
+Yi5jcmykgbUwgbIxCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFM
+IERFTCBFQ1VBRE9SMTcwNQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04g
+REUgSU5GT1JNQUNJT04tRUNJQkNFMQ4wDAYDVQQHEwVRVUlUTzElMCMGA1UEAxMc
+QUMgQkFOQ08gQ0VOVFJBTCBERUwgRUNVQURPUjEPMA0GA1UEAxMGQ1JMMTUwMB8G
+A1UdIwQYMBaAFBj58PvmMhyZZjkqyouyaX1JJ7/OMB0GA1UdDgQWBBTaSnOEWDxl
+Gyr3bKYiPggm5YE6fDAJBgNVHRMEAjAAMBkGCSqGSIb2fQdBAAQMMAobBFY4LjED
+AgSwMA0GCSqGSIb3DQEBCwUAA4ICAQAwYmxzV6Oc/dD50OALaerm1Cf2n9P8vYb5
+NXLsmxbVf1NUXvuYpG2qjaZeqq2hBAEcLA0J3TAqItCN8QKaq2ptdkg3KZdnf7Io
+ZlQPyhglA80bugVBwMN1cQ5+X1NAcRz7TeagCRmCRfRQWlF7vYHwvWReiNzmNCqA
+4PojhUQZfHQ1dh5ZoxLPPv8zWGvAyULqJ0p4FEGJTZpb1kbQ5RAt87WYPZzIuWmr
+IjUBzzdQyoeQYgcigy0P08TG7/+8FN89tCkMMjRa0PbnutlSSZLm297zHvf3Sa9x
+MfcHshwuq3vjJjRIE5hzRX9YMWdOlhPLrf1kd5Fu2iivDJPH+mR/hqVBIP24s629
+ATD0aEz5Fe33kTiX4CcQgSEGjoxK/lBAD8dE8qiPgCQSI3veAudBYhp8HFrXNRDp
+9vor65PpJEIzl2599Gp/YMwm+2tZtcRlKjD2uMrbaaoiiTytyji38mn44uvxAw7y
+gu6deFdFhkPO4mBgfvH1q6PRsM2yhfxlV/Z49H3CESZ1x2Y7xv5K0DX4fZ/oY3W6
+G1RAld9c9k5g9QRoSLdwVoKZR/Mhvxjy80G3gm5L18SXDEZe9oo+v36guXTtgtAr
+xzitxbBFupKTmOKHeGDbWu66fbeeB5FThodK/55BwH0iF5K74XP7s5ptC9F2lXdL
+c2xc7ay4Jg==</ds:X509Certificate>
+    </ds:X509Data>
+    <ds:KeyValue>
+        <ds:RSAKeyValue>
+            <ds:Modulus>9293E432357F17B18893281019511B4324ECC08D01246A76FF878E6F7704DC052F1552066C77D2F693016C2F05DC10CF7509615580C9A3CF2A1D24AC9B0A9759A437DE78F97B02302A778058FD58F36526E64E322E80A8FEA79108D2A1B4C5B1C8151F4DDE82839B03A4CECD69B240E0E3FF1B13E32DF49B269578D0C01C024AE063C7301AFD8D743B336BD6E846A630170B6B45C52D46EF9E00CF3C23610CF5E218BEA7A925791DF0E42961719454B83893A5F1531E7437437567E40CC343F15E4A4D2382BD5AE0DA4AFA6E762D2C01CE867290A987B33024CFEDB54A7E7F5F4E082414F54FA68F845A9F3FBC4BA79710AE398B984583D2D364EF221771D471</ds:Modulus>
+            <ds:Exponent>65537</ds:Exponent>
+        </ds:RSAKeyValue>
+    </ds:KeyValue>
+</ds:Keyinfo>
+<ds:Object xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+    <etsi:QualifyingProperties Target="#refQualifyingProperties">
+        <etsi:SignedProperties id="Salgraf-SignedProperties">
+            <etsi:SignedSignatureProperties>
+                <etsi:SigningTime xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#">2014-10-04T03:11:45+02:00</etsi:SigningTime>
+                <etsi:SigningCertificate>
+                    <etsi:Cert>
+                        <etsi:CertDigest>
+                            <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                            <ds:DigestValue>+0qhMWjOebv9kG7g9/UQCJr6ieQ=</ds:DigestValue>
+                        </etsi:CertDigest>
+                        <etsi:IssuerSerial>
+                            <ds:X509SerialNumber>1313023559</ds:X509SerialNumber>
+                            <ds:X509IssuerName>CN = AC BANCO CENTRAL DEL ECUADOR&#13;
+                                L = QUITO&#13;
+                                OU = ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE&#13;
+                                O = BANCO CENTRAL DEL ECUADOR&#13;
+                                C = EC</ds:X509IssuerName>
+                        </etsi:IssuerSerial>
+                    </etsi:Cert>
+                </etsi:SigningCertificate>
+            </etsi:SignedSignatureProperties>
+        </etsi:SignedProperties>
+    </etsi:QualifyingProperties>
+</ds:Object>
+</ds:Signature>
+</factura>

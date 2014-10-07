@@ -1,1 +1,79 @@
-<?xml version="1.0" encoding="UTF-8" ?><factura id="comprobante" version="1.1.0"><infoTributaria><ambiente>1</ambiente><tipoEmision>1</tipoEmision><razonSocial>Salgraf Cia. Ltda.</razonSocial><nombreComercial>Salgraf Cia. Ltda.</nombreComercial><ruc>1792067464001</ruc><claveAcceso>0409201401179206746400110010010000411640013219813</claveAcceso><codDoc>01</codDoc><estab>001</estab><ptoEmi>001</ptoEmi><secuencial>000041164</secuencial><dirMatriz>Eucaliptos E1-374</dirMatriz></infoTributaria><infoFactura><fechaEmision>04/09/2014</fechaEmision><dirEstablecimiento>DIRInglatera-sn-y--Av-Amazonas</dirEstablecimiento><obligadoContabilidad>SI</obligadoContabilidad><tipoIdentificacionComprador>04</tipoIdentificacionComprador><razonSocialComprador>PRUEBAS SERVICIO DE RENTAS INTERNAS</razonSocialComprador><identificacionComprador>1791329317001</identificacionComprador><totalSinImpuestos>1876.00</totalSinImpuestos><totalDescuento>0.00</totalDescuento><totalConImpuestos><totalImpuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><baseImponible>1876.00</baseImponible><valor>225.12</valor></totalImpuesto></totalConImpuestos><propina>0.00</propina><importeTotal>2101.12</importeTotal><moneda>DOLAR</moneda></infoFactura><detalles><detalle><codigoPrincipal>PTA4672C02</codigoPrincipal><descripcion>Shampoo-Fco-Positano-biodegradable-45-ML-PAPAYA-LIMA</descripcion><cantidad>1000</cantidad><precioUnitario>0.40</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>400.00</precioTotalSinImpuesto><detallesAdicionales><detAdicional/></detallesAdicionales><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><tarifa>12</tarifa><baseImponible>400.00</baseImponible><valor>48.00</valor></impuesto></impuestos></detalle><detalle><codigoPrincipal>PTA3702C02</codigoPrincipal><descripcion>Rinse-Fco-Positano-biodegradable-45-ML-PAPAYA-LIMA</descripcion><cantidad>3600</cantidad><precioUnitario>0.41</precioUnitario><descuento>0</descuento><precioTotalSinImpuesto>1476.00</precioTotalSinImpuesto><detallesAdicionales><detAdicional/></detallesAdicionales><impuestos><impuesto><codigo>2</codigo><codigoPorcentaje>2</codigoPorcentaje><tarifa>12</tarifa><baseImponible>1476.00</baseImponible><valor>177.12</valor></impuesto></impuestos></detalle></detalles></factura>
+<?xml version="1.0" encoding="UTF-8" ?>
+<factura id="comprobante" version="1.1.0">
+    <infoTributaria>
+        <ambiente>1</ambiente>
+        <tipoEmision>1</tipoEmision>
+        <razonSocial>Salgraf Cia. Ltda.</razonSocial>
+        <nombreComercial>Salgraf Cia. Ltda.</nombreComercial>
+        <ruc>1792067464001</ruc>
+        <claveAcceso>0409201401179206746400110010010000411640013219813</claveAcceso>
+        <codDoc>01</codDoc>
+        <estab>001</estab>
+        <ptoEmi>001</ptoEmi>
+        <secuencial>000041164</secuencial>
+        <dirMatriz>Eucaliptos E1-374</dirMatriz>
+    </infoTributaria>
+    <infoFactura>
+        <fechaEmision>04/09/2014</fechaEmision>
+        <dirEstablecimiento>Inglatera-sn-y--Av-Amazonas</dirEstablecimiento>
+        <obligadoContabilidad>SI</obligadoContabilidad>
+        <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+        <razonSocialComprador>PRUEBAS SERVICIO DE RENTAS INTERNAS</razonSocialComprador>
+        <identificacionComprador>1791329317001</identificacionComprador>
+        <totalSinImpuestos>1876.00</totalSinImpuestos>
+        <totalDescuento>0.00</totalDescuento>
+        <totalConImpuestos>
+            <totalImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>2</codigoPorcentaje>
+                <baseImponible>1876.00</baseImponible>
+                <valor>225.12</valor>
+            </totalImpuesto>
+        </totalConImpuestos>
+        <propina>0.00</propina>
+        <importeTotal>2101.12</importeTotal>
+        <moneda>DOLAR</moneda>
+    </infoFactura>
+    <detalles>
+        <detalle>
+            <codigoPrincipal>PTA4672C02</codigoPrincipal>
+            <descripcion>Shampoo-Fco-Positano-biodegradable-45-ML-PAPAYA-LIMA</descripcion>
+            <cantidad>1000</cantidad>
+            <precioUnitario>0.40</precioUnitario>
+            <descuento>0</descuento>
+            <precioTotalSinImpuesto>400.00</precioTotalSinImpuesto>
+            <detallesAdicionales>
+                <detAdicional/>
+            </detallesAdicionales>
+            <impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12</tarifa>
+                    <baseImponible>400.00</baseImponible>
+                    <valor>48.00</valor>
+                </impuesto>
+            </impuestos>
+        </detalle>
+        <detalle>
+            <codigoPrincipal>PTA3702C02</codigoPrincipal>
+            <descripcion>Rinse-Fco-Positano-biodegradable-45-ML-PAPAYA-LIMA</descripcion>
+            <cantidad>3600</cantidad>
+            <precioUnitario>0.41</precioUnitario>
+            <descuento>0</descuento>
+            <precioTotalSinImpuesto>1476.00</precioTotalSinImpuesto>
+            <detallesAdicionales>
+                <detAdicional/>
+            </detallesAdicionales>
+            <impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12</tarifa>
+                    <baseImponible>1476.00</baseImponible>
+                    <valor>177.12</valor>
+                </impuesto>
+            </impuestos>
+        </detalle>
+    </detalles>
+</factura>

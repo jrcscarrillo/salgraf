@@ -196,7 +196,7 @@ function chkMail() {
     $part .= "<b>Fecha Fin del Transporte:</b>" . $_SESSION['guias']['fechaFinT'] . "<br>";
     $part .= "<b>Ruta FLota:</b>" . $_SESSION['guias']['ruta'] . "<br>";
     $part .= "<b>Descripcion Productos:</b>" . $_SESSION['guias']['productos'] . "<br>";
-    $part .= "<b>Forma de embalaje:</b>" . $_SESSION['guias']['embalaje'];
+    $part .= "<b>Forma de embalaje:</b>" . $_SESSION['guias']['embalaje'] . "<br>";
 
     $part .= 'Esta guia de remision se ha adicionado correctamente';
     
@@ -229,11 +229,11 @@ function chkMail() {
     $param = 'guia' . $_SESSION['guias']['numeroGuia'] . '.pdf';
     $salida = $_SERVER['DOCUMENT_ROOT'] . 'Salgraf/' . $param;
     $paraemail['attach'] = $salida;
-    $paraemail['subject'] = 'Comprobantes Electronicos Nuevo Contribuyente';
+    $paraemail['subject'] = 'Guia de Remision Adicionada';
     $paraemail['fromemail']['email'] = 'contador@calcograf.com';
     $paraemail['fromemail']['nombre'] = 'Contabiliad';
-    $paraemail['toemail']['email'] = 'jrcscarrillo@gmail.com';
-    $paraemail['toemail']['nombre'] = 'Juan Carrillo';
+    $paraemail['toemail']['email'] = $_SESSION['email'];
+    $paraemail['toemail']['nombre'] = $_SESSION['nombre'] . ' ' . $_SESSION['apellido'];
 //    var_dump($paraemail);
     $flagEmail = enviamail($paraemail);
     return $flagEmail;

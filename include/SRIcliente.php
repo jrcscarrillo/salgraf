@@ -16,17 +16,21 @@ session_start();
  * 8.   Parse el documento y generar los datos de autorizacion en la base de datos
  * 9.   Enviar los correos electronicos  a los clientes
  */
-$param = 'pre41162.xml';
+$param = 'vaya41136.xml';
 $archivo = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
-$args['archivo'] = $archivo;
-enviaComprobante($args);
-function enviaComprobante($args) {
-    
-$stringXML = '<?xml version="1.0" encoding="UTF-8"?>';
-$stringXML .= '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" ';
-$stringXML .= 'xmlns:ns1="http://ec.gob.sri.ws.recepcion"><SOAP-ENV:Body><ns1:validarComprobante>';
-$stringXML .= '</ns1:validarComprobante></SOAP-ENV:Body></SOAP-ENV:Envelope>';
-file_put_contents('soapRequest.xml', $stringXML);
+$_SESSION['archivo'] = $archivo;
+
+$doc = new DOMDocument();
+$doc->load($archivo);
+$content = $doc->saveXML(); // <-- exclusive, with comments
+
+$actualDigest = base64_encode($content);
+
+$_SESSION['XML'] = $actualDigest;
+
+enviaComprobante();
+
+function enviaComprobante() {
 
 try {
     if($_SESSION['ambiente'] == 1) {
@@ -38,28 +42,18 @@ try {
     } catch (SoapFault $exc) {
     echo $exc->faultstring();
 }
-$archivo = $args['archivo'];
-juntaComprobantes($archivo);
-//exit();
-//$param = $args['archivo'];
-//$handle = fopen($param, "r");
-//$po= fread($handle, filesize($param));
-//fclose($handle);
+
 $options = array('soap_version'=>SOAP_1_1, 'trace'=>true);    
 $client = new SoapClient($wsdl, $options);
-$doc = new DOMDocument();
-$doc->load("soapRequest.xml");
+
 try {
-    $respuesta = $client -> ValidarComprobante($archivo);
-    echo 'Funciones de este web service';
-    var_dump($client ->__getFunctions());
-    echo 'Cabeceras de la ultima respuesta';
-    var_dump($client ->__getLastResponseHeaders());
-    echo 'Ultimo requerimiento';
-    var_dump($client ->__getLastRequest());
+    $respuesta = $client -> ValidarComprobante(array('xml'=>$_SESSION['XML']));
+
+//    echo 'Ultimo requerimiento';
+//    var_dump($client ->__getLastRequest());
     $datosXML = $client ->__getLastResponse();
-    $args['datosXML'] = $datosXML;
-    analizaValidacion($args);
+    $_SESSION['datosXML'] = $datosXML;
+    analizaValidacion();
 //    var_dump($datosXML);
 }
 catch (SoapFault $exp) {
@@ -67,9 +61,9 @@ print $exp->getMessage();
 }
 }
 
-function analizaValidacion($args) {
+function analizaValidacion() {
     include_once 'respuestaSRI.php';
-    $param = $args['datosXML'];
+    $param = $_SESSION['datosXML'];
    
     $doc = new DOMDocument();
     $doc->loadXML($param);
@@ -77,15 +71,16 @@ function analizaValidacion($args) {
     if ($checkError->hasChildNodes()) {
         $mensaje = $doc->getElementsByTagName('estado')->item(0)->nodeValue;
         if ($mensaje == 'RECIBIDA') {
-            revisaAutorizacion($args);
+            revisaAutorizacion($doc);
+            pieDeAutorizacion();
         } else {
-            revisaRechazo($arga);
+            include_once 'sri_mensajes_rechazada.php';
+            revisaRechazo($doc);
+            pieDeRechazo();
         }
-        include_once 'sri_mensajes_comprobantes.php';
-        emiteMensajes($doc);
-        parserMensajes();
-    } else {
-        
+//        include_once 'sri_mensajes_comprobantes.php';
+//        emiteMensajes($doc);
+//        parserMensajes();
     }
 }
 

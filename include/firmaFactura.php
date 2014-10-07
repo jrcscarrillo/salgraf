@@ -147,6 +147,9 @@ function totalFactura() {
     $out_Total = number_format($_SESSION['valorTotal'], '2', '.','');
     $regresaName = limpiaString($_SESSION['razonSocial']);
     $regresaDireccion = limpiaString($_SESSION['direccionComprador']);
+    if (substr($regresaDireccion, 0, 3) =='DIR') {
+        $regresaDireccion = substr(limpiaString($_SESSION['direccionComprador']), 3);
+    }    
     $stringTributaria = '<infoTributaria><ambiente>' . $_SESSION['ambiente'] . '</ambiente>';
     $stringTributaria .= '<tipoEmision>' . $_SESSION['emision'] . '</tipoEmision><razonSocial>' . $_SESSION['Razon'] . '</razonSocial>';
     $stringTributaria .= '<nombreComercial>' . $_SESSION['Comercial'] . '</nombreComercial>';

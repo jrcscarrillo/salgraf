@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<factura id="comprobante" version="1.1.0">
+    <infoTributaria>
+        <ambiente>1</ambiente>
+        <tipoEmision>1</tipoEmision>
+        <razonSocial>Salgraf Cia. Ltda.</razonSocial>
+        <nombreComercial>Salgraf Cia. Ltda.</nombreComercial>
+        <ruc>1792067464001</ruc>
+        <claveAcceso>0409201401179206746400110010010000411530013208617</claveAcceso>
+        <codDoc>01</codDoc>
+        <estab>001</estab>
+        <ptoEmi>001</ptoEmi>
+        <secuencial>000041153</secuencial>
+        <dirMatriz>Eucaliptos E1-374</dirMatriz>
+    </infoTributaria>
+    <infoFactura>
+        <fechaEmision>04/09/2014</fechaEmision>
+        <dirEstablecimiento>DIR10-DE-AGOSTO-SN-</dirEstablecimiento>
+        <obligadoContabilidad>SI</obligadoContabilidad>
+        <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+        <razonSocialComprador>PRUEBAS SERVICIO DE RENTAS INTERNAS</razonSocialComprador>
+        <identificacionComprador>1090072370001</identificacionComprador>
+        <totalSinImpuestos>460.00</totalSinImpuestos>
+        <totalDescuento>0.00</totalDescuento>
+        <totalConImpuestos>
+            <totalImpuesto>
+                <codigo>2</codigo>
+                <codigoPorcentaje>2</codigoPorcentaje>
+                <baseImponible>460.00</baseImponible>
+                <valor>55.20</valor>
+            </totalImpuesto>
+        </totalConImpuestos>
+        <propina>0.00</propina>
+        <importeTotal>515.20</importeTotal>
+        <moneda>DOLAR</moneda>
+    </infoFactura>
+    <detalles>
+        <detalle>
+            <codigoPrincipal>PTA0103F01</codigoPrincipal>
+            <descripcion>Jabn-Floresta-35g-LAVANDA-papel-stresh</descripcion>
+            <cantidad>1000</cantidad>
+            <precioUnitario>0.46</precioUnitario>
+            <descuento>0</descuento>
+            <precioTotalSinImpuesto>460.00</precioTotalSinImpuesto>
+            <detallesAdicionales>
+                <detAdicional/>
+            </detallesAdicionales>
+            <impuestos>
+                <impuesto>
+                    <codigo>2</codigo>
+                    <codigoPorcentaje>2</codigoPorcentaje>
+                    <tarifa>12</tarifa>
+                    <baseImponible>460.00</baseImponible>
+                    <valor>55.20</valor>
+                </impuesto>
+            </impuestos>
+        </detalle>
+    </detalles>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <DigestValue>A1aAXGxurOd9AaKxBoRP82mqJJw=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>dGPBHITjD2EVBUE1jlXASiIQwjpt+tC12kPi3ihB00sBSKQGBNcSeP8rgB0u3wm3MhHC+tMqci
+            /zHdVeuvwyHIh9baYqpunMQShTQPlWjeIq/A/5mvUbdOF7g4Zoe43uNjQ/7mwEw2YxVBuO7lP/zmLRldBqGmUE
+            W2cMbycvcZkpnpjY2aLcRyF43um/1tBLVe7H+biwm6AvpYMDX7UWAFYopuxuyU7709s9H+ZL2Rqft4dz64rcxI
+            7Wt0nPpwr2yUij7Y+kX5lfY+xEDNYoonarZiFDc6a7YtO0jQ1Z92+Ex8l52JxVUkfAG2wLsgxgjYZFUwFzrU78
+            oLE9x57Pqw==</SignatureValue>
+        <KeyInfo>
+            <X509Data>
+                <X509Certificate>MIIJ+TCCB+GgAwIBAgIETkMmRzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCR
+                    UMxIjAgBgNVBAoTGUJBTkNPIENFTlRSQUwgREVMIEVDVUFET1IxNzA1BgNVBAsTLkVOVElEQUQgREU
+                    gQ0VSVElGSUNBQ0lPTiBERSBJTkZPUk1BQ0lPTi1FQ0lCQ0UxDjAMBgNVBAcTBVFVSVRPMSUwIwYDV
+                    QQDExxBQyBCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SMB4XDTE0MDgyNzIwNTExOVoXDTE1MDgyNzI
+                    xMjExOVowgbYxCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1VBRE9SM
+                    TcwNQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQkNFMQ4
+                    wDAYDVQQHEwVRVUlUTzE6MBEGA1UEBRMKMDAwMDA3NDk1NzAlBgNVBAMTHkpPU0UgR0FCUklFTCBNT
+                    05TQUxWRSBPVEFMVkFSTzCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAJKT5DI1fxexiJM
+                    oEBlRG0Mk7MCNASRqdv+Hjm93BNwFLxVSBmx30vaTAWwvBdwQz3UJYVWAyaPPKh0krJsKl1mkN954+
+                    XsCMCp3gFj9WPNlJuZOMi6AqP6nkQjSobTFscgVH03egoObA6TOzWmyQODj/xsT4y30myaVeNDAHAJ
+                    K4GPHMBr9jXQ7M2vW6EamMBcLa0XFLUbvngDPPCNhDPXiGL6nqSV5HfDkKWFxlFS4OJOl8VMedDdDd
+                    WfkDMND8V5KTSOCvVrg2kr6bnYtLAHOhnKQqYezMCTP7bVKfn9fTggkFPVPpo+EWp8/vEunlxCuOYu
+                    YRYPS02TvIhdx1HECAwEAAaOCBSAwggUcMAsGA1UdDwQEAwIHgDBnBgNVHSAEYDBeMFwGCysGAQQBg
+                    qg7AgIBME0wSwYIKwYBBQUHAgEWP2h0dHA6Ly93d3cuZWNpLmJjZS5lYy9wb2xpdGljYS1jZXJ0aWZ
+                    pY2Fkby9wZXJzb25hLWp1cmlkaWNhLnBkZjCBkQYIKwYBBQUHAQEEgYQwgYEwPgYIKwYBBQUHMAGGM
+                    mh0dHA6Ly9vY3NwLmVjaS5iY2UuZWMvZWpiY2EvcHVibGljd2ViL3N0YXR1cy9vY3NwMD8GCCsGAQU
+                    FBzABhjNodHRwOi8vb2NzcDEuZWNpLmJjZS5lYy9lamJjYS9wdWJsaWN3ZWIvc3RhdHVzL29jc3AwI
+                    AYKKwYBBAGCqDsDCgQSExBTQUxHUkFGIENJQSBMVERBMB0GCisGAQQBgqg7AwsEDxMNMTc5MjA2NzQ
+                    2NDAwMTAaBgorBgEEAYKoOwMBBAwTCjE3MTIyNzQ2MzYwHAYKKwYBBAGCqDsDAgQOEwxKT1NFIEdBQ
+                    lJJRUwwGAYKKwYBBAGCqDsDAwQKEwhNT05TQUxWRTAYBgorBgEEAYKoOwMEBAoTCE9UQUxWQVJPMB8
+                    GCisGAQQBgqg7AwUEERMPR0VSRU5URSBHRU5FUkFMMDgGCisGAQQBgqg7AwcEKhMoREUgTE9TIEVVQ
+                    0FMSVBUT1MgRTEzNyBZIEFWIDEwIERFIEFHT1NUTzAZBgorBgEEAYKoOwMIBAsTCTAyMjQ3MTIzMzA
+                    VBgorBgEEAYKoOwMJBAcTBVF1aXRvMBcGCisGAQQBgqg7AwwECRMHRUNVQURPUjAgBgorBgEEAYKoO
+                    wMzBBITEFNPRlRXQVJFLUFSQ0hJVk8wIwYDVR0RBBwwGoEYamdtb25zYWx2ZUBhbWVuaWdyYWYuY29
+                    tMIIB3wYDVR0fBIIB1jCCAdIwggHOoIIByqCCAcaGgdVsZGFwOi8vYmNlcWxkYXBzdWJwMS5iY2UuZ
+                    WMvY249Q1JMMTUwLGNuPUFDJTIwQkFOQ08lMjBDRU5UUkFMJTIwREVMJTIwRUNVQURPUixsPVFVSVR
+                    PLG91PUVOVElEQUQlMjBERSUyMENFUlRJRklDQUNJT04lMjBERSUyMElORk9STUFDSU9OLUVDSUJDR
+                    SxvPUJBTkNPJTIwQ0VOVFJBTCUyMERFTCUyMEVDVUFET1IsYz1FQz9jZXJ0aWZpY2F0ZVJldm9jYXR
+                    pb25MaXN0P2Jhc2WGNGh0dHA6Ly93d3cuZWNpLmJjZS5lYy9DUkwvZWNpX2JjZV9lY19jcmxmaWxlY
+                    29tYi5jcmykgbUwgbIxCzAJBgNVBAYTAkVDMSIwIAYDVQQKExlCQU5DTyBDRU5UUkFMIERFTCBFQ1V
+                    BRE9SMTcwNQYDVQQLEy5FTlRJREFEIERFIENFUlRJRklDQUNJT04gREUgSU5GT1JNQUNJT04tRUNJQ
+                    kNFMQ4wDAYDVQQHEwVRVUlUTzElMCMGA1UEAxMcQUMgQkFOQ08gQ0VOVFJBTCBERUwgRUNVQURPUjE
+                    PMA0GA1UEAxMGQ1JMMTUwMCsGA1UdEAQkMCKADzIwMTQwODI3MjA1MTE5WoEPMjAxNTA4MjcyMTIxM
+                    TlaMB8GA1UdIwQYMBaAFBj58PvmMhyZZjkqyouyaX1JJ7/OMB0GA1UdDgQWBBTMLZtenAZ7cbm7tMh
+                    jnCwb9YwYRjAJBgNVHRMEAjAAMBkGCSqGSIb2fQdBAAQMMAobBFY4LjEDAgSwMA0GCSqGSIb3DQEBC
+                    wUAA4ICAQAQzWlTB7oCV4aeKktLL0hq3OMER1E+iKgF7BE7XmZ7hA6c4e3KEWpCzk0XmdSeaztipAC
+                    rMitJI/5Pumeh7fp1iqKS0VuXAXCzvOZ60STMZ/tmSPzMjZ8nCGrgOyJrkyMmn2q0hS9G3iBAYSRNW
+                    /4agIAWljuOr3eBHvO/mytrZpMsUekF8rk5pcswP8f4jDohWtyBykpG9KzpQSld+Pm5f9wDOZmdKa6
+                    eRHNIAt5GyLSKZAzE7FYbkMdTy8lQ9p3pDdlC9T0PQaOfYtAIDyrdNuSgOMliSYXFr3NYGQYp7ee/p
+                    AzPAFw2SftCawnbsMuk97UauFlU6Xg7Mj+0/aTRNTxNOuYkh2n9C5+6Yso4XGXP36kTg1ew+MUD7SP
+                    i9phk7SOoDRKm6Q6oLXYh9ErWJrfq4qyp4nupmC6dOCLSARoZcvnf2yBd/Po/HuXQ72jiEbIl8PFAi
+                    t45nN2yw3iCegFrhW1BzgB3aRr7I1kX2mVcq9KX26Fo9oaSuy3lc+OWr5QhdDtweTIjNwpbhGzqfMv
+                    vQUwtT+eDT/fa9wON4LjQ9hc4eO4GO9jDQ5hPMe9FPwd/2ead1gH0CoRsfwCCtZnW5CooSQrPrFwah
+                    yJj8DKvNBc8weuWZhswryMwhurqGCDd5/jiS9cZ0+W+Ml3rKJbC3dAbPypUNkVtSXK4Fw==</X509Certificate>
+            </X509Data>
+        </KeyInfo>
+    </Signature>
+</factura>

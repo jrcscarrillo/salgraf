@@ -2,23 +2,30 @@
 
 /*
  * @Author      Juan Carrillo
- * @Date        17 de Septiembre del 2014
+ * @Date        3 de octubre del 2014
  * @Project     Comprobantes Electronicos
  * 
  * 1. En el documento de salida
  * 2. Leo factura
  * 3. Leo Firma
  * 4. Adiciono
- * 5. Calculo digest de InfoFactura
- * 6. Modifico en ds:DigestValue id='DelLote' el nuevo valor del digest
+ * 5. Calculo digest de todo el archivo
+ * 6. condicion hasta ver funcionamiento despues eliminar y poner todo en el nodeSignature
  */
+
+    $param = "probando.xml";
+    $salida = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/include/' . $param; 
+juntaComprobantes($salida);
+calcularDgst($salida);
 function juntaComprobantes($salida) {
     global $doc1, $doc2, $doc3, $archivo;
     $archivo = $salida;
 
     $param = "factura.xml";
     $factura = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/include/' . $param;    
-    $param = "firmaTemplate.xml";
+//    $param = "nodoSignature.xml";
+//    $signed = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/' . $param;
+    $param = 'desdeejemplo.xml';
     $signed = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/archivos/' . $param;
 
     $doc2 = new DOMDocument();
@@ -42,63 +49,75 @@ function juntaLotes( $node )
 }
 
 function calcularDgst($archivo) {
-
-    $doc = new DOMDocument();
-    $doc->load($archivo);
-    testCreateDigest($doc, $archivo);
-    digestOneWay($doc); 
-}
-
-
-
-function testCreateDigest(DOMDocument $doc, $archivo) {
-
-    $ns = $doc->documentElement->tagName;
-    $body = $doc
-        ->getElementsByTagName('SignedProperties')
+    $clave = $_SERVER['DOCUMENT_ROOT'] . 'salgraf/josegabriel.pem';    
+    $doc3 = new DOMDocument();
+    $doc3->formatOutput = TRUE;
+    $doc3->load($archivo);
+    
+    $nodoCertificado = $doc3
+        ->getElementsByTagName('X509Certificate')
         ->item(0);
-
-    $content = $body->C14N(TRUE, TRUE); // <-- exclusive, with comments
+    $nodoKeyInfo = $doc3
+            ->getElementsByTagName('KeyInfo')
+            ->item(0);
+    $nodoSignedProperties = $doc3
+            ->getElementsByTagName('SignedProperties')
+            ->item(0);
+    $nodoDocumento = $doc3
+            ->getElementsByTagName('factura')
+            ->item(0);
+    $content = $nodoCertificado->C14N(TRUE, TRUE); // <-- exclusive, with comments
 
     $actualDigest = base64_encode(hash('SHA1', $content, true));
-
-    echo 'nueva forma de calcular (signedproperties) => ' . $actualDigest . '<br>';
-
-    $digest0 = $doc->getElementsByTagName('DigestValue')->item(0);
+  
+    $fp = fopen($clave, "r");
+    $priv_key = fread($fp, 8192);
+    fclose($fp);
+    $passphrase = 'salgraf';
+    $res = openssl_get_privatekey($priv_key,$passphrase);
+    openssl_private_encrypt($actualDigest, $crypttext, $res);
+    $firmaEncriptadaBase64 = base64_encode($crypttext);
     
-    $valorDigest = $doc->createTextNode($actualDigest);
-    
-    $digest0->appendChild($valorDigest);
-    
-    $body = $doc
-        ->getElementsByTagName('Keyinfo')
-        ->item(0);
+    /*
+     * PRIMER PASO calcular el digest del certificado
+     */
+    $digestDelCertificado = $doc3->getElementsByTagName('DigestValue')->item(3);
+    $digestDelCertificado->nodeValue = $actualDigest;
+    /*
+     * SEGUNDO PASO obtener la fecha actual aqui esta el ejemplo
+     * esto debera ponerse cuando se generan los documentos que se firmen
+     */
+    $o_tiempo = date(DATE_W3C);
+    $fechaFirma = $doc3->getElementsByTagName('SigningTime')->item(0);
+    $fechaFirma->nodeValue = $o_tiempo;
+    /*
+     * TERCER PASO se calcula con openssl_private_encrypt
+     * el valor de la firma encriptado con la llave privada
+     */
+    $firmaEncriptada = $doc3->getElementsByTagName('SignatureValue')->item(0);
+//    $firmaEncriptada->nodeValue = $firmaEncriptadaBase64;
+    /*
+     * CUARTO PASO calcular el digest del nod keyinfo
+     */
 
-    $content = $body->C14N(TRUE, TRUE); // <-- exclusive, with comments
-
+    $content = $nodoKeyInfo->C14N(TRUE, TRUE); // <-- exclusive, with comments
+    $digestDelKeyinfo = $doc3->getElementsByTagName('DigestValue')->item(1);
     $actualDigest = base64_encode(hash('SHA1', $content, true));
+    $digestDelKeyinfo->nodeValue = $actualDigest;
+    /*
+     * QUINTO PASO calcular el digest del nodo signedproperties
+     */
 
-    echo 'nueva forma de calcular (Keyinfo) => ' . $actualDigest . '<br>';
-
-    $digest1 = $doc->getElementsByTagName('DigestValue')->item(1);
-    
-    $valorDigest = $doc->createTextNode($actualDigest);
-    
-    $digest1->appendChild($valorDigest);
-    
-    $doc->save($archivo);
-}
-function digestOneWay($doc) {
-    
-$xpath = new DOMXPath($doc);
-$signed = $doc->getElementsByTagName('SignedProperties');
-foreach ($doc->getElementsByTagName('SignedProperties') as $node) {
-    $nodo = $node->getNodePath() . "\n";
-    $digest1 = $node->C14N(true, true);
-    echo 'Nodo canonalizado => ' . $digest1 . '<br>';
-//    $digestvalue = base64_encode(pack("H*", sha1( $digest1 )))V;
-      $digestvalue = base64_encode(hash('SHA1', $digest1, true));
-    echo 'Valor calculado del digest => ' . $digestvalue . '<br>';
-    echo $digestvalue;
-}
+    $content = $nodoSignedProperties->C14N(TRUE, TRUE); // <-- exclusive, with comments
+    $digestDelSignedProperties = $doc3->getElementsByTagName('DigestValue')->item(0);
+    $actualDigest = base64_encode(hash('SHA1', $content, true));
+    $digestDelSignedProperties->nodeValue = $actualDigest;
+    /*
+     * SEXTO PASO calcular el digest del nodo factura
+     */
+    $content = $nodoDocumento->C14N(TRUE, TRUE); // <-- exclusive, with comments
+    $digestDelDocumento = $doc3->getElementsByTagName('DigestValue')->item(2);
+    $actualDigest = base64_encode(hash('SHA1', $content, true));
+    $digestDelDocumento->nodeValue = $actualDigest;
+    $doc3->save($archivo);
 }
