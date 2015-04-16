@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<Facturas>
-  <factura>
-    <infoFactura/>
-    <fechaEmision/>
-    <codigo/>
-    <descripcion/>
-  </factura>
-</Facturas>

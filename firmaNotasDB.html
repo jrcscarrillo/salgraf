@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title>Firma Facturas</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+    <link rel="stylesheet" href="css/demo.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/sky-forms.css">
+    <!--[if lt IE 9]>
+            <link rel="stylesheet" href="css/sky-forms-ie8.css">
+    <![endif]-->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <!--[if lt IE 10]>
+            <script src="js/jquery.placeholder.min.js"></script>
+    <![endif]-->		
+    <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <script src="js/sky-forms-ie8.js"></script>
+    <![endif]-->
+</head>
+	
+<body class="bg-cyan">
+<div class="body">		
+<form action="./include/firmaFactura.php" id="sky-form" class="sky-form" method="POST">
+    <header>Firma Facturas</header>
+
+    <fieldset>
+        <label class="label">Este es el PREFIJO que se utilizara para las facturas procesadas y se guardaran en el Servidor</label>	
+            <div class="row">	
+                <section>
+                    <label class="label"></label>
+                    <label class="input">
+                        <i class="icon-append fa fa-file"></i>
+                        <input type="text" name="archivo" id="archivo" placeholder="Prefijo de archivos">
+                    </label>
+                </section>
+            </div>					
+    </fieldset>
+
+    <footer>
+        <button type="submit" class="button">Procesar</button>
+        <button type="button" class="button button-secondary" onclick="window.history.back();">Regresar</button>
+    </footer>
+</form>			
+</div>
+</body>
+</html>

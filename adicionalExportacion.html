@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Seleccionar Factura</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+		<!--
+				Los siguiente estilos son para el menu
+		-->
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="stylesheet" href="./css/text.css" />
+		<link rel="stylesheet" href="./css/960_12_col.css" />
+		<link rel="stylesheet" href="./css/skin1.css" />
+		<link rel="stylesheet" href="./css/nivo-slider.css" />
+		<link rel="stylesheet" href="./css/jqueryslidemenu.css" />
+		<!--
+		
+		-->
+		<link rel="stylesheet" href="./css/demo.css">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+		<link rel="stylesheet" href="./css/sky-forms.css">
+		<link rel="stylesheet" href="./css/sky-forms-blue.css">
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+		<script src="./js/jquery.form.min.js"></script>
+		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/jquery.validate.js"></script>
+		<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.12.0/additional-methods.js"></script>
+		<!--
+				Los siguientes includes son para el manejo del menu
+		-->
+		<script type="text/javascript" src="./js/jqueryslidemenu.js"></script>
+		<script type="text/javascript" src="./js/jquery.nivo.slider.js"></script>
+		<script type="text/javascript" src="./js/jquery.bxSlider.min.js"></script>
+		<script type="text/javascript" src="./js/jquery.elastislide.js"></script>
+		<script type="text/javascript" src="./js/custom.js"></script>
+		<script type="text/javascript" src="./js/scrolltop.js"></script>
+		<script type="text/javascript" src="./js/cualFactura .js"></script>
+
+	</head>
+<body class="bg-blue">
+<div id="wrapper" class="boxed">
+    <div id="header">
+        <!-- Header start -->
+
+        <div class="container_12 clearfix">
+            <!-- Menu container -->
+            <div class="grid_12">
+                <!-- Start Menu -->
+                <div id="topnav" class="jqueryslidemenu">
+                    <ul><li><a href="login.html">Ingresar</a></li>
+                        <li><a href="#">Administracion</a>
+                            <ul><li><a href="./listaContribuyente.php">Lista de Contribuyentes</a></li>
+                                <li><a href="./nuevoContribuyente.php">Nuevo Contribuyente</a></li>
+                                <li><a href="./selectContribuyente.php">Seleccionar Contribuyente</a></li>
+                                <li><a href="./generaClave.php">Generacion de Claves</a></li>
+                                <li><a href="./listaClaves.php">Lista de Claves</a></li>
+                                <li><a href="./recuperaClave.php">Recuperacion de Claves</a></li>
+                                <li><a href="./habilita.php">Habilita Usuario</a></li>
+                                <li><a href="./utilitarios/cleanContribuyente.php">Vaciar Contribuyentes</a></li>
+                                <li><a href="./utilitarios/cleanUsuarios.php">Vaciar Usuarios</a></li>
+                            </ul></li>
+                    <li><a href="#">Facturas</a>
+                            <ul><li><a href="./selecFactura.php">Seleccion</a></li>
+                                <li><a href="./firmaFactura.php">Firmar</a></li>
+                                <li><a href="./autoFactura.php">Autorizadas</a></li>
+                                <li><a href="./noautoFactura.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Notas DB</a>
+                            <ul><li><a href="./selecNotasDB.php">Seleccion</a></li>
+                                <li><a href="./firmaNotasDB.php">Firmar</a></li>
+                                <li><a href="./autoNotasDB.php">Autorizadas</a></li>
+                                <li><a href="./noautoNotasDB.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Notas CR</a>
+                            <ul><li><a href="./selecNotasCR.php">Seleccion</a></li>
+                                <li><a href="./firmaNotasCR.php">Firmar</a></li>
+                                <li><a href="./autoNotasCR.php">Autorizadas</a></li>
+                                <li><a href="./noautoNotasCR.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Retenciones</a>
+                            <ul><li><a href="./selecRetencion.php">Seleccion</a></li>
+                                <li><a href="./firmaRetencion.php">Firmar</a></li>
+                                <li><a href="./autoRetencion.php">Autorizadas</a></li>
+                                <li><a href="./noautoRetencion.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="#">Guias</a>
+                            <ul><li><a href="#">Ingresar</a>
+                                    <ul><li><a href="./cualFactura.php">Por Factura</a></li>
+                                    <li><a href="./cualTraslado.php">Por Traslado</a></li>
+                                    <li><a href="./porManual.php">Manual</a></li></ul></li>
+                                <li><a href="#">Modificar</a>
+                                    <ul><li><a href="./cualFactura.php">Por Factura</a></li>
+                                    <li><a href="./cualTraslado.php">Por Traslado</a></li>
+                                    <li><a href="./porManual.php">Manual</a></li></ul></li>
+                                <li><a href="#">Eliminar</a>
+                                    <ul><li><a href="./cualFactura.php">Por Factura</a></li>
+                                    <li><a href="./cualTraslado.php">Por Traslado</a></li>
+                                    <li><a href="./porManual.php">Manual</a></li></ul></li>
+                                <li><a href="./selecGuias.php">Seleccion</a></li>
+                                <li><a href="./firmaGuias.php">Firmar</a></li>
+                                <li><a href="./autoGuias.php">Autorizadas</a></li>
+                                <li><a href="./noautoGuias.php">No Autorizadas</a></li></ul></li>
+                        <li><a href="./logout.php">Salir</a></li>
+                    </ul>
+                </div>
+            </div><!-- end menu -->
+        </div><!-- end menu container -->
+    </div><!-- Header end -->
+
+    <div class="body">
+        <form action="./include/cualFactura.php" method="post" enctype="multipart/form-data" id="sky-form" class="sky-form">
+            <header>Guias</header>
+            <fieldset>
+                <label class="label">Ingresar el numero de factura</label><br>
+                <div class="row">
+                    <section class="col col-6">
+                        <label class="input"> <i class="icon-append fa fa-user"></i>
+                            <input type="text" name="facturaForm" placeholder="Numero de Factura"></label>
+                    </section>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="progress">
+                    <section class="col col-6">
+                        <button type="submit" class="button">Encontrar Factura</button>
+                    </section>
+                </div>
+                <div class="progress"></div>
+            </fieldset>
+            <div class="message">
+                <i class="fa fa-check"></i>
+                <p>Factura encontrada!<br>
+                    puede continuar el ingreso.
+                </p>
+                <section class="col col-6">
+                    <a href="./include/generaGuia.php">Genera Guia</a>
+                </section>
+            </div>
+</form>
+</div>
+    <div id="pre_footer">
+        <div class="pre_footer_wrapper"></div>
+    </div>
+    <div id="footer_wrapper">
+        <div class="container_12 clearfix">
+            <div id="footer">
+                <div class="copyright_left">
+                    &reg; Copyright 2014 Carrillos Team
+                </div>
+                <div class="copyright_right">
+                    Powered by <a href="http://www.thunderthemes.net">ThunderThemes.net</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="topcontrol" style="position: fixed; bottom: 0px; right: 0px; opacity: 1; cursor: pointer;" title="To the top! To the victory!"></div>
+</div>
+
+</body>
+</html>
